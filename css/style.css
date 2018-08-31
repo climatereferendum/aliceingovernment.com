@@ -4,7 +4,12 @@
          url('sofiapro-light-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+}
 
+@font-face {
+    font-family: 'gothambold';
+    src: url(../fonts/gotham/Gotham-Bold.otf);
+    font-weight: bold;
 }
 
 body {
@@ -39,14 +44,16 @@ nav{
 .burger-container {
     display: inline-block;
     cursor: pointer;
-    margin-left: 16px
+    margin-left: 16px;
+    position: absolute;
+    margin-top: 12px
 }
 
 .bar1, .bar2, .bar3 {
-    width: 35px;
-    height: 5px;
+    width: 20px;
+    height: 2px;
     background-color: #333;
-    margin: 6px 0;
+    margin: 4px 0;
     transition: 0.4s;
 }
 
@@ -125,9 +132,9 @@ nav{
 
 .h-boxed{
     background: #ffffff;
-    padding: 16px;
+    padding: 8px 16px;
     text-align: center;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
     margin: 0;
     line-height: 32px;
@@ -150,9 +157,15 @@ h2.h-boxed{
     background: #21cf76;
     width: 100%;
     padding: 0 32px;
-    padding-top: 96px;
+    padding-top: 36px;
     margin: 0;
     border-bottom: 3px solid #000000;
+}
+
+.box-header{
+    font-family: 'gothambold';
+    font-size: 16px;
+    padding; 0 4px;
 }
 
 .part-2{
@@ -180,6 +193,10 @@ h2.h-boxed{
     border-bottom: 3px solid #000000;
 }
 
+.part-4 h2{
+    font-family: 'gothambold';
+}
+
 .part-4 .container{
     max-width: 640px;
 }
@@ -192,7 +209,7 @@ h2.h-boxed{
 
 .profile{
     width: 50%;
-    padding: 24px;
+    padding: 12px 24px;
 }
 
 .profile-box{
@@ -227,6 +244,7 @@ h2.h-boxed{
     padding: 0 32px;
     width: 100%;
     margin: 0 auto;
+    font-family: 'gothambold';
 }
 
 .part-footer p{
@@ -235,10 +253,11 @@ h2.h-boxed{
     padding: 48px 16px;
     margin: 0;
     text-align: center;
+    font-family: 'sofiapro-light', sans-serif;
 }
 
 .part-footer .h-boxed{
-    font-size: 16px;
+    font-size: 14px;
 }
 
 input[type=email]{
@@ -291,5 +310,5 @@ footer .social i{
 
 footer .copyright{
     font-size: 13px;
-    margin: 24px 12px;    
+    margin: 24px 12px;
 }
