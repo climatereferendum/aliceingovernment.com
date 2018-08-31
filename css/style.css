@@ -1,6 +1,23 @@
-body {
+@font-face {
+    font-family: 'sofiapro-light';
+    src: url('sofiapro-light-webfont.woff2') format('woff2'),
+         url('sofiapro-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 
-    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    font-family: 'sofiapro-light', sans-serif;
+}
+
+a{
+    color: #21cf76;
+}
+
+a:hover{
+    color: #333333;
+    text-decoration: none;
 }
 
 .img-responsive { 
@@ -19,6 +36,32 @@ nav{
     cursor: pointer;
 }
 
+.burger-container {
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 16px
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    transform: rotate(45deg) translate(-8px, -8px);
+}
+
 /* The side navigation menu */
 .sidenav {
     height: 100%; /* 100% Full-height */
@@ -31,6 +74,7 @@ nav{
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    z-index: 10000;
 }
 
 /* The navigation menu links */
@@ -72,20 +116,21 @@ nav{
 
 /* Sections */
 .vertical-line{
-    width: 2px;
+    width: 3px;
     background: #000000;
-    height: 100px;
+    height: 60px;
     position: relative;
     left: 50%;
 }
 
 .h-boxed{
     background: #ffffff;
-    padding: 12px;
+    padding: 16px;
     text-align: center;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 600;
     margin: 0;
+    line-height: 32px;
     z-index: 10;
 }
 h2.h-boxed{
@@ -96,24 +141,26 @@ h2.h-boxed{
 }
 
 .img-part{
-    border-bottom: 2px solid #000000;
+    border-bottom: 3px solid #000000;
+    max-width: 640px;
+    margin: 0 auto;
 }
 
 .part-1{
     background: #21cf76;
     width: 100%;
     padding: 0 32px;
-    padding-top: 72px;
+    padding-top: 96px;
     margin: 0;
-    border-bottom: 2px solid #000000;
+    border-bottom: 3px solid #000000;
 }
 
 .part-2{
-    background: #e8e236;
+    background: #21cf76;
     padding: 0 32px;
     width: 100%;
     margin: 0;
-    border-bottom: 2px solid #000000;
+    border-bottom: 3px solid #000000;
 }
 
 .part-3{
@@ -121,7 +168,7 @@ h2.h-boxed{
     padding: 0 32px;
     width: 100%;
     margin: 0;
-    border-bottom: 2px solid #000000;
+    border-bottom: 3px solid #000000;
 }
 
 .part-4{
@@ -130,7 +177,11 @@ h2.h-boxed{
     width: 100%;
     padding-top: 24px;
     margin: 0;
-    border-bottom: 2px solid #000000;
+    border-bottom: 3px solid #000000;
+}
+
+.part-4 .container{
+    max-width: 640px;
 }
 
 
@@ -152,12 +203,14 @@ h2.h-boxed{
 }
 
 .profile-box h3{
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 600;
+    margin: 0;
 }
 
 .profile-box span{
-    font-size: 12px;
+    font-size: 10px;
+    line-height: 12px;
 }
 
 .profile-contact{
@@ -184,22 +237,23 @@ h2.h-boxed{
     text-align: center;
 }
 
-
-/* Style the form element with a border around it */
-form {
-    border-bottom: 1px dotted #2699FB;
-    
+.part-footer .h-boxed{
+    font-size: 16px;
 }
+
+input[type=email]{
+    border: none;
+    background: #eeeeee;
+    padding-left: 10px;
+}
+
 
 /* Style the input elements and the submit button */
 input[type=text], input[type=submit] {
-    width: 100%;
-    padding: 12px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    border-radius: 48px;
 }
 
 /* Add margins to the checkbox */
@@ -209,7 +263,7 @@ input[type=checkbox] {
 
 /* Style the submit button */
 input[type=submit] {
-    background-color: #2699FB;
+    background-color: #21cf76;
     color: white;
     border: none;
 }
