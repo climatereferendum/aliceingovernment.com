@@ -128,6 +128,7 @@ nav{
 .max-width{
     max-width: 480px;
     margin: 0 auto;
+    background: #21cf76;
 }
 
 /* Sections */
@@ -160,6 +161,7 @@ h2.h-boxed{
     border-bottom: 3px solid #000000;
     max-width: 640px;
     margin: 0 auto;
+    border-top: 3px solid #000000;
 }
 
 .part-1{
@@ -168,7 +170,6 @@ h2.h-boxed{
     padding: 0 32px;
     padding-top: 36px;
     margin: 0;
-    border-bottom: 3px solid #000000;
 }
 
 .box-header{
@@ -188,7 +189,6 @@ h2.h-boxed{
     padding: 0 32px;
     width: 100%;
     margin: 0;
-    border-bottom: 3px solid #000000;
 }
 
 .part-3{
@@ -196,7 +196,6 @@ h2.h-boxed{
     padding: 0 32px;
     width: 100%;
     margin: 0;
-    border-bottom: 3px solid #000000;
 }
 
 .part-4{
@@ -205,7 +204,6 @@ h2.h-boxed{
     width: 100%;
     padding-top: 24px;
     margin: 0;
-    border-bottom: 3px solid #000000;
 }
 
 .part-4 h2{
@@ -263,6 +261,7 @@ h2.h-boxed{
     width: 100%;
     margin: 0 auto;
     font-family: 'gothambold';
+    border-top: 3px solid #000000;
 }
 
 .part-footer p{
@@ -330,4 +329,95 @@ footer .social i{
 
 footer .copyright{
     font-size: 13px;
+}
+
+
+/* Projects Page */
+.part-projects{
+    padding-bottom: 24px;
+}
+
+.part-projects .row{
+    position: relative;
+}
+
+.part-projects a{
+    color: #000000;
+    width: 100%;
+}
+
+.part-projects .hor-line{
+    position: absolute;
+    width: 48px;
+    border: 1.5px solid #000000;
+    left: 45%;
+    top: 50%;
+}
+
+.vert-left-line, .vert-right-line{
+    width: 3px;
+    background: #000000;
+    height: 72px;
+    position: relative;
+    left: 22.5%;
+    margin: -24px 0;
+}
+
+.vert-right-line{
+    left: 77.5%;
+}
+
+.part-projects img{
+    position: absolute;
+}
+
+img.group1{
+    width: 120px;
+    top: -32px;
+    left: 5%;
+}
+
+img.group2{
+    width: 80px;
+    top: -30px;
+    left: 55%;
+}
+
+img.group3{
+    width: 80px;
+    top: -30px;
+    left: 5%;
+}
+
+.project-box{
+    background: #ffffff;
+    width: 40%;
+    margin: 5%;
+    padding: 16px;
+    min-height: 160px;
+}
+
+.project-box h4{
+    font-size: 18px;
+    display: inline-block;
+}
+
+.project-box h3{
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.project-box span{
+    background: #000000;
+    color: #ffffff;
+    padding: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    position: relative;
+    float: right;
+    left: 24px;
+    top: -24px;
+    margin-bottom: -12px;
 }
