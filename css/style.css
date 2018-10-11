@@ -421,3 +421,46 @@ img.group3{
     top: -24px;
     margin-bottom: -12px;
 }
+
+.solution{
+    width: 100%;
+    min-height: 80px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.sol-image{
+    height: 120px;
+    overflow: hidden;
+    margin: 0 24px;
+    position: relative;
+}
+
+.sol-image img{
+    position: relative;
+    width: 100%; 
+}
+
+.sol-image span{
+    position: absolute;
+    z-index: 10;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 36px;
+    bottom: 10px;
+    right: 20px;
+}
+
+.solution i{
+    display: block;
+    text-align: right;
+}
+
+.vote{
+    background: #000000;
+    padding: 4px;
+    color: #ffffff;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+}
