@@ -1,5 +1,5 @@
 import { html, render } from 'lit-html'
-import { solutions } from './data'
+import { solutions, projects } from './data'
 
 const pairs = solutions.reduce((acc, cur, idx, src) => {
   if (idx % 2 === 0) {
@@ -46,4 +46,37 @@ const solutionsTemplate = html`${
   })
 }`
 
-render(solutionsTemplate, document.querySelector('.container'))
+// render(solutionsTemplate, document.querySelector('.container'))
+
+function projectTemplate (project) {
+  return html`
+    <div class="vertical-line"></div>
+    <div class="sol-image">
+        <span>${project.name}</span>
+        <img src="${project.banner}" class="img-responsive">              
+    </div>
+    
+    <div class="project-box solution">                   
+        <p>${project.description}</p>
+        
+        <a href="/projects/{project.slug}"><i>read more →</i></a>
+        
+        <a href=""><div class="vote">Vote</div></a>
+    </div>
+`
+}
+
+const slug = 'refrigerant-management'
+const solution = solutions.find(solution => solution.slug === slug)
+const projectsForSolution = projects.filter(project => project.solution === solution.ranking)
+
+const projectsTemplate = html`
+  <div class="row">
+      <div class="project-box solution">
+          <h4>Solution #${solution.ranking}</h4>
+          <h3>${solution.name}</h3></a>
+      </div>
+      ${projectsForSolution.map(projectTemplate)}
+`
+
+render(projectsTemplate, document.querySelector('.container'))
