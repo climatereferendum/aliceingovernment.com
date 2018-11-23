@@ -6,22 +6,27 @@ export const solutions = [
   },
   {
     ranking: 2,
+    slug: 'wind-turbines',
     name: 'Wind Turbines'
   },
   {
     ranking: 3,
+    slug: 'reduced-food-waste',
     name: 'Reduced Food Waste'
   },
   {
     ranking: 4,
+    slug: 'plant-rich-diet',
     name: 'Plant-Rich Diet'
   },
   {
     ranking: 5,
+    slug: 'tropical-forests',
     name: 'Tropical Forests'
   },
   {
-    ranking: 5,
+    ranking: 6,
+    slug: 'educating-girls',
     name: 'Educating Girls'
   }
 ]

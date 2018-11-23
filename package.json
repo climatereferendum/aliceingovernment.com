@@ -10,7 +10,8 @@
     "start": "webpack-dev-server"
   },
   "dependencies": {
-    "lit-html": "^0.13.0"
+    "lit-html": "^0.13.0",
+    "pwa-helpers": "^0.9.0"
   },
   "devDependencies": {
     "standard": "^12.0.1",

@@ -30,6 +30,10 @@ a:hover{
     text-decoration: none;
 }
 
+.inactive {
+    display: none;
+}
+
 .img-responsive { 
     width:100%;
 }
@@ -333,20 +337,20 @@ footer .copyright{
 
 
 /* Projects Page */
-.part-projects{
+#solutions{
     padding-bottom: 24px;
 }
 
-.part-projects .row{
+#solutions .row{
     position: relative;
 }
 
-.part-projects a{
+#solutions a{
     color: #000000;
     width: 100%;
 }
 
-.part-projects .hor-line{
+#solutions .hor-line{
     position: absolute;
     width: 48px;
     border: 1.5px solid #000000;
@@ -367,7 +371,7 @@ footer .copyright{
     left: 77.5%;
 }
 
-.part-projects img{
+#solutions img{
     position: absolute;
 }
 
