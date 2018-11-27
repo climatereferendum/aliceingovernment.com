@@ -1,10 +1,31 @@
 import { html, render } from 'lit-html'
-import { solutions, projects } from './data'
 import { installRouter } from '../node_modules/pwa-helpers/router.js'
+import csv from 'neat-csv'
+
+const DOC_URL = 'https://docs.google.com/spreadsheets/d/1WNDWjJOGeVbOsYaWy3udBnRxFIknO5NpYwToVhH2nGE/gviz/tq?tqx=out:csv'
+let solutions
+let projects
+
+;(async () => {
+  const solutionsResponse = await window.fetch(DOC_URL + '&sheet=solutions')
+  const solutionsCsv = await solutionsResponse.text()
+  solutions = await csv(solutionsCsv)
+  renderSolutions(solutions)
+  window.data = {
+    solutions
+  }
+  const projectsResponse = await window.fetch(DOC_URL + '&sheet=projects')
+  const projectsCsv = await projectsResponse.text()
+  projects = await csv(projectsCsv)
+  window.data.projects = projects
+  console.log('ok')
+
+  installRouter(handleRouting) 
+})()
 
 const pages = document.querySelectorAll('.page')
 
-installRouter((location) => {
+function handleRouting (location) {
   for (const page of pages) {
     page.classList.add('inactive')
   }
@@ -21,24 +42,13 @@ installRouter((location) => {
     renderProjects(solution)
     document.querySelector('#projects').classList.remove('inactive')
   }
-})
-
-const pairs = solutions.reduce((acc, cur, idx, src) => {
-  if (idx % 2 === 0) {
-    const first = src[idx]
-    const pair = [first]
-    const second = src[idx + 1]
-    if (second) pair.push(second)
-    acc.push(pair)
-  }
-  return acc
-}, [])
+}
 
 function itemTemplate (solution) {
   return html`
     <div class="project-box col-xs-6">
         <a href="/solutions/${solution.slug}">
-        <h4>Solution #${solution.ranking}</h4>
+        <h4>Solution #${solution.rank}</h4>
         <h3>${solution.name}</h3></a>
     </div>
   `
@@ -54,27 +64,40 @@ function verticalLineTemplate (idx) {
   }
 }
 
-const solutionsTemplate = html`${
-  pairs.map((pair, idx) => {
-    return html`
-      ${verticalLineTemplate(idx)}
-      <div class="row">
-        ${itemTemplate(pair[0])}
-        <div class="hor-line"></div>
-        ${itemTemplate(pair[1])}
-      </div>
-    `
-  })
-}`
+function renderSolutions (solutions) {
+  const pairs = solutions.reduce((acc, cur, idx, src) => {
+    if (idx % 2 === 0) {
+      const first = src[idx]
+      const pair = [first]
+      const second = src[idx + 1]
+      if (second) pair.push(second)
+      acc.push(pair)
+    }
+    return acc
+  }, [])
 
-render(solutionsTemplate, document.querySelector('#solutions'))
+  const solutionsTemplate = html`${
+    pairs.map((pair, idx) => {
+      return html`
+        ${verticalLineTemplate(idx)}
+        <div class="row">
+          ${itemTemplate(pair[0])}
+          <div class="hor-line"></div>
+          ${itemTemplate(pair[1])}
+        </div>
+      `
+    })
+  }`
+
+  render(solutionsTemplate, document.querySelector('#solutions'))
+}
 
 function projectTemplate (project) {
   return html`
     <div class="vertical-line"></div>
     <div class="sol-image">
         <span>${project.name}</span>
-        <img src="${project.banner}" class="img-responsive">              
+        <img src="https://raw.githubusercontent.com/elf-pavlik/blockchainvsclimatechange.com/gh-pages/img/projects/${project.slug}.jpg" class="img-responsive">              
     </div>
     
     <div class="project-box solution">                   
@@ -88,11 +111,11 @@ function projectTemplate (project) {
 }
 
 function renderProjects (solution) {
-  const projectsForSolution = projects.filter(project => project.solution === solution.ranking)
+  const projectsForSolution = projects.filter(project => project.solution === solution.rank)
   const projectsTemplate = html`
     <div class="row">
         <div class="project-box solution">
-            <h4>Solution #${solution.ranking}</h4>
+            <h4>Solution #${solution.rank}</h4>
             <h3>${solution.name}</h3></a>
         </div>
         ${projectsForSolution.map(projectTemplate)}
