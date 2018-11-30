@@ -116,7 +116,8 @@ function renderProjects (solution) {
     <div class="row">
         <div class="project-box solution">
             <h4>Solution #${solution.rank}</h4>
-            <h3>${solution.name}</h3></a>
+            <h3>${solution.name}</h3>
+            <a href="${solution.link}">${solution.link}</a>
         </div>
         ${projectsForSolution.map(projectTemplate)}
   `
