@@ -338,20 +338,24 @@ footer .copyright{
 
 
 /* Projects Page */
-#solutions{
+#solutions,
+#profile {
     padding-bottom: 24px;
 }
 
-#solutions .row{
+#solutions .row,
+#profile .row {
     position: relative;
 }
 
-#solutions a{
+#solutions a,
+#profile a {
     color: #000000;
     width: 100%;
 }
 
-#solutions .hor-line{
+#solutions .hor-line,
+#profile .hor-line {
     position: absolute;
     width: 48px;
     border: 1.5px solid #000000;
@@ -370,10 +374,6 @@ footer .copyright{
 
 .vert-right-line{
     left: 77.5%;
-}
-
-#solutions img{
-    position: absolute;
 }
 
 img.group1{
@@ -429,6 +429,10 @@ img.group3{
     min-height: 32px;
     min-width: 64px;
     text-align: center;
+}
+
+.project-box b {
+    margin-right: 1em;
 }
 
 .solution{

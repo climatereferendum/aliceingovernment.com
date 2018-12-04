@@ -3,6 +3,7 @@ import { installRouter } from '../node_modules/pwa-helpers/router.js'
 import csv from 'neat-csv'
 
 const DOC_URL = 'https://docs.google.com/spreadsheets/d/1WNDWjJOGeVbOsYaWy3udBnRxFIknO5NpYwToVhH2nGE/gviz/tq?tqx=out:csv'
+const BANNER_BASE = 'https://raw.githubusercontent.com/elf-pavlik/blockchainvsclimatechange.com/gh-pages/img/projects'
 let solutions
 let projects
 
@@ -41,6 +42,11 @@ function handleRouting (location) {
     const solution = solutions.find(solution => solution.slug === slug)
     renderProjects(solution)
     document.querySelector('#projects').classList.remove('inactive')
+  }
+  if (active === 'projects' && slug) {
+    const project = projects.find(project => project.slug === slug)
+    renderProfile(project)
+    document.querySelector('#profile').classList.remove('inactive')
   }
 }
 
@@ -97,15 +103,12 @@ function projectTemplate (project) {
     <div class="vertical-line"></div>
     <div class="sol-image">
         <span>${project.name}</span>
-        <img src="https://raw.githubusercontent.com/elf-pavlik/blockchainvsclimatechange.com/gh-pages/img/projects/${project.slug}.jpg" class="img-responsive">              
+        <img src="${BANNER_BASE}/${project.slug}.jpg" class="img-responsive">              
     </div>
-    
     <div class="project-box solution">                   
         <p>${project.description}</p>
-        
-        <a href="/projects/{project.slug}"><i>read more →</i></a>
-        
-        <a href=""><div class="vote">Vote</div></a>
+        <a href="/projects/${project.slug}"><i>read more →</i></a>
+        <a href="/vote"><div class="vote">Vote</div></a>
     </div>
 `
 }
@@ -122,4 +125,32 @@ function renderProjects (solution) {
         ${projectsForSolution.map(projectTemplate)}
   `
   render(projectsTemplate, document.querySelector('#projects'))
+}
+
+function renderProfile (project) {
+  const solution = solutions.find(solution => solution.rank === project.solution)
+  const profileTemplate = html`
+    <div class="container">
+    <div class="row" style="top: -44px;">
+      <div class="dot-crumbs">
+          <a href="/solutions/${solution.slug}"><div class="crumb">← Back to Overview</div></a>
+      </div>
+      <div class="vertical-line"></div>
+      <div class="project-image">
+          <div class="project-category">
+              <b>Solution ${solution.rank}</b><br>
+              ${solution.name}
+          </div>
+          <span>${project.name}</span>
+          <img src="${BANNER_BASE}/${project.slug}.jpg" class="img-responsive">              
+      </div>
+      <div class="project-box solution">
+          <p><b>${project.name}</b>${project.description}</p>
+          <p><b>Where they work:</b>${project['where they work']}</p>
+          <a href="/vote"><div class="vote">Vote</div></a>
+      </div>
+    </div>
+    </div>
+  `
+  render(profileTemplate, document.querySelector('#profile'))
 }
