@@ -7,17 +7,19 @@
   "license": "Unlicense",
   "private": false,
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "dependencies": {
     "lit-html": "^0.13.0",
     "neat-csv": "^4.0.0",
-    "pwa-helpers": "^0.9.0"
+    "pwa-helpers": "^0.9.0",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-merge": "^4.1.5"
   },
   "devDependencies": {
     "standard": "^12.0.1",
-    "webpack": "^4.25.1",
-    "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
   }
 }
