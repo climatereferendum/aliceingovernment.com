@@ -3,7 +3,7 @@ import { installRouter } from '../node_modules/pwa-helpers/router.js'
 import csv from 'neat-csv'
 
 const DOC_URL = 'https://docs.google.com/spreadsheets/d/1WNDWjJOGeVbOsYaWy3udBnRxFIknO5NpYwToVhH2nGE/gviz/tq?tqx=out:csv'
-const BANNER_BASE = 'https://raw.githubusercontent.com/elf-pavlik/blockchainvsclimatechange.com/gh-pages/img/projects'
+const BANNER_BASE = 'https://raw.githubusercontent.com/elf-pavlik/bvcc-banners/master'
 let solutions
 let projects
 
