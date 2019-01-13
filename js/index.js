@@ -27,13 +27,16 @@ let projects
 const pages = document.querySelectorAll('.page')
 
 function handleRouting (location) {
+  closeNav()
   for (const page of pages) {
     page.classList.add('inactive')
   }
   const active = location.pathname.split('/')[1]
   const slug = location.pathname.split('/')[2]
+  let linkedHeader = true
   if (active === '') {
     document.querySelector('#home').classList.remove('inactive')
+    linkedHeader = false
   }
   if (active === 'solutions' && !slug) {
     document.querySelector('#solutions').classList.remove('inactive')
@@ -48,6 +51,22 @@ function handleRouting (location) {
     renderProfile(project)
     document.querySelector('#profile').classList.remove('inactive')
   }
+  renderHeader(linkedHeader)
+}
+
+function renderHeader(linked = true) {
+  let headerTemplate = html`
+    <img src="/img/logo.png">
+  `
+  if (linked) {
+    headerTemplate = html`
+    <a href="/">
+      ${headerTemplate}
+    </a>
+    `
+  }
+
+  render(headerTemplate, document.querySelector('#header'))
 }
 
 function itemTemplate (solution) {
