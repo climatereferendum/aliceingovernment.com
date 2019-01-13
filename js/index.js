@@ -21,13 +21,16 @@ let projects
   window.data.projects = projects
   console.log('ok')
 
-  installRouter(handleRouting) 
+  installRouter(handleRouting)
 })()
 
 const pages = document.querySelectorAll('.page')
 
-function handleRouting (location) {
+function handleRouting (location, event) {
   closeNav()
+  if (event && event.type === 'click') {
+    window.scrollTo(0, 0)
+  }
   for (const page of pages) {
     page.classList.add('inactive')
   }
