@@ -73,6 +73,7 @@ function itemTemplate (solution) {
   return html`
     <div class="project-box col-xs-6">
         <a href="/solutions/${solution.slug}">
+        <span>${solution['vote counter']}</span>
         <h4>Solution #${solution.rank}</h4>
         <h3>${solution.name}</h3></a>
     </div>
