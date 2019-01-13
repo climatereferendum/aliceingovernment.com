@@ -380,18 +380,21 @@ img.group1{
     width: 120px;
     top: -32px;
     left: 5%;
+    position: absolute;
 }
 
 img.group2{
     width: 80px;
     top: -30px;
     left: 55%;
+    position: absolute;
 }
 
 img.group3{
     width: 80px;
     top: -30px;
     left: 5%;
+    position: absolute;
 }
 
 .project-box{

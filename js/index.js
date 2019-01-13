@@ -54,7 +54,7 @@ function handleRouting (location) {
   renderHeader(linkedHeader)
 }
 
-function renderHeader(linked = true) {
+function renderHeader (linked = true) {
   let headerTemplate = html`
     <img src="/img/logo.png">
   `
@@ -81,12 +81,23 @@ function itemTemplate (solution) {
 }
 
 function verticalLineTemplate (idx) {
-  if (idx > 0) {
-    if (idx % 2 === 0) {
-      return html`<div class="vert-right-line"></div>`
-    } else {
-      return html`<div class="vert-left-line"></div>`
-    }
+  if (idx === 0) return
+  if (idx % 2 === 1) {
+    return html`<div class="vert-right-line"></div>`
+  } else {
+    return html`<div class="vert-left-line"></div>`
+  }
+}
+
+function decorationTemplate (row, side) {
+  if (row === 0) return
+  if (row % 2 === 1 && side === 'left') {
+    let group = (row * 2) % 3 === 0 ? 3 : 1
+    return html`<img src="img/m/group_${group}.png" class="group${group}">`
+  }
+  if (row % 2 === 0 && side === 'right') {
+    let group = 2
+    return html`<img src="img/m/group_${group}.png" class="group${group}">`
   }
 }
 
@@ -107,8 +118,10 @@ function renderSolutions (solutions) {
       return html`
         ${verticalLineTemplate(idx)}
         <div class="row">
+          ${decorationTemplate(idx, 'left')}
           ${itemTemplate(pair[0])}
           <div class="hor-line"></div>
+          ${decorationTemplate(idx, 'right')}
           ${itemTemplate(pair[1])}
         </div>
       `
