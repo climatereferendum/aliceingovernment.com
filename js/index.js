@@ -1,32 +1,28 @@
 import { html, render } from 'lit-html'
 import { installRouter } from '../node_modules/pwa-helpers/router.js'
 import csv from 'neat-csv'
+import { flag } from 'country-emoji'
 
 const DOC_URL = 'https://docs.google.com/spreadsheets/d/1WNDWjJOGeVbOsYaWy3udBnRxFIknO5NpYwToVhH2nGE/gviz/tq?tqx=out:csv'
 const BANNER_BASE = 'https://raw.githubusercontent.com/elf-pavlik/bvcc-banners/master'
 let solutions
 let projects
+let votes, votesCount
 
 ;(async () => {
   const solutionsResponse = await window.fetch(DOC_URL + '&sheet=solutions')
   const solutionsCsv = await solutionsResponse.text()
   solutions = await csv(solutionsCsv)
   renderSolutions(solutions)
-  window.data = {
-    solutions
-  }
   const projectsResponse = await window.fetch(DOC_URL + '&sheet=projects')
   const projectsCsv = await projectsResponse.text()
   projects = await csv(projectsCsv)
-  window.data.projects = projects
-  console.log('ok')
-
   installRouter(handleRouting)
 })()
 
 const pages = document.querySelectorAll('.page')
 
-function handleRouting (location, event) {
+async function handleRouting (location, event) {
   closeNav()
   if (event && event.type === 'click') {
     window.scrollTo(0, 0)
@@ -54,7 +50,33 @@ function handleRouting (location, event) {
     renderProfile(project)
     document.querySelector('#profile').classList.remove('inactive')
   }
+  if (active === 'votes' && !slug) {
+    if (!votes) [votes, votesCount] = await fetchVotes()
+    renderVotes(votes)
+    document.querySelector('#votes').classList.remove('inactive')
+  }
+  if (active === 'votes' && slug) {
+    if (!votes) [votes, votesCount] = await fetchVotes()
+    const country = Object.keys(votes).find(country => country.toLowerCase() === slug)
+    const countryVotes = votes[country]
+    renderCountry(country, countryVotes)
+    document.querySelector('#country').classList.remove('inactive')
+  }
   renderHeader(linkedHeader)
+}
+
+async function fetchVotes () {
+  const votesResponse = await window.fetch(DOC_URL + '&sheet=votes')
+  const votesCsv = await votesResponse.text()
+  const votes = await csv(votesCsv)
+  const reduced = votes.reduce((acc, vote) => {
+    if (!acc[vote.country]) {
+      acc[vote.country] = []
+    }
+    acc[vote['country']].push(vote)
+    return acc
+  }, {})
+  return [reduced, votes.length]
 }
 
 function renderHeader (linked = true) {
@@ -96,11 +118,11 @@ function decorationTemplate (row, side) {
   if (row === 0) return
   if (row % 2 === 1 && side === 'left') {
     let group = (row * 2) % 3 === 0 ? 3 : 1
-    return html`<img src="img/m/group_${group}.png" class="group${group}">`
+    return html`<img src="/img/m/group_${group}.png" class="group${group}">`
   }
   if (row % 2 === 0 && side === 'right') {
     let group = 2
-    return html`<img src="img/m/group_${group}.png" class="group${group}">`
+    return html`<img src="/img/m/group_${group}.png" class="group${group}">`
   }
 }
 
@@ -189,4 +211,69 @@ function renderProfile (project) {
     </div>
   `
   render(profileTemplate, document.querySelector('#profile'))
+}
+
+function renderVotes (votes) {
+  const orderedCountries = Object.keys(votes).sort((first, second) => {
+    return votes[second].length - votes[first].length
+  })
+  const listTemplate = html`${
+    orderedCountries.map(country => {
+      return html`
+        <div class="vertical-line"></div>
+        <div class="project-box votes">
+          <a href="/votes/${country.toLowerCase()}">
+            <h2>
+              ${flag(country)}
+              ${country}
+            </h2>
+            <span>${votes[country].length} VOTES</span>
+          </a>
+        </div>
+      `
+    })
+  }`
+  const pageTemplate = html`
+    <div class="flex-wrap">
+      <div class="project-box solution">
+        <h3>People defining our global strategy:</h3>
+        Total # of Voters: ${votesCount}
+        <br>
+        Countries: ${Object.keys(votes).length}
+      </div>
+      ${listTemplate}
+    </div>
+  `
+  render(pageTemplate, document.querySelector('#votes'))
+}
+
+function voteTemplate (vote) {
+  return html`
+  <li>
+    <strong>${vote.name}</strong>
+    <em>${vote.organization}</em>
+  </li>
+  `
+}
+
+function renderCountry (country, countryVotes) {
+  const countryTemplate = html`
+    <div class="project-box votes">
+      <h2>
+        ${flag(country)}
+        ${country}
+      </h2>
+      <span>${votes[country].length} VOTES</span>
+    </div>
+    <div class="project-box solution">
+      <ul>${countryVotes.map(voteTemplate)}</ul>
+    </div>
+  `
+  const pageTemplate = html`
+    <div class="flex-wrap">
+      ${countryTemplate}
+    </div>
+  `
+
+  render(pageTemplate, document.querySelector('#country'))
 }
