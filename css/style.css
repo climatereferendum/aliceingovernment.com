@@ -38,96 +38,11 @@ a:hover{
     width:100%;
 }
 
-nav{
-    background: #efefef;
-    width:  100%;
-    text-align: left;
-    height: 0;
-    text-transform: uppercase;
-    font-size: 100px;
-    top: 0;
-    line-height: 64px;
-    cursor: pointer;
-}
-
-.burger-container {
-    display: inline-block;
-    cursor: pointer;
-    margin-left: 16px;
-    position: fixed;
-    margin-top: 12px;
-    z-index: 100;
-}
-
-.bar1, .bar2, .bar3 {
-    width: 20px;
-    height: 2px;
-    background-color: #333;
-    margin: 4px 0;
-    transition: 0.4s;
-}
-
-.change .bar1 {
-    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-    transform: rotate(-45deg) translate(-9px, 6px);
-}
-
-.change .bar2 {opacity: 0;}
-
-.change .bar3 {
-    -webkit-transform: rotate(45deg) translate(-8px, -8px);
-    transform: rotate(45deg) translate(-8px, -8px);
-}
-
-/* The side navigation menu */
-.sidenav {
-    height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
-    left: 0;
-    background-color: #111; /* Black*/
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-    z-index: 10000;
-}
-
-/* The navigation menu links */
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
-    color: #f1f1f1;
-}
-
-/* Position and style the close button (top right corner) */
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
     transition: margin-left .5s;
     padding: 20px;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
 }
 
 .max-width{
@@ -317,7 +232,7 @@ input[type=submit]:hover {
 footer{
     font-size: 20px;
     max-width: 480px;
-    margin: 0 auto;
+    margin: 0 auto 90px;
 }
 
 footer .social{
@@ -352,6 +267,10 @@ footer .copyright{
 #profile a {
     color: #000000;
     width: 100%;
+}
+
+#solutions h2 a {
+    color: #21cf76;
 }
 
 #solutions .hor-line,
@@ -511,18 +430,117 @@ img.group3{
     font-size: 16px;
 }
 .dot-crumbs{
-    position: absolute;
     background: #ffffff;
-    width: auto;
+    margin:  0 auto;
+    width: 200px;
     height: 28px;
-    top: 16px;
-    left: 50%;
     padding: 4px 12px;
-    transform: translateX(-50%);
-    z-index: 10;
     text-align: center
 }
 
 .crumb{
     font-size: 12px;
+}
+
+.sticky-nav {
+    width: 100%;
+    max-width: 480px; 
+    display: block;
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    background: #ffffff;
+    padding: 15px 0;
+    border-top: 1px solid #333333;
+    /** -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75); */
+}
+
+.social-media a{
+    color: #21cf76;
+}
+
+.info-header{
+    font-size: 18px;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.faq p{
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.progressbar {
+    counter-reset: step;
+    width: 100%;
+}
+.progressbar li {
+    list-style-type: none;
+    width: 30%;
+    float: left;
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    color: #7d7d7d;
+}
+.progressbar li a{
+    padding: 50px 30px;
+    width: 100px;
+    position: relative;
+    color: #7d7d7d;
+}
+.progressbar li a:hover{
+    color: #21cf76;
+}
+.progressbar li:before {
+    width: 30px;
+    height: 30px;
+    content: counter(step);
+    counter-increment: step;
+    line-height: 30px;
+    border: 2px solid #7d7d7d;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    background-color: white;
+}
+.progressbar li:hover:before, .progressbar li.active-prev:hover:before{
+    color: #ffffff;
+    border-color: #55b776;
+    background-color: #21cf76;
+}
+.progressbar li:after {
+    width: 100%;
+    height: 2px;
+    content: '';
+    position: absolute;
+    background-color: #7d7d7d;
+    top: 15px;
+    left: -50%;
+    z-index: -1;
+}
+.progressbar li:first-child:after {
+    content: none;
+}
+.progressbar li.active a{
+    color: #21cf76;
+    font-weight: bold;
+}
+.progressbar li.active:before {
+    border-color: #55b776;
+    background-color: #21cf76;
+    color: #ffffff;
+}
+.progressbar li.active-prev:before {
+    border-color: #6d6d6d;
+    background-color: #7d7d7d;
+    color: #ffffff;
+}
+.progressbar li.active + li:after {
+    background-color: #55b776;
 }

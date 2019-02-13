@@ -20,27 +20,20 @@
 
     
 <body>
-
-    <div id="sidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="/solutions">Solutions</a>
-      <a href="#">Vote</a>
-    </div>
-
     <div role="main" class="max-width">
-        <nav>
-            <div class="burger-container" onclick="openNav()">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
-            </div>
-        </nav>
-        <h2 id="header" class="h-boxed box-header"><img src="/img/logo.png"></h2>
-        <div class="vertical-line" style="margin-top:-44px;"></div>
-        
+      <div class="sticky-nav">
+        <ul class="progressbar">
+            <li class=""><a href="/solutions" style="padding: 50px 15px;">Solutions</a></li>
+            <li class=""><a href="/votes">Vote</a></li>
+            <li class=""><a href="/info">Info</a></li>
+        </ul>
+      </div> 
+      <h2 id="header" class="h-boxed box-header"><img src="/img/logo.png"></h2>
+      <div class="vertical-line" style="margin-top:-44px;"></div>
       <section id="home" class="page" style="margin-top:-44px;">
         <div class="part-1">
-            <h2 class="h-boxed">Why did we never vote<br> on how to deal with<br> climate change?</h2>
+            <h2 class="h-boxed">What if we could bypass bureaucracy<br> and hold a global, citizen's vote<br> on how to deal with
+<br> climate change?</h2>
             <div class="vertical-line"></div>
         </div>
         
@@ -52,105 +45,150 @@
         
         <div class="part-2">
             <div class="vertical-line"></div>
-            <h2 class="h-boxed">Everybody seems to have<br> an opinion on it<br> but we don't have a<br> collective strategy.</h2>
+            <h2 class="h-boxed">It's boring to wait for politics,<br>we can all vote on this global strategy <br> with this simple 3 step process<br> we are testing.<br> <br> Have fun.</h2>
             <div class="vertical-line"></div>
         </div>
         
         <div class="img-part">
             <img src="/img/part2.jpg" class="img-responsive">
         </div>
-        
-        <div class="part-3">
-            <div class="vertical-line"></div>
-            <h2 class="h-boxed">We are building a simple tool for every person on the planet to vote on a global strategy.</h2>
-            <div class="vertical-line"></div>
-            <h2 class="h-boxed">For users who verify their identity, we will send cryptocurrency to both you and the projects fighting climate change that you voted for.</h2>
-            <div class="vertical-line"></div>
-        </div>
-
+        <div class="vertical-line"></div>
         
         <div class="img-part">
             <img src="/img/part3.jpg" class="img-responsive">
         </div>
-        
-        <div class="part-4">
-            <h2 class="h-boxed">COLLABORATORS & ADVISORS</h2>
-            
-            <div class="container">
-                <div class="row">
-                        <div class="col-xs-3 profile">
-                            <img src="/img/seb.jpg" class="img-responsive">
-                            
-                            <div class="profile-box">
-                                <h3>Sebastian Romero</h3>
-                            </div>
-                            <div class="profile-contact">
-                                <a href="https://twitter.com/tianfut" target="_blank"><i class="fa fa-twitter" style="font-size:18px"></i></a>
-                                <a href="https://www.linkedin.com/in/sebastian-romero-21714a146/" target="_blank"><i class="fa fa-linkedin" style="font-size:18px"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-xs-3 profile">
-                            <img src="/img/alice.jpg" class="img-responsive">
-                            
-                            <div class="profile-box">
-                                <h3>Alice Stevens</h3>
-                                <span>Amnesty International</span>
-                            </div>
-                            <div class="profile-contact">
-                                <a href="https://www.linkedin.com/in/alice-stevens-73044b41/" target="_blank"><i class="fa fa-linkedin" style="font-size:18px"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-xs-3 profile">
-                            <img src="/img/maria.png" class="img-responsive">
-                            
-                            <div class="profile-box">
-                                <h3>Maria Gonzalez</h3>
-                                <span>MSc World Heritage Conservation</span>
-                            </div>
-                            <div class="profile-contact">
-                                <a href="https://www.linkedin.com/in/mariagonzalezdelgado/" target="_blank"><i class="fa fa-linkedin" style="font-size:18px"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-xs-3 profile">
-                            <img src="/img/soush.jpg" class="img-responsive">
-                            
-                            <div class="profile-box">
-                                <h3>Soushiant Zanganehpour</h3>
-                                <span>CEO Swae.io <br>Harvard Biz Advisory Council<br>Prof @Sciences Po</span>
-                            </div>
-                            <div class="profile-contact">
-                                <a href="https://twitter.com/soushiant" target="_blank"><i class="fa fa-twitter" style="font-size:18px"></i></a>
-                                <a href="https://www.linkedin.com/in/soushiant/" target="_blank"><i class="fa fa-linkedin" style="font-size:18px"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-xs-3 profile">
-                            <img src="/img/mariapaula.jpg" class="img-responsive">
-                            
-                            <div class="profile-box">
-                                <h3>Maria Paula Fidalgo </h3>
-                                <span>Embassador at the Health Ministry, Brazil</span>
-                            </div>
-                            <div class="profile-contact">
-                                <a href="https://pt.wikipedia.org/wiki/Maria_Paula_Fidalgo" target="_blank"><i class="fa fa-wikipedia-w" style="font-size:18px"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-xs-3 profile">
-                            <img src="/img/elf.jpg" class="img-responsive">
-                            
-                            <div class="profile-box">
-                                <h3>elf Pavlik</h3>
-                                <span>Software Development</span>
-                            </div>
-                            <div class="profile-contact">
-                                <a href="https://twitter.com/elfpavlik" target="_blank"><i class="fa fa-twitter" style="font-size:18px"></i></a>
-                                <a href="https://github.com/elf-pavlik" target="_blank"><i class="fa fa-github" style="font-size:18px"></i></a>
-                            </div>
-                        </div>
-                </div>
-            
+      </section>
+      <section id="info" class="page inactive">
+        <div class="row">
+            <div class="project-box" style="width: 100%; margin: 0 5%;">
+                <ol style="margin-bottom: 0;">
+                    <li>Meet the Team</li>
+                    <li>How will this vote change something</li>
+                    <li>Social Media</li>
+                    <li>Contact</li>
+                    <li>FAQs</li>
+                </ol>
             </div>
-        
         </div>
+        <div class="vertical-line"></div>
+                <div class="part-4">
+                    <h2 class="h-boxed">1. Meet the Team</h2>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-3 profile">
+                                <img src="img/seb.jpg" class="img-responsive">
+
+                                <div class="profile-box">
+                                    <h3>Sebastian Romero</h3>
+                                    <span>Managing Director</span>
+                                </div>
+                                <div class="profile-contact">
+                                    <a href="https://twitter.com/tianfut" target="_blank"><i class="fa fa-twitter" style="font-size:18px"></i></a>
+                                    <a href="https://www.linkedin.com/in/sebastian-romero-21714a146/" target="_blank"><i class="fa fa-linkedin" style="font-size:18px"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 profile">
+                                <img src="img/mariapaula.jpg" class="img-responsive">
+
+                                <div class="profile-box">
+                                    <h3>Maria Paula Fidalgo </h3>
+                                    <span>Embassador at the Health Ministry, Brazil</span>
+                                </div>
+                                <div class="profile-contact">
+                                    <a href="https://pt.wikipedia.org/wiki/Maria_Paula_Fidalgo" target="_blank"><i class="fa fa-wikipedia-w" style="font-size:18px"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 profile">
+                                <img src="img/elf.jpg" class="img-responsive">
+
+                                <div class="profile-box">
+                                    <h3>elf Pavlik</h3>
+                                    <span>Software Development</span>
+                                </div>
+                                <div class="profile-contact">
+                                    <a href="https://twitter.com/elfpavlik" target="_blank"><i class="fa fa-twitter" style="font-size:18px"></i></a>
+                                    <a href="https://github.com/elf-pavlik" target="_blank"><i class="fa fa-github" style="font-size:18px"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 profile">
+                                <img src="img/alice.jpg" class="img-responsive">
+
+                                <div class="profile-box">
+                                    <h3>Alice Stevens</h3>
+                                    <span>Amnesty International <br> Data Geek</span>
+                                </div>
+                                <div class="profile-contact">
+                                    <a href="https://www.linkedin.com/in/alice-stevens-73044b41/" target="_blank"><i class="fa fa-linkedin" style="font-size:18px"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 profile">
+                                <img src="img/maria.png" class="img-responsive">
+
+                                <div class="profile-box">
+                                    <h3>Maria Gonzalez</h3>
+                                    <span>R&D</span>
+                                </div>
+                                <div class="profile-contact">
+                                    <a href="https://www.linkedin.com/in/mariagonzalezdelgado/" target="_blank"><i class="fa fa-linkedin" style="font-size:18px"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 profile">
+                                <img src="img/esp.gif" class="img-responsive">
+
+                                <div class="profile-box">
+
+                                    <h3>Esteban Salmon Perrilliat</h3>
+                                    <span>PhD Student<br>Stanford</span>
+
+                                </div>
+                                <div class="profile-contact">
+                                    <a href="https://anthropology.stanford.edu/people/esteban-salmon-perrilliat" target="_blank"><i class="fa fa-university" style="font-size:18px"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 profile">
+                                <img src="img/soush.jpg" class="img-responsive">
+
+                                <div class="profile-box">
+                                    <h3>Soushiant Zanganehpour</h3>
+                                    <span>CEO Swae.io <br>Harvard Business Review <br>Advisory Council</span>
+                                </div>
+                                <div class="profile-contact">
+                                    <a href="https://twitter.com/soushiant" target="_blank"><i class="fa fa-twitter" style="font-size:18px"></i></a>
+                                    <a href="https://www.linkedin.com/in/soushiant/" target="_blank"><i class="fa fa-linkedin" style="font-size:18px"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">                                                
+                            <h2 class="info-header" style="margin-top: 40px;">2. How will this vote change something</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        </div>   
+                            
+                        <div class="social-media row">
+                            <h2 class="info-header">3. Social Media</h2>
+                            <h2 class="info-header">
+                                <a href="https://twitter.com/tianfut" target="_blank"><i class="fa fa-twitter" style="font-size:18px"></i> Twitter</a>
+                                &nbsp;&nbsp;&nbsp;
+                                <a href="" target="_blank"><i class="fa fa-medium" style="font-size:18px"></i> Medium</a>
+                            </h2>
+                        </div>
+
+                        <div class="row">
+                            <h2 class="info-header">4. Contact</h2>
+                            <h5><a href="">hello@projectinfo.com</a></h5>
+                            <h6>Kiriku 6, Tallinn, 10130, Estonia.</h6>
+                        </div>
+                        <hr>    
+                        <div class="row faq">
+                            <h2 class="info-header">5. FAQ</h2>
+                            <p class="faq-q"><b>What is this?</b></p>
+                            <p class="faq-a"><i>This is the answer</i></p>
+                            <hr>
+                            <p class="faq-q"><b>What is this?</b></p>
+                            <p class="faq-a"><i>This is the answer</i></p>
+                            <hr>
+                        </div> 
+                    </div>
       </section>
       <section id="solutions" class="page inactive"></section>
       <section id="projects" class="page inactive"></section>
@@ -198,19 +236,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <script>
-        /* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
-        function openNav() {
-            document.getElementById("sidenav").style.width = "250px";
-            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-        }
-
-        /* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
-        function closeNav() {
-            document.getElementById("sidenav").style.width = "0";
-            document.body.style.backgroundColor = "white";
-        }
-    </script>
     <script src="/bundle.js"></script>
 </body>
 </html>

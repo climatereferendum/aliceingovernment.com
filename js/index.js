@@ -23,7 +23,6 @@ let votes, votesCount
 const pages = document.querySelectorAll('.page')
 
 async function handleRouting (location, event) {
-  closeNav()
   if (event && event.type === 'click') {
     window.scrollTo(0, 0)
   }
@@ -36,6 +35,9 @@ async function handleRouting (location, event) {
   if (active === '') {
     document.querySelector('#home').classList.remove('inactive')
     linkedHeader = false
+  }
+  if (active === 'info') {
+    document.querySelector('#info').classList.remove('inactive')
   }
   if (active === 'solutions' && !slug) {
     document.querySelector('#solutions').classList.remove('inactive')
@@ -138,8 +140,17 @@ function renderSolutions (solutions) {
     return acc
   }, [])
 
-  const solutionsTemplate = html`${
-    pairs.map((pair, idx) => {
+  const solutionsHeader = html`
+    <h2 class="h-boxed" style="text-align:left;">To make things easier, here is a list of the<br> 
+      Top 30 most effective Solutions<br> 
+      to Climate Change as compiled by the <br>
+      wonderful team of scientists at <a href="https://www.drawdown.org/" target="_blank">Drawdown</a></h2>
+    <div class="vertical-line"></div>
+  `
+
+  const solutionsTemplate = html`
+    ${solutionsHeader}
+    ${pairs.map((pair, idx) => {
       return html`
         ${verticalLineTemplate(idx)}
         <div class="row">
@@ -174,6 +185,10 @@ function projectTemplate (project) {
 function renderProjects (solution) {
   const projectsForSolution = projects.filter(project => project.solution === solution.rank)
   const projectsTemplate = html`
+    <div class="dot-crumbs">
+      <a href="/solutions"><div class="crumb">← Back to Solutions</div></a>
+    </div>
+    <div class="vertical-line"></div>
     <div class="row">
         <div class="project-box solution">
             <h4>Solution #${solution.rank}</h4>
@@ -189,10 +204,10 @@ function renderProfile (project) {
   const solution = solutions.find(solution => solution.rank === project.solution)
   const profileTemplate = html`
     <div class="container">
-    <div class="row" style="top: -44px;">
-      <div class="dot-crumbs">
-          <a href="/solutions/${solution.slug}"><div class="crumb">← Back to Overview</div></a>
-      </div>
+    <div class="dot-crumbs">
+        <a href="/solutions/${solution.slug}"><div class="crumb">← Back to Projects</div></a>
+    </div>
+    <div class="row">
       <div class="vertical-line"></div>
       <div class="project-image">
           <div class="project-category">
