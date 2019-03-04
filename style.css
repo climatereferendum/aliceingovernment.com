@@ -429,6 +429,15 @@ img.group3{
     top: -46px;
     font-size: 16px;
 }
+
+.solution ul {
+    list-style: none;
+}
+
+.solution ul li:before {
+    content: '🗹';
+}
+
 .dot-crumbs{
     background: #ffffff;
     margin:  0 auto;
