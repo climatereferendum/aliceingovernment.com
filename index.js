@@ -145,25 +145,22 @@ function renderSolutions (solutions) {
       Top 30 most effective Solutions<br> 
       to Climate Change as compiled by the <br>
       wonderful team of scientists at <a href="https://www.drawdown.org/" target="_blank">Drawdown</a></h2>
-    <div class="vertical-line"></div>
+    <div class="vert-left-line"></div>
   `
 
   const solutionsTemplate = html`
     ${solutionsHeader}
-    ${pairs.map((pair, idx) => {
-      return html`
-        ${verticalLineTemplate(idx)}
-        <div class="row">
-          ${decorationTemplate(idx, 'left')}
-          ${itemTemplate(pair[0])}
-          <div class="hor-line"></div>
-          ${decorationTemplate(idx, 'right')}
-          ${itemTemplate(pair[1])}
-        </div>
-      `
-    })
-  }`
-
+    ${pairs.map((pair, idx) => html`
+      ${verticalLineTemplate(idx)}
+      <div class="row">
+        ${decorationTemplate(idx, 'left')}
+        ${itemTemplate(pair[0])}
+        <div class="hor-line"></div>
+        ${decorationTemplate(idx, 'right')}
+        ${itemTemplate(pair[1])}
+      </div>
+    `)}
+  `
   render(solutionsTemplate, document.querySelector('#solutions'))
 }
 
