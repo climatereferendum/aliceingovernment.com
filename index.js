@@ -1,5 +1,5 @@
 import { html, render } from 'lit-html'
-import { installRouter } from '../node_modules/pwa-helpers/router.js'
+import { installRouter } from './node_modules/pwa-helpers/router.js'
 import csv from 'neat-csv'
 import { flag } from 'country-emoji'
 
