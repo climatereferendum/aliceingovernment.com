@@ -5,6 +5,7 @@ import { flag } from 'country-emoji'
 
 const DOC_URL = 'https://docs.google.com/spreadsheets/d/1WNDWjJOGeVbOsYaWy3udBnRxFIknO5NpYwToVhH2nGE/gviz/tq?tqx=out:csv'
 const BANNER_BASE = 'https://raw.githubusercontent.com/elf-pavlik/bvcc-banners/master'
+const PREVIEW_VOTES_COUNT = 5
 let solutions
 let projects
 let votes, votesCount
@@ -225,6 +226,12 @@ function renderProfile (project) {
   render(profileTemplate, document.querySelector('#profile'))
 }
 
+function loadMoreLink (country, countryVotes) {
+  if (countryVotes.length > PREVIEW_VOTES_COUNT) {
+    return html`<a href="/votes/${country.toLowerCase()}"><i>load more ↓</i></a>`
+  }
+}
+
 function renderVotes (votes) {
   const orderedCountries = Object.keys(votes).sort((first, second) => {
     return votes[second].length - votes[first].length
@@ -234,13 +241,17 @@ function renderVotes (votes) {
       return html`
         <div class="vertical-line"></div>
         <div class="project-box votes">
-          <a href="/votes/${country.toLowerCase()}">
-            <h2>
-              ${flag(country)}
-              ${country}
-            </h2>
-            <span>${votes[country].length} VOTES</span>
-          </a>
+          <h2>
+            ${flag(country)}
+            ${country}
+          </h2>
+          <span>${votes[country].length} VOTES</span>
+        </div>
+        <div class="project-box solution content">
+            <ul>
+              ${votes[country].slice(PREVIEW_VOTES_COUNT * -1).map(vote => voteTemplate(vote))}
+            </ul>
+            ${loadMoreLink(country, votes[country])}
         </div>
       `
     })
