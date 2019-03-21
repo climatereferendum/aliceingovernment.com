@@ -7,7 +7,6 @@ const DOC_URL = 'https://docs.google.com/spreadsheets/d/1WNDWjJOGeVbOsYaWy3udBnR
 const BANNER_BASE = 'https://raw.githubusercontent.com/elf-pavlik/bvcc-banners/master'
 const PREVIEW_VOTES_COUNT = 5
 let solutions
-let projects
 let votes, votesCount
 
 ;(async () => {
@@ -15,9 +14,6 @@ let votes, votesCount
   const solutionsCsv = await solutionsResponse.text()
   solutions = await csv(solutionsCsv)
   renderSolutions(solutions)
-  const projectsResponse = await window.fetch(DOC_URL + '&sheet=projects')
-  const projectsCsv = await projectsResponse.text()
-  projects = await csv(projectsCsv)
   installRouter(handleRouting)
 })()
 
@@ -42,16 +38,6 @@ async function handleRouting (location, event) {
   }
   if (active === 'solutions' && !slug) {
     document.querySelector('#solutions').classList.remove('inactive')
-  }
-  if (active === 'solutions' && slug) {
-    const solution = solutions.find(solution => solution.slug === slug)
-    renderProjects(solution)
-    document.querySelector('#projects').classList.remove('inactive')
-  }
-  if (active === 'projects' && slug) {
-    const project = projects.find(project => project.slug === slug)
-    renderProfile(project)
-    document.querySelector('#profile').classList.remove('inactive')
   }
   if (active === 'votes' && !slug) {
     if (!votes) [votes, votesCount] = await fetchVotes()
@@ -100,7 +86,7 @@ function renderHeader (linked = true) {
 function itemTemplate (solution) {
   return html`
     <div class="project-box col-xs-6">
-        <a href="/solutions/${solution.slug}">
+        <a href="${solution.link}" target="drawdown">
         <span>${solution['vote counter']}</span>
         <h4>Solution #${solution.rank}</h4>
         <h3>${solution.name}</h3></a>
@@ -163,67 +149,6 @@ function renderSolutions (solutions) {
     `)}
   `
   render(solutionsTemplate, document.querySelector('#solutions'))
-}
-
-function projectTemplate (project) {
-  return html`
-    <div class="vertical-line"></div>
-    <div class="sol-image">
-        <span>${project.name}</span>
-        <img src="${BANNER_BASE}/${project.slug}.jpg" class="img-responsive">              
-    </div>
-    <div class="project-box solution">                   
-        <p>${project.description}</p>
-        <a href="/projects/${project.slug}"><i>read more →</i></a>
-        <a href="/vote"><div class="vote">Vote</div></a>
-    </div>
-`
-}
-
-function renderProjects (solution) {
-  const projectsForSolution = projects.filter(project => project.solution === solution.rank)
-  const projectsTemplate = html`
-    <div class="dot-crumbs">
-      <a href="/solutions"><div class="crumb">← Back to Solutions</div></a>
-    </div>
-    <div class="vertical-line"></div>
-    <div class="row">
-        <div class="project-box solution">
-            <h4>Solution #${solution.rank}</h4>
-            <h3>${solution.name}</h3>
-            <a href="${solution.link}">${solution.link}</a>
-        </div>
-        ${projectsForSolution.map(projectTemplate)}
-  `
-  render(projectsTemplate, document.querySelector('#projects'))
-}
-
-function renderProfile (project) {
-  const solution = solutions.find(solution => solution.rank === project.solution)
-  const profileTemplate = html`
-    <div class="container">
-    <div class="dot-crumbs">
-        <a href="/solutions/${solution.slug}"><div class="crumb">← Back to Projects</div></a>
-    </div>
-    <div class="row">
-      <div class="vertical-line"></div>
-      <div class="project-image">
-          <div class="project-category">
-              <b>Solution ${solution.rank}</b><br>
-              ${solution.name}
-          </div>
-          <span>${project.name}</span>
-          <img src="${BANNER_BASE}/${project.slug}.jpg" class="img-responsive">              
-      </div>
-      <div class="project-box solution">
-          <p><b>${project.name}</b>${project.description}</p>
-          <p><b>Where they work:</b>${project['where they work']}</p>
-          <a href="/vote"><div class="vote">Vote</div></a>
-      </div>
-    </div>
-    </div>
-  `
-  render(profileTemplate, document.querySelector('#profile'))
 }
 
 function loadMoreLink (country, countryVotes) {
