@@ -430,12 +430,19 @@ img.group3{
     font-size: 16px;
 }
 
-.solution ul {
-    list-style: none;
+em.index {
+    font-family: monospace;
+    display: inline-block;
+    width: 3em;
+    text-align: right;
+    margin-left: -3em;
+}
+em.index:after {
+  content: '.';
 }
 
-.solution ul li:before {
-    content: '🗹';
+.solution ul {
+    list-style: none;
 }
 
 .dot-crumbs{

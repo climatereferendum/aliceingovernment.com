@@ -82,6 +82,13 @@ async function fetchVotes () {
     acc[vote['country']].push(vote)
     return acc
   }, {})
+  // add index per country
+  for (const country in reduced) {
+    reduced[country] = reduced[country].map((vote, index) => {
+      return { index: index + 1, ...vote } }
+    )
+    reduced[country].reverse()
+  }
   return [reduced, votes.length]
 }
 
@@ -191,7 +198,7 @@ function renderVotes (votes) {
         </div>
         <div class="project-box solution content">
             <ul>
-              ${votes[country].slice(PREVIEW_VOTES_COUNT * -1).map(vote => voteTemplate(vote))}
+              ${votes[country].slice(PREVIEW_VOTES_COUNT * -1).map(voteTemplate)}
             </ul>
             ${loadMoreLink(country, votes[country])}
         </div>
@@ -215,6 +222,7 @@ function renderVotes (votes) {
 function voteTemplate (vote) {
   return html`
   <li>
+    <em class="index">${vote.index}</em>
     <strong>${vote.name}</strong>
     <em>${vote.organization}</em>
   </li>
