@@ -18,6 +18,11 @@ let votes, votesCount
 })()
 
 const pages = document.querySelectorAll('.page')
+const nav = {
+  solutions: document.querySelector('#nav-solutions'),
+  votes: document.querySelector('#nav-votes'),
+  info: document.querySelector('#nav-info')
+}
 
 async function handleRouting (location, event) {
   if (event && event.type === 'click') {
@@ -26,6 +31,10 @@ async function handleRouting (location, event) {
   for (const page of pages) {
     page.classList.add('inactive')
   }
+  for (const n in nav) {
+    nav[n].classList.remove('active')
+    nav[n].classList.remove('active-prev')
+  }
   const active = location.pathname.split('/')[1]
   const slug = location.pathname.split('/')[2]
   let linkedHeader = true
@@ -33,18 +42,26 @@ async function handleRouting (location, event) {
     document.querySelector('#home').classList.remove('inactive')
     linkedHeader = false
   }
-  if (active === 'info') {
-    document.querySelector('#info').classList.remove('inactive')
-  }
   if (active === 'solutions' && !slug) {
+    nav['solutions'].classList.add('active')
     document.querySelector('#solutions').classList.remove('inactive')
   }
   if (active === 'votes' && !slug) {
+    nav['solutions'].classList.add('active-prev')
+    nav['votes'].classList.add('active')
     if (!votes) [votes, votesCount] = await fetchVotes()
     renderVotes(votes)
     document.querySelector('#votes').classList.remove('inactive')
   }
+  if (active === 'info') {
+    nav['solutions'].classList.add('active-prev')
+    nav['votes'].classList.add('active-prev')
+    nav['info'].classList.add('active')
+    document.querySelector('#info').classList.remove('inactive')
+  }
   if (active === 'votes' && slug) {
+    nav['solutions'].classList.add('active-prev')
+    nav['votes'].classList.add('active')
     if (!votes) [votes, votesCount] = await fetchVotes()
     const country = Object.keys(votes).find(country => country.toLowerCase() === slug)
     const countryVotes = votes[country]
