@@ -4,7 +4,6 @@ import csv from 'neat-csv'
 import { flag } from 'country-emoji'
 
 const DOC_URL = 'https://docs.google.com/spreadsheets/d/1WNDWjJOGeVbOsYaWy3udBnRxFIknO5NpYwToVhH2nGE/gviz/tq?tqx=out:csv'
-const BANNER_BASE = 'https://raw.githubusercontent.com/elf-pavlik/bvcc-banners/master'
 const PREVIEW_VOTES_COUNT = 5
 let solutions
 let votes, votesCount
@@ -85,8 +84,8 @@ async function fetchVotes () {
   // add index per country
   for (const country in reduced) {
     reduced[country] = reduced[country].map((vote, index) => {
-      return { index: index + 1, ...vote } }
-    )
+      return { index: index + 1, ...vote }
+    })
     reduced[country].reverse()
   }
   return [reduced, votes.length]
