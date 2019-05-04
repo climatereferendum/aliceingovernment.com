@@ -48,7 +48,7 @@ a:hover{
 .max-width{
     max-width: 480px;
     margin: 0 auto;
-    background: #21cf76;
+    background: #ffffff; /* 21cf76 */
 }
 
 /* Sections */
@@ -318,11 +318,12 @@ img.group3{
 
 .project-box{
     background: #ffffff;
-    width: 40%;
-    margin: 5%;
+    width: 80%;
+    margin: 5% auto;
     padding: 16px;
-    min-height: 160px;
+    /**min-height: 160px;**/
     z-index: 10;
+    border-bottom: 1px solid #333333;
 }
 
 .project-box h4{
