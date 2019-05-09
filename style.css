@@ -561,3 +561,57 @@ em.index:after {
 .progressbar li.active + li:after {
     background-color: #55b776;
 }
+
+
+/* FORM CSS */
+/* Style the form */
+#vote-form {
+    background-color: #21cf76;
+    margin: 100px auto;
+    padding: 30px;
+    width: 90%;
+    min-width: 300px;
+}
+
+/* Style the input fields */
+#vote-form input, #vote-form select {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+}
+
+#vote-form input[type="checkbox"]  {
+    width: auto;
+}
+
+/* Mark input boxes that gets an error on validation: */
+#vote-form input.invalid {
+    background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+#vote-form .tab {
+    display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+#vote-form .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #ffffff;
+    border: none; 
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+/* Mark the active step: */
+#vote-form .step.active {
+    opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+#vote-form .step.finish {
+    background-color: #4CAF50;
+}

@@ -115,34 +115,6 @@ function itemTemplate (solution) {
         <h4>Solution #${solution.rank}</h4>
         <h3>${solution.name}</h3></a>
     </div>
-
-    <!--<div id="id01" class="vote-modal">
-      <div class="vote-modal-content">
-        <header class="vote-container"> 
-          <span onclick="document.getElementById('id01').style.display='none'" 
-          class="">&times;</span>
-          <h2>Modal Header</h2>
-        </header>
-        <div class="container">
-          <p>Thank you for selecting 3 solutions</p>
-          <p>Continue to Complete Vote</p>
-        </div>
-        <footer class="container">
-          <p>Modal Footer</p>
-        </footer>
-      </div>
-    
-
-      <form>
-        Name: <input type="name"> <br>
-        Country:
-        <select>
-          <option value="AF">Afghanistan</option>
-          <option value="AX">Åland Islands</option>
-          <option value="AL">Albania</option>
-        </select>
-      </form>
-    </div>-->
   `
 }
 

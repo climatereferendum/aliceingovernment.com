@@ -201,6 +201,67 @@
       <section id="votes" class="page inactive"></section>
       <section id="solutions" class="page inactive"></section>
       <section id="country" class="page inactive"></section>
+
+      <!-- FORM MODAL -->
+        
+         <div>
+            <form id="vote-form" action="">
+
+                <h3>Complete your vote</h3>
+
+                <!-- One "tab" for each step in the form: -->
+                <div class="tab">Name:
+                <p><input type="text" placeholder="First name + Last name" oninput="this.className = ''"></p>
+                </div>
+
+                <div class="tab">Nationality:
+                <p><select name="nationality">
+                    <option value="">Mexico</option>
+                    <option value="">USA</option>
+                    <option value="">Estonia</option>
+                    <option value="">Germany</option>
+                </select></p>
+                </div>
+
+                <div class="tab">5 word description of yourself:
+                <p><input type="text" placeholder="" oninput="this.className = ''"></p>
+                </div>
+
+                <div class="tab">Tell us in less than 100 words your opinion about how to solve climate change:
+                <p><input type="text" placeholder="solution" oninput="this.className = ''"></p>
+                </div>
+                
+                <div class="tab">
+                    <p><input type="checkbox" placeholder="" oninput="this.className = ''"> I am over 18 years old</p>
+                    <p><input type="checkbox" placeholder="" oninput="this.className = ''"> I accept the <a href="" target="_blank">Privacy Policy</a></p>
+                    <p><input type="checkbox" placeholder="" oninput="this.className = ''"> Newsletter (once or twice a month)</p>
+                </div>
+                
+                <div class="tab">Login with
+                    <p><button></button></p>
+                    <p><button></button></p>
+                </div>
+
+                <div style="overflow:auto;">
+                <div style="float:right;">
+                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                </div>
+                </div>
+
+                <!-- Circles which indicates the steps of the form: -->
+                <div style="text-align:center;margin-top:40px;">
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                </div>
+
+            </form>
+        </div> <!-- END FORM -->
+
     </div>
     <!-- /.container -->
     
@@ -242,6 +303,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="js/custom.js"></script>
     <script src="/bundle.js"></script>
 </body>
 </html>
