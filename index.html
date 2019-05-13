@@ -209,35 +209,35 @@
       <!-- FORM MODAL 
         
          <div>
-            <form id="vote-form" action="">
+            <form id="vote-form" class="inactive">
 
                 <h3>Complete your vote</h3>
                 
                 <div class="tab">Name:
-                <p><input type="text" placeholder="First name + Last name" oninput="this.className = ''"></p>
+                <p><input type="text" placeholder="First name + Last name" oninput="this.className = ''" name="name"></p>
                 </div>
 
                 <div class="tab">Nationality:
                 <p><select name="nationality">
-                    <option value="">Mexico</option>
-                    <option value="">USA</option>
-                    <option value="">Estonia</option>
-                    <option value="">Germany</option>
+                    <option value="mx">Mexico</option>
+                    <option value="us">USA</option>
+                    <option value="es">Estonia</option>
+                    <option value="de">Germany</option>
                 </select></p>
                 </div>
 
                 <div class="tab">5 word description of yourself:
-                <p><input type="text" placeholder="" oninput="this.className = ''"></p>
+                <p><input type="text" placeholder="" oninput="this.className = ''" name="description"></p>
                 </div>
 
                 <div class="tab">Tell us in less than 100 words your opinion about how to solve climate change:
-                <p><input type="text" placeholder="solution" oninput="this.className = ''"></p>
+                <p><input type="text" placeholder="solution" oninput="this.className = ''" name="opinion"></p>
                 </div>
                 
                 <div class="tab">
-                    <p><input type="checkbox" placeholder="" oninput="this.className = ''"> I am over 18 years old</p>
-                    <p><input type="checkbox" placeholder="" oninput="this.className = ''"> I accept the <a href="" target="_blank">Privacy Policy</a></p>
-                    <p><input type="checkbox" placeholder="" oninput="this.className = ''"> Newsletter (once or twice a month)</p>
+                    <p><input type="checkbox" placeholder="" oninput="this.className = ''" name="over18"> I am over 18 years old</p>
+                    <p><input type="checkbox" placeholder="" oninput="this.className = ''" name="accepts"> I accept the <a href="" target="_blank">Privacy Policy</a></p>
+                    <p><input type="checkbox" placeholder="" oninput="this.className = ''" name="newsletter"> Newsletter (once or twice a month)</p>
                 </div>
                 
                 <div class="tab">Login with
@@ -249,6 +249,7 @@
                 <div style="float:right;">
                     <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
                     <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    <button type="submit" id="submitBtn" class="inactive">Submit</button>
                 </div>
                 </div>
 

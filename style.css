@@ -31,7 +31,7 @@ a:hover{
 }
 
 .inactive {
-    display: none;
+    display: none !important;
 }
 
 .img-responsive { 

@@ -1,18 +1,3 @@
-/* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-}
-
-/* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
-    document.body.style.backgroundColor = "white";
-}
-
-
 /* Multistep Form JS */
 
 var currentTab = 0; // Current tab is set to be the first tab (0)
@@ -29,9 +14,11 @@ function showTab(n) {
     document.getElementById("prevBtn").style.display = "inline";
     }
     if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
+    document.getElementById("nextBtn").classList.add('inactive');
+    document.getElementById("submitBtn").classList.remove('inactive');
     } else {
-    document.getElementById("nextBtn").innerHTML = "Next";
+    document.getElementById("nextBtn").classList.remove('inactive');
+    document.getElementById("submitBtn").classList.add('inactive');
     }
     // ... and run a function that displays the correct step indicator:
     fixStepIndicator(n)
@@ -47,11 +34,6 @@ function nextPrev(n) {
     // Increase or decrease the current tab by 1:
     currentTab = currentTab + n;
     // if you have reached the end of the form... :
-    if (currentTab >= x.length) {
-    //...the form gets submitted:
-    document.getElementById("vote-form").submit();
-    return false;
-    }
     // Otherwise, display the correct tab:
     showTab(currentTab);
 }

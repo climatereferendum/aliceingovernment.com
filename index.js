@@ -7,6 +7,44 @@ const DOC_URL = 'https://docs.google.com/spreadsheets/d/1WNDWjJOGeVbOsYaWy3udBnR
 const PREVIEW_VOTES_COUNT = 5
 let solutions
 let votes, votesCount
+let myVotes = []
+const form = document.querySelector('#vote-form')
+form.addEventListener('submit', (event) => {
+  event.preventDefault()
+  event.stopPropagation()
+  const data = new FormData (form)
+  for (const key of data.keys()) { console.log(key, data.get(key)) }
+  return false
+})
+
+function updateMyVotes (event) {
+  myVotes.push(event.target.value)
+  const solutionElements = document.querySelectorAll('#solutions .project-box')
+  const nav = document.querySelector('.sticky-nav')
+  const footer = document.querySelector('footer')
+  if (myVotes.length === 3) {
+    // hide other solutions
+    for (const element of solutionElements) {
+      if (!myVotes.includes(element.dataset.rank)) {
+        element.classList.add('inactive')
+      }
+    }
+    // show form, hide navigation and footer
+    nav.classList.add('inactive')
+    footer.classList.add('inactive')
+    form.classList.remove('inactive')
+    form.scrollIntoView(false)
+  } else {
+    // show all solutions
+    for (const element of solutionElements) {
+      element.classList.remove('inactive')
+    }
+    // hide form, show navigation and footer
+    form.classList.add('inactive')
+    nav.classList.remove('inactive')
+    footer.classList.remove('inactive')
+  }
+}
 
 ;(async () => {
   const solutionsResponse = await window.fetch(DOC_URL + '&sheet=solutions')
@@ -106,53 +144,26 @@ function renderHeader (linked = true) {
   render(headerTemplate, document.querySelector('#header'))
 }
 
-function itemTemplate (solution) {
+function solutionTemplate (solution) {
   return html`
-    <div class="project-box col-xs-6">
+    <div class="project-box col-xs-6" data-rank=${solution.rank}>
         <a href="${solution.link}" target="drawdown">
         <h4>Solution #${solution.rank}</h4>
         <h3>${solution.name}</h3></a>
         <label class="container">
-          <input type="checkbox">
+          <input
+            type="checkbox"
+            name="solution-${solution.rank}"
+            value="${solution.rank}"
+            @change="${updateMyVotes}"
+            >
           <span class="checkmark"></span>
         </label> 
     </div>
   `
 }
 
-function verticalLineTemplate (idx) {
-  if (idx === 0) return
-  if (idx % 2 === 1) {
-    return html`<div class="vert-right-line"></div>`
-  } else {
-    return html`<div class="vert-left-line"></div>`
-  }
-}
-
-function decorationTemplate (row, side) {
-  if (row === 0) return
-  if (row % 2 === 1 && side === 'left') {
-    let group = (row * 2) % 3 === 0 ? 3 : 1
-    return html`<img src="/img/m/group_${group}.png" class="group${group}">`
-  }
-  if (row % 2 === 0 && side === 'right') {
-    let group = 2
-    return html`<img src="/img/m/group_${group}.png" class="group${group}">`
-  }
-}
-
 function renderSolutions (solutions) {
-  const pairs = solutions.reduce((acc, cur, idx, src) => {
-    if (idx % 2 === 0) {
-      const first = src[idx]
-      const pair = [first]
-      const second = src[idx + 1]
-      if (second) pair.push(second)
-      acc.push(pair)
-    }
-    return acc
-  }, [])
-
   const solutionsHeader = html`
     <h2 class="h-boxed" style="margin-bottom: 32px;">To make things easier, here is a list of the<br> 
       Top 30 most effective Solutions<br> 
@@ -168,16 +179,7 @@ function renderSolutions (solutions) {
 
   const solutionsTemplate = html`
     ${solutionsHeader}
-    ${pairs.map((pair, idx) => html`
-      <!-- ${verticalLineTemplate(idx)} -->
-      <div class="row">
-        ${decorationTemplate(idx, 'left')}
-        ${itemTemplate(pair[0])}
-        <!-- <div class="hor-line"></div> -->
-        ${decorationTemplate(idx, 'right')}
-        ${itemTemplate(pair[1])}
-      </div>
-    `)}
+    ${solutions.map(solutionTemplate)}
   `
   render(solutionsTemplate, document.querySelector('#solutions'))
 }
