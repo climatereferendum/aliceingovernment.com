@@ -110,10 +110,12 @@ function itemTemplate (solution) {
   return html`
     <div class="project-box col-xs-6">
         <a href="${solution.link}" target="drawdown">
-        <span>${solution['vote counter']}</span>
-        <input type="checkbox" name="" value="">
         <h4>Solution #${solution.rank}</h4>
         <h3>${solution.name}</h3></a>
+        <label class="container">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+        </label> 
     </div>
   `
 }
@@ -152,11 +154,16 @@ function renderSolutions (solutions) {
   }, [])
 
   const solutionsHeader = html`
-    <h2 class="h-boxed" style="text-align:left;">To make things easier, here is a list of the<br> 
+    <h2 class="h-boxed" style="margin-bottom: 32px;">To make things easier, here is a list of the<br> 
       Top 30 most effective Solutions<br> 
       to Climate Change as compiled by the <br>
-      wonderful team of scientists at <a href="https://www.drawdown.org/" target="_blank">Drawdown</a></h2>
-    <div class="vert-left-line"></div>
+      wonderful team of scientists at <a href="https://www.drawdown.org/" target="_blank">Drawdown</a>. <br>
+      <div class="vertical-line"></div>
+      Please select three (3) by ticking <br>the checkboxes to cast your vote.
+    </h2>
+    <div class="row">
+      <div class="select-block">SELECT</div>
+    </div>
   `
 
   const solutionsTemplate = html`
