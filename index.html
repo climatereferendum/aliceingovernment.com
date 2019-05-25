@@ -23,8 +23,8 @@
     <div role="main" class="max-width">
       <div class="sticky-nav">
         <ul class="progressbar">
-            <li id="nav-solutions"><a href="/solutions" style="padding: 50px 15px;">Solutions</a></li>
-            <li id="nav-votes"><a href="/votes">Voters</a></li>
+            <li id="nav-voters"><a href="/voters" style="padding: 50px 15px;">Voters</a></li>
+            <li id="nav-solutions"><a href="/solutions">Solutions</a></li>
             <li id="nav-info"><a href="/info">Info</a></li>
         </ul>
       </div> 
@@ -63,6 +63,7 @@
         </div>
       </section>
       <section id="info" class="page inactive">
+        <div id="my-vote"></div>
         <div class="row">
             <div class="project-box" style="width: 100%; margin: 0 5%;">
                 <ol style="margin-bottom: 0;">
@@ -202,12 +203,10 @@
                         </div> 
                     </div>
       </section>
-      <section id="votes" class="page inactive"></section>
+      <section id="voters" class="page inactive"></section>
       <section id="solutions" class="page inactive"></section>
       <section id="country" class="page inactive"></section>
 
-      <!-- FORM MODAL 
-        
          <div>
             <form id="vote-form" class="inactive">
 
@@ -217,13 +216,7 @@
                 <p><input type="text" placeholder="First name + Last name" oninput="this.className = ''" name="name"></p>
                 </div>
 
-                <div class="tab">Nationality:
-                <p><select name="nationality">
-                    <option value="mx">Mexico</option>
-                    <option value="us">USA</option>
-                    <option value="es">Estonia</option>
-                    <option value="de">Germany</option>
-                </select></p>
+                <div id="nationality" class="tab">Nationality:
                 </div>
 
                 <div class="tab">5 word description of yourself:
@@ -240,9 +233,9 @@
                     <p><input type="checkbox" placeholder="" oninput="this.className = ''" name="newsletter"> Newsletter (once or twice a month)</p>
                 </div>
                 
-                <div class="tab">Login with
-                    <p><button></button></p>
-                    <p><button></button></p>
+                <div class="tab">I will authenticated with
+                    <p><label><input type="radio" name="auth" value="google" required>Google</label></p>
+                    <p><label><input type="radio" name="auth" value="facebook" required>Facebook</label></p>
                 </div>
 
                 <div style="overflow:auto;">
@@ -263,7 +256,7 @@
                 </div>
 
             </form>
-        </div> <!-- END FORM 
+        </div>
     </div>
     <!-- /.container -->
     
