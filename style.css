@@ -31,7 +31,7 @@ a:hover{
 }
 
 .inactive {
-    display: none !important;
+    display: none;
 }
 
 .img-responsive { 
@@ -49,6 +49,8 @@ a:hover{
     max-width: 480px;
     margin: 0 auto;
     background: #ffffff; /* 21cf76 */
+    border: 1px solid #7d7d7d;
+    border-top: none;
 }
 
 /* Sections */
@@ -136,14 +138,14 @@ h2.h-boxed{
 }
 
 
-.part-4 img{
+.part-2 img{
     border-radius: 50%;
     padding: 20px;
     margin: -20px 0;
 }
 
 .profile{
-    width: 50%;
+    width: 33.33%;
     padding: 8px 12px;
 }
 
@@ -233,6 +235,7 @@ footer{
     font-size: 20px;
     max-width: 480px;
     margin: 0 auto 90px;
+    position: relative;
 }
 
 footer .social{
@@ -478,11 +481,6 @@ em.index:after {
     width: 100%;
 }
 
-.faq p{
-    width: 100%;
-    margin-bottom: 0;
-}
-
 .progressbar {
     counter-reset: step;
     width: 100%;
@@ -558,12 +556,21 @@ em.index:after {
 
 /* FORM CSS */
 /* Style the form */
+.form-modal{
+    position: absolute;
+    top: 370px;
+    z-index: 50;
+    max-width: 480px;
+    width: 100%;
+}
+
 #vote-form {
     background-color: #21cf76;
-    margin: 100px auto;
     padding: 30px;
-    width: 90%;
     min-width: 300px;
+    min-height: 360px;
+    width: 90%;
+    margin: 100px auto;
 }
 
 /* Style the input fields */
@@ -609,87 +616,144 @@ em.index:after {
     background-color: #4CAF50;
 }
 
+.form-nav button{
+    background: #000000;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    padding: 4px 8px;
+}
+
+#vote-form .google-auth button, #vote-form .facebook-auth button {
+    width: 240px;
+    cursor: pointer;
+    text-align: left;
+    padding: 12px;
+    border: none;
+    color: #ffffff;
+}
+
+#vote-form .google-auth button{
+    background: #FF3E30;
+}
+
+#vote-form .facebook-auth button{
+    background: #3B5998;
+}
+
+
 /* The container */
 .container {
-    display: block;
-    position: relative;
-    float: right;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
-  /* Hide the browser's default checkbox */
-  .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  /* Create a custom checkbox */
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 40px;
-    width: 40px;
+display: block;
+position: relative;
+float: right;
+padding-left: 35px;
+margin-bottom: 12px;
+cursor: pointer;
+font-size: 22px;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 40px;
+width: 40px;
+background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+background-color: #21cf76;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+left: 12px;
+top: 2px;
+width: 14px;
+height: 28px;
+border: solid #000000;
+border-width: 0 3px 3px 0;
+-webkit-transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+transform: rotate(45deg);
+}
+
+.select-block{
+display: block;
+text-align: right;
+width: 100%;
+margin-right: 48px;
+margin-bottom: -24px;
+}
+
+.home-vote{
+    text-align: center;
+    background: #21cf76;
+    color: #ffffff;
+    padding: 12px;
+    width: 40%;
+}
+
+.faq .accordion {
     background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 14px;
+    transition: 0.4s;
+    border-bottom: 1px solid #333333;
   }
   
-  /* On mouse-over, add a grey background color */
-  .container:hover input ~ .checkmark {
+.faq .active, .faq .accordion:hover {
     background-color: #ccc;
   }
   
-  /* When the checkbox is checked, add a blue background */
-  .container input:checked ~ .checkmark {
-    background-color: #21cf76;
-  }
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  /* Show the checkmark when checked */
-  .container input:checked ~ .checkmark:after {
-    display: block;
-  }
-  
-  /* Style the checkmark/indicator */
-  .container .checkmark:after {
-    left: 12px;
-    top: 2px;
-    width: 14px;
-    height: 28px;
-    border: solid #000000;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
+.faq .panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
   }
 
-  .select-block{
-    display: block;
-    text-align: right;
+.faq p{
     width: 100%;
-    margin-right: 48px;
-    margin-bottom: -24px;
-  }
-
-  .home-vote{
-      text-align: center;
-      background: #21cf76;
-      color: #ffffff;
-      padding: 12px;
-      width: 40%;
-  }
+    margin-bottom: 0;
+}
