@@ -20,17 +20,17 @@ renderCountriesDropdown()
 form.addEventListener('submit', (event) => {
   event.preventDefault()
   event.stopPropagation()
-  handleSubmit()
+  handleSubmit(event)
   return false
 })
 
-function handleSubmit () {
+function handleSubmit (event) {
   const data = new FormData(form)
   const draft = {}
   for (const key of data.keys()) { (draft[key] = data.get(key)) }
   draft.solution = [...selectedSolutions]
   localStorage.setItem('data', JSON.stringify(draft))
-  window.location = `${SERVICE_URL}${authProviders[draft.auth]}`
+  window.location = `${SERVICE_URL}${authProviders[event.explicitOriginalTarget.value]}`
 }
 
 function updateSelectedSolutions (event) {

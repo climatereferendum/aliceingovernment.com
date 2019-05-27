@@ -31,10 +31,8 @@ function showTab(n) {
     }
     if (n == (x.length - 1)) {
     document.getElementById("nextBtn").classList.add('inactive');
-    document.getElementById("submitBtn").classList.remove('inactive');
     } else {
     document.getElementById("nextBtn").classList.remove('inactive');
-    document.getElementById("submitBtn").classList.add('inactive');
     }
     // ... and run a function that displays the correct step indicator:
     fixStepIndicator(n)
