@@ -417,7 +417,7 @@ img.group3{
 }
 
 .votes h2{
-    margin-left: 64px;
+    margin-left: 10px;
 }
 
 .votes span{
@@ -736,13 +736,18 @@ margin-bottom: -24px;
     border: none;
     text-align: left;
     outline: none;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 900;
     transition: 0.4s;
     border-bottom: 1px solid #333333;
   }
   
 .faq .active, .faq .accordion:hover {
     background-color: #ccc;
+  }
+
+  .faq .active{
+    margin-bottom: 12px;
   }
   
 .faq .panel {
