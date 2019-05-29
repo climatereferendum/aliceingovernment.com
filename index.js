@@ -6,7 +6,7 @@ import { flag, name as countryName, countries } from 'country-emoji'
 const { fetch, localStorage, FormData } = window
 
 const DOC_URL = 'https://docs.google.com/spreadsheets/d/1WNDWjJOGeVbOsYaWy3udBnRxFIknO5NpYwToVhH2nGE/gviz/tq?tqx=out:csv'
-const SERVICE_URL = 'https://elf.pagekite.me'
+const SERVICE_URL = 'https://staging-data.aliceingovernment.com'
 const PREVIEW_VOTES_COUNT = 5
 let solutions
 let votes, votesCount
