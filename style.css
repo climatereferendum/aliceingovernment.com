@@ -600,7 +600,7 @@ em.index:after {
 }
 
 /* Mark input boxes that gets an error on validation: */
-#vote-form input.invalid {
+#vote-form .invalid {
     background-color: #ffdddd;
 }
 

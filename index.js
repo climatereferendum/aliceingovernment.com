@@ -199,7 +199,8 @@ async function fetchVotes () {
 
 function renderCountriesDropdown () {
   const template = html`
-    <p><select name="nationality">
+    <p><select name="nationality" onchange="this.className = ''">
+        <option value=''>Select country</option>
       ${Object.keys(countries).map(code => html`
         <option value="${code.toLowerCase()}">${countries[code]} ${flag(code)}</option>
       `)}
