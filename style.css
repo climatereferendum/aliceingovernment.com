@@ -19,10 +19,11 @@
 
 body {
     font-family: 'gothamlight', sans-serif;
+    margin-bottom: 88px;
 }
 
 a{
-    color: #21cf76;
+    color: #2699FB;
 }
 
 a:hover{
@@ -49,13 +50,20 @@ a:hover{
     max-width: 480px;
     margin: 0 auto;
     background: #ffffff; /* 21cf76 */
-    border: 1px solid #7d7d7d;
     border-top: none;
+}
+
+@media only screen and (min-width: 481px){
+    .max-width{
+        border-left: 1px solid #7d7d7d;
+        border-right: 1px solid #7d7d7d;
+        min-height: 92vh;
+    }
 }
 
 /* Sections */
 .vertical-line{
-    width: 3px;
+    width: 2px;
     background: #000000;
     height: 60px;
     position: relative;
@@ -80,10 +88,10 @@ h2.h-boxed{
 }
 
 .img-part{
-    border-bottom: 3px solid #000000;
+    border-bottom: 2px solid #000000;
     max-width: 640px;
     margin: 0 auto;
-    border-top: 3px solid #000000;
+    border-top: 2px solid #000000;
 }
 
 .part-1{
@@ -102,8 +110,16 @@ h2.h-boxed{
 }
 
 .box-header img{
-    width: 240px;
+    width: 280px;
     padding: 12px 4px;
+}
+
+.home-arrow{
+    position: fixed;
+    text-align: center;
+    margin-left: 120px;
+    font-size: 48px;
+    bottom: 88px;
 }
 
 .part-2{
@@ -178,12 +194,12 @@ h2.h-boxed{
 
 
 .part-footer{
-    background: #21cf76;
+    background: #4366ae; /* old color: #21cf76 */
     padding: 0 32px;
     width: 100%;
     margin: 0 auto;
     font-family: 'gothambold';
-    border-top: 3px solid #000000;
+    border-top: 2px solid #000000;
 }
 
 .part-footer p{
@@ -221,7 +237,7 @@ input[type=checkbox] {
 
 /* Style the submit button */
 input[type=submit] {
-    background-color: #21cf76;
+    background-color: #2699FB;
     color: white;
     border: none;
 }
@@ -234,7 +250,6 @@ input[type=submit]:hover {
 footer{
     font-size: 20px;
     max-width: 480px;
-    margin: 0 auto 90px;
     position: relative;
 }
 
@@ -273,7 +288,7 @@ footer .copyright{
 }
 
 #solutions h2 a {
-    color: #21cf76;
+    color: #2699FB;
 }
 
 #solutions .hor-line,
@@ -471,7 +486,7 @@ em.index:after {
 }
 
 .social-media a{
-    color: #21cf76;
+    color: #2699FB;
 }
 
 .info-header{
@@ -502,7 +517,7 @@ em.index:after {
     color: #ffffff;
 }
 .progressbar li a:hover{
-    color: #21cf76;
+    color: #2699FB;
 }
 .progressbar li:before {
     width: 30px;
@@ -519,8 +534,8 @@ em.index:after {
 }
 .progressbar li:hover:before, .progressbar li.active-prev:hover:before{
     color: #ffffff;
-    border-color: #55b776;
-    background-color: #21cf76;
+    border-color: rgb(30, 118, 194);
+    background-color: #2699FB;
 }
 .progressbar li:after {
     width: 100%;
@@ -536,12 +551,12 @@ em.index:after {
     content: none;
 }
 .progressbar li.active a{
-    color: #21cf76;
+    color: #2699FB;
     font-weight: bold;
 }
 .progressbar li.active:before {
-    border-color: #55b776;
-    background-color: #21cf76;
+    border-color: rgb(30, 118, 194);
+    background-color: #2699FB;
     color: #ffffff;
 }
 .progressbar li.active-prev:before {
@@ -550,7 +565,7 @@ em.index:after {
     color: #ffffff;
 }
 .progressbar li.active + li:after {
-    background-color: #55b776;
+    background-color: rgb(30, 118, 194);
 }
 
 
@@ -558,14 +573,14 @@ em.index:after {
 /* Style the form */
 .form-modal{
     position: absolute;
-    top: 370px;
+    top: 350px;
     z-index: 50;
     max-width: 480px;
     width: 100%;
 }
 
 #vote-form {
-    background-color: #21cf76;
+    background-color: #2699FB;
     padding: 30px;
     min-width: 300px;
     min-height: 360px;
@@ -683,7 +698,7 @@ background-color: #ccc;
 
 /* When the checkbox is checked, add a blue background */
 .container input:checked ~ .checkmark {
-background-color: #21cf76;
+background-color: #2699FB;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -721,7 +736,7 @@ margin-bottom: -24px;
 
 .home-vote{
     text-align: center;
-    background: #21cf76;
+    background: #2699FB;
     color: #ffffff;
     padding: 12px;
     width: 40%;
