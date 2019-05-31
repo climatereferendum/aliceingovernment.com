@@ -32,7 +32,7 @@ a:hover{
 }
 
 .inactive {
-    display: none;
+    display: none !important;
 }
 
 .img-responsive { 
@@ -571,13 +571,6 @@ em.index:after {
 
 /* FORM CSS */
 /* Style the form */
-.form-modal{
-    position: absolute;
-    top: 350px;
-    z-index: 50;
-    max-width: 480px;
-    width: 100%;
-}
 
 #vote-form {
     background-color: #2699FB;
@@ -585,7 +578,7 @@ em.index:after {
     min-width: 300px;
     min-height: 360px;
     width: 90%;
-    margin: 100px auto;
+    margin: 0 auto;
 }
 
 /* Style the input fields */

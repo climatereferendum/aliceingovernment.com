@@ -41,7 +41,6 @@ function updateSelectedSolutions (event) {
   }
   const solutionElements = document.querySelectorAll('#solutions .project-box')
   const nav = document.querySelector('.sticky-nav')
-  const footer = document.querySelector('footer')
   if (selectedSolutions.length === 3) {
     // hide other solutions
     for (const element of solutionElements) {
@@ -51,7 +50,6 @@ function updateSelectedSolutions (event) {
     }
     // show form, hide navigation and footer
     nav.classList.add('inactive')
-    footer.classList.add('inactive')
     form.classList.remove('inactive')
     form.scrollIntoView(false)
   } else {
@@ -62,7 +60,6 @@ function updateSelectedSolutions (event) {
     // hide form, show navigation and footer
     form.classList.add('inactive')
     nav.classList.remove('inactive')
-    footer.classList.remove('inactive')
   }
 }
 
