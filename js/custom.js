@@ -1,3 +1,17 @@
+const $icon = document.querySelector('.home-icon');
+const $arrow = document.querySelector('.home-arrow');
+
+window.onload = () => {
+  $arrow.animate([
+    {left: '0'},
+    {left: '10px'},
+    {left: '0'}
+  ],{
+    duration: 700,
+    iterations: Infinity
+  });
+}
+
 // FAQ info accordion
 const accordions = document.getElementsByClassName('accordion')
 

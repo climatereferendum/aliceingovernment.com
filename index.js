@@ -254,7 +254,7 @@ function renderSolutions (solutions) {
       <div class="vertical-line"></div>
       Please select three (3) by ticking <br>the checkboxes to cast your vote.
     </h2>
-    <div class="row">
+    <div class="row" style="max-width: 100vw;">
       <div class="select-block">SELECT</div>
     </div>
   `

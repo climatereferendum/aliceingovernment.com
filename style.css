@@ -114,13 +114,13 @@ h2.h-boxed{
     padding: 12px 4px;
 }
 
-.home-arrow{
+/* .home-arrow{
     position: fixed;
     text-align: center;
     margin-left: 120px;
     font-size: 48px;
     bottom: 88px;
-}
+} */
 
 .part-2{
     background: #ffffff;
@@ -336,7 +336,7 @@ img.group3{
 
 .project-box{
     background: #ffffff;
-    width: 80%;
+    width: 95%;
     margin: 5% auto;
     padding: 16px;
     /**min-height: 160px;**/
@@ -351,7 +351,7 @@ img.group3{
 
 .project-box h3{
     font-weight: bold;
-    font-size: 20px;
+    font-size: 16px;
 }
 
  .project-box span{
@@ -359,9 +359,10 @@ img.group3{
     float: right;
     top: -48px;
     color: #ffffff;
-    left: 24px;
+    left: 10px;
     margin-bottom: -24px;
     text-align: center;
+    padding: 0 4px;
     border: 2px solid #000000;
 } 
 
@@ -371,7 +372,7 @@ img.group3{
 
 .solution, .votes {
     width: 100%;
-    min-height: 80px;
+    min-height: 60px;
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -432,7 +433,8 @@ img.group3{
 }
 
 .votes h2{
-    margin-left: 10px;
+    margin-left: 0;
+    font-size: 20px;
 }
 
 .votes span{
@@ -511,7 +513,7 @@ em.index:after {
     color: #7d7d7d;
 }
 .progressbar li a{
-    padding: 50px 30px;
+    padding: 50px 10px;
     width: 100px;
     position: relative;
     color: #ffffff;
@@ -727,7 +729,7 @@ transform: rotate(45deg);
 display: block;
 text-align: right;
 width: 100%;
-margin-right: 48px;
+margin-right: 8%;
 margin-bottom: -24px;
 }
 
@@ -773,4 +775,46 @@ margin-bottom: -24px;
 .faq p{
     width: 100%;
     margin-bottom: 0;
+}
+
+.home-icon {
+    position: absolute;
+    bottom: 20%;
+    left: 30%;
+    transform: translate(-50%,-50%);
+    width: 80px;
+    height: 60px;
+    cursor: pointer;
+    transform: rotate(135deg);
+}
+  
+.home-arrow {
+    position: absolute;
+    top: 25px;
+    width: 90%;
+    height: 4px;
+    background-color: #000;
+    animation: arrow 700ms linear infinite;
+}
+
+.home-arrow::after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 4px;
+    top: -14px;
+    right: -8px;
+    background-color: #000;
+    transform: rotate(45deg);
+}
+
+.home-arrow::before {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 4px;
+    top: 14px;
+    right: -8px;
+    background-color: #000;
+    transform: rotate(-45deg);
 }
