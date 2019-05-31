@@ -139,18 +139,18 @@ async function handleRouting (location, event) {
   if (active === '') {
     document.querySelector('#home').classList.remove('inactive')
     linkedHeader = false
+  } else if (!slug) {
+    document.querySelector(`#${active}`).classList.remove('inactive')
   }
   if (active === 'solutions' && !slug) {
     nav['voters'].classList.add('active-prev')
     nav['solutions'].classList.add('active')
-    document.querySelector('#solutions').classList.remove('inactive')
   }
   if (active === 'voters' && !slug) {
     nav['voters'].classList.add('active')
     if (!votes) [votes, votesCount] = await fetchVotes()
     if (active !== 'voters') return // check again if route didn't change
     renderVotes(votes)
-    document.querySelector('#voters').classList.remove('inactive')
   }
   if (active === 'info') {
     nav['voters'].classList.add('active-prev')
@@ -160,7 +160,6 @@ async function handleRouting (location, event) {
       if (!votes) [votes, votesCount] = await fetchVotes()
       render(countryShortTemplate(myVote.nationality), document.querySelector('#my-vote'))
     }
-    document.querySelector('#info').classList.remove('inactive')
   }
   if (active === 'voters' && slug) {
     nav['voters'].classList.add('active')
