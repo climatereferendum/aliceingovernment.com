@@ -55,12 +55,12 @@ function validateForm () {
   // This function deals with validation of the form fields
   const tabs = document.getElementsByClassName('tab')
   let valid = true
-  const currentTabInputs = tabs[currentTab].getElementsByTagName('input')
+  const currentTabInputs = tabs[currentTab].querySelectorAll('input[required]')
   const countrySelect = tabs[currentTab].getElementsByTagName('select')
   // A loop that checks every input field in the current tab:
   for (const field of [...currentTabInputs, ...countrySelect]) {
     // If a field is empty...
-    if (field.value === '') {
+    if (field.value === '' || (field.type === 'checkbox' && field.required && !field.checked)) {
       // add an "invalid" class to the field:
       field.classList.add('invalid')
       // and set the current valid status to false:
