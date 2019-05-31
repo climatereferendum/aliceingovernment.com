@@ -656,6 +656,10 @@ em.index:after {
     background: #3B5998;
 }
 
+textarea {
+    width: 100%;
+}
+
 
 /* The container */
 .container {
