@@ -15,6 +15,7 @@ let active, slug
 let selectedSolutions = []
 let authProviders
 
+const stickyNav = document.querySelector('.sticky-nav')
 const form = document.querySelector('#vote-form')
 renderCountriesDropdown()
 form.addEventListener('submit', (event) => {
@@ -40,7 +41,6 @@ function updateSelectedSolutions (event) {
     selectedSolutions = selectedSolutions.filter(s => s !== event.target.value)
   }
   const solutionElements = document.querySelectorAll('#solutions .project-box')
-  const nav = document.querySelector('.sticky-nav')
   if (selectedSolutions.length === 3) {
     // hide other solutions
     for (const element of solutionElements) {
@@ -49,7 +49,7 @@ function updateSelectedSolutions (event) {
       }
     }
     // show form, hide navigation and footer
-    nav.classList.add('inactive')
+    stickyNav.classList.add('inactive')
     form.classList.remove('inactive')
     form.scrollIntoView(false)
   } else {
@@ -59,7 +59,7 @@ function updateSelectedSolutions (event) {
     }
     // hide form, show navigation and footer
     form.classList.add('inactive')
-    nav.classList.remove('inactive')
+    stickyNav.classList.remove('inactive')
   }
 }
 
@@ -129,6 +129,8 @@ async function handleRouting (location, event) {
   for (const page of pages) {
     page.classList.add('inactive')
   }
+  form.classList.add('inactive')
+  stickyNav.classList.remove('inactive')
   for (const n in nav) {
     nav[n].classList.remove('active')
     nav[n].classList.remove('active-prev')
@@ -145,6 +147,10 @@ async function handleRouting (location, event) {
   if (active === 'solutions' && !slug) {
     nav['voters'].classList.add('active-prev')
     nav['solutions'].classList.add('active')
+    if (selectedSolutions.length === 3) {
+      form.classList.remove('inactive')
+      stickyNav.classList.add('inactive')
+    }
   }
   if (active === 'voters' && !slug) {
     nav['voters'].classList.add('active')
