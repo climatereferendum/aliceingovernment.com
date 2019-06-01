@@ -31,7 +31,7 @@ function handleSubmit (event) {
   for (const key of data.keys()) { (draft[key] = data.get(key)) }
   draft.solution = [...selectedSolutions]
   localStorage.setItem('data', JSON.stringify(draft))
-  window.location = `${SERVICE_URL}${authProviders[event.explicitOriginalTarget.value]}`
+  window.location = `${SERVICE_URL}${authProviders[event.target.auth]}`
 }
 
 function updateSelectedSolutions (event) {
