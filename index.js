@@ -89,7 +89,6 @@ function showVote (vote) {
     // TODO: if savedData should continue with voting
   } else if (myVote.solutions) {
     // already voted
-    showVote()
   } else if (savedData) {
     // vote ready to submit
     myVote.solutions = selectedSolutions
@@ -174,6 +173,9 @@ async function handleRouting (location, event) {
     if (active !== 'voters') return // check again if route didn't change
     renderCountry(country, countryVotes)
     document.querySelector('#country').classList.remove('inactive')
+  }
+  if (active === 'privacy-policy' || active === 'terms-of-service') {
+    stickyNav.classList.add('inactive')
   }
   renderHeader(linkedHeader)
 }
