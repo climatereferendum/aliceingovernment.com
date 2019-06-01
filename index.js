@@ -163,8 +163,7 @@ async function handleRouting (location, event) {
     nav['solutions'].classList.add('active-prev')
     nav['info'].classList.add('active')
     if (myVote && myVote.nationality) {
-      if (!votes) [votes, votesCount] = await fetchVotes()
-      render(countryShortTemplate(myVote.nationality), document.querySelector('#my-vote'))
+      render(countryShortTemplate(myVote.nationality, [myVote]), document.querySelector('#my-vote'))
     }
   }
   if (active === 'voters' && slug) {
@@ -272,21 +271,21 @@ function loadMoreLink (country, countryVotes) {
   }
 }
 
-function countryShortTemplate (country) {
+function countryShortTemplate (countryCode, countryVotes) {
   return html`
     <div class="vertical-line"></div>
     <div class="project-box votes">
       <h2>
-        ${flag(country)}
-        ${countryName(country)}
+        ${flag(countryCode)}
+        ${countryName(countryCode)}
       </h2>
-      <span>${votes[country].length} VOTES</span>
+      <span>${countryVotes.length} VOTES</span>
     </div>
     <div class="project-box solution content">
         <ul>
-          ${votes[country].slice(PREVIEW_VOTES_COUNT * -1).map(voteTemplate)}
+          ${countryVotes.slice(PREVIEW_VOTES_COUNT * -1).map(voteTemplate)}
         </ul>
-        ${loadMoreLink(country, votes[country])}
+        ${loadMoreLink(countryCode, countryVotes)}
     </div>
   `
 }
@@ -296,7 +295,7 @@ function renderVotes (votes) {
     return votes[second].length - votes[first].length
   })
   const listTemplate = html`${
-    orderedCountries.map(countryShortTemplate)
+    orderedCountries.map(countryCode => countryShortTemplate(countryCode, votes[countryCode]))
   }`
   const pageTemplate = html`
     <div class="flex-wrap">
