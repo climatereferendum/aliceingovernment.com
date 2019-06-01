@@ -82,8 +82,12 @@ function validateForm () {
     }
   }
   // If the valid status is true, mark the step as finished and valid:
+  const errorElement = document.querySelector('#error-message')
   if (valid) {
     document.getElementsByClassName('step')[currentTab].classList.add('finish')
+    errorElement.classList.add('inactive')
+  } else {
+    errorElement.classList.remove('inactive')
   }
   return valid // return the valid status
 }
