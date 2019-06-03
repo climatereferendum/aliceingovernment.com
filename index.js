@@ -34,12 +34,29 @@ function handleSubmit (event) {
   window.location = `${SERVICE_URL}${authProviders[event.target.auth]}`
 }
 
+function showForm () {
+  // show form, hide navigation
+  stickyNav.classList.add('inactive')
+  form.classList.remove('inactive')
+  document.querySelector('.sticky-select').classList.add('inactive')
+  form.scrollIntoView(false)
+}
+
+function hideForm () {
+  // hide form, show navigation and footer
+  form.classList.add('inactive')
+  stickyNav.classList.remove('inactive')
+  document.querySelector('.sticky-select').classList.remove('inactive')
+}
+
 function updateSelectedSolutions (event) {
   if (event.target.checked) {
     selectedSolutions.push(event.target.value)
   } else {
     selectedSolutions = selectedSolutions.filter(s => s !== event.target.value)
   }
+  // update select x more counter
+  document.querySelector('.sticky-select span').innerHTML = 3 - selectedSolutions.length
   const solutionElements = document.querySelectorAll('#solutions .project-box')
   if (selectedSolutions.length === 3) {
     // hide other solutions
@@ -48,18 +65,13 @@ function updateSelectedSolutions (event) {
         element.classList.add('inactive')
       }
     }
-    // show form, hide navigation and footer
-    stickyNav.classList.add('inactive')
-    form.classList.remove('inactive')
-    form.scrollIntoView(false)
+    showForm()
   } else {
     // show all solutions
     for (const element of solutionElements) {
       element.classList.remove('inactive')
     }
-    // hide form, show navigation and footer
-    form.classList.add('inactive')
-    stickyNav.classList.remove('inactive')
+    hideForm()
   }
 }
 
@@ -128,8 +140,7 @@ async function handleRouting (location, event) {
   for (const page of pages) {
     page.classList.add('inactive')
   }
-  form.classList.add('inactive')
-  stickyNav.classList.remove('inactive')
+  hideForm()
   for (const n in nav) {
     nav[n].classList.remove('active')
     nav[n].classList.remove('active-prev')
@@ -147,8 +158,7 @@ async function handleRouting (location, event) {
     nav['voters'].classList.add('active-prev')
     nav['solutions'].classList.add('active')
     if (selectedSolutions.length === 3) {
-      form.classList.remove('inactive')
-      stickyNav.classList.add('inactive')
+      showForm()
     }
   }
   if (active === 'voters' && !slug) {
@@ -256,10 +266,10 @@ function renderSolutions (solutions) {
       Please select three (3) by ticking <br>the checkboxes to cast your vote.
     </h2>
     <div class="row" style="max-width: 100vw;">
-      <div class="select-block">SELECT [3 left]</div>
+      <div class="select-block">SELECT 3</div>
     </div>
     <div class="sticky-select">
-      <div>Select [3] more solutions</div>
+      <div>Select <span>3</span> more solutions</div>
     </div>
   `
 
