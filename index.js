@@ -256,7 +256,10 @@ function renderSolutions (solutions) {
       Please select three (3) by ticking <br>the checkboxes to cast your vote.
     </h2>
     <div class="row" style="max-width: 100vw;">
-      <div class="select-block">SELECT</div>
+      <div class="select-block">SELECT [3 left]</div>
+    </div>
+    <div class="sticky-select">
+      <div>Select [3] more solutions</div>
     </div>
   `
 

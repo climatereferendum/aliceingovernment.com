@@ -428,13 +428,21 @@ img.group3{
 .votes{
     background: #000000;
     color: #ffffff;
-    height: 40px;
+    min-height: 40px;
     cursor: pointer;
+    padding-bottom: 0;
 }
 
 .votes h2{
     margin-left: 0;
     font-size: 20px;
+    width: 70%;
+}
+
+@media only screen and (min-width: 481px){
+    .votes h2{
+        width: 100%;
+    }
 }
 
 .votes span{
@@ -729,8 +737,26 @@ transform: rotate(45deg);
 display: block;
 text-align: right;
 width: 100%;
-margin-right: 8%;
+margin-right: 12px;
 margin-bottom: -24px;
+}
+
+@media only screen and (min-width: 481px){
+    .select-block{
+        margin-right: 8%;
+    }
+}
+
+.sticky-select{
+    background: #4366ae;
+    color: #ffffff;
+    position: fixed;
+    bottom: 88px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+    z-index: 100;
 }
 
 .home-vote{
@@ -780,7 +806,8 @@ margin-bottom: -24px;
 .home-icon {
     position: absolute;
     bottom: 20%;
-    left: 30%;
+    left: 50%;
+    margin-left: -100px;
     transform: translate(-50%,-50%);
     width: 80px;
     height: 60px;
