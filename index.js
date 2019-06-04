@@ -11,10 +11,13 @@ const SERVICE_URL = 'https://staging-data.aliceingovernment.com'
 const PREVIEW_VOTES_COUNT = 5
 let solutions
 let votes, votesCount
-let myVote
 let active, slug
 let selectedSolutions = []
 let authProviders
+let myVote
+
+const savedVote = localStorage.getItem('myVote')
+if (savedVote) myVote = JSON.parse(savedVote)
 
 const stickyNav = document.querySelector('.sticky-nav')
 const form = document.querySelector('#vote-form')
@@ -47,7 +50,7 @@ function hideForm () {
   // hide form, show navigation and footer
   form.classList.add('inactive')
   stickyNav.classList.remove('inactive')
-  document.querySelector('.sticky-select').classList.remove('inactive')
+  if (!myVote) document.querySelector('.sticky-select').classList.remove('inactive')
 }
 
 function updateSelectedSolutions (event) {
@@ -81,6 +84,17 @@ function showVote (vote) {
   handleRouting(window.location)
 }
 
+function hideVotingElements () {
+  const votingElements = document.querySelectorAll('.not-voted')
+  for (const votingElement of votingElements) {
+    votingElement.classList.add('inactive')
+  }
+  const checkboxes = document.querySelectorAll('.checkmark')
+  for (const checkbox of checkboxes) {
+    checkbox.classList.add('inactive')
+  }
+}
+
 ;(async () => {
   const solutionsResponse = await fetch(DOC_URL + '&sheet=solutions')
   const solutionsCsv = await solutionsResponse.text()
@@ -102,6 +116,8 @@ function showVote (vote) {
     // TODO: if savedData should continue with voting
   } else if (myVote.solutions) {
     // already voted
+    if (!localStorage.getItem('myVote')) localStorage.setItem('myVote', JSON.stringify(myVote))
+    hideVotingElements()
   } else if (savedData) {
     // vote ready to submit
     myVote.solutions = selectedSolutions
@@ -114,6 +130,7 @@ function showVote (vote) {
     })
     if (castedVoteResponse.ok) {
       console.log('VOTE SUBMISSION SUCCEEDED')
+      hideVotingElements()
       // draft
       localStorage.removeItem('data')
       // re fetch votes
@@ -121,6 +138,10 @@ function showVote (vote) {
       showVote(myVote)
     } else {
       console.log('VOTE SUBMISSION FAILED')
+      if (myVote) {
+        hideVotingElements()
+        showVote(myVote)
+      }
     }
   } else {
     console.log('AUTHENTICATED BUT NO SAVED DATA')
@@ -171,12 +192,13 @@ async function handleRouting (location, event) {
   } else if (!slug) {
     document.querySelector(`#${active}`).classList.remove('inactive')
   }
-  if (active === 'solutions' && !slug) {
+  if (active === 'solutions') {
     nav['voters'].classList.add('active-prev')
     nav['solutions'].classList.add('active')
-    if (selectedSolutions.length === 3) {
+    if (!myVote && selectedSolutions.length === 3) {
       showForm()
     }
+    if (myVote) hideVotingElements()
   }
   if (active === 'voters' && !slug) {
     nav['voters'].classList.add('active')
@@ -281,13 +303,15 @@ function renderSolutions (solutions) {
       Top 30 most effective Solutions<br> 
       to Climate Change as compiled by the <br>
       wonderful team of scientists at <a href="https://www.drawdown.org/" target="_blank">Drawdown</a>. <br>
-      <div class="vertical-line"></div>
-      Please select three (3) by ticking <br>the checkboxes to cast your vote.
+      <div class="vertical-line not-voted"></div>
+      <div class="not-voted">
+        Please select three (3) by ticking <br>the checkboxes to cast your vote.
+      </div>
     </h2>
     <div class="row" style="max-width: 100vw;">
-      <div class="select-block">SELECT 3</div>
+      <div class="select-block not-voted">SELECT 3</div>
     </div>
-    <div class="sticky-select">
+    <div class="sticky-select not-voted">
       <div>Select <span>3</span> more solutions</div>
     </div>
   `
