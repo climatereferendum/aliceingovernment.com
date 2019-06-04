@@ -113,6 +113,9 @@ function hideVotingElements () {
   console.log('savedData:', savedData)
   if (!myVote) {
     // not authenticated
+    if (localStorage.getItem('myVote')) {
+      localStorage.removeItem('myVote')
+    }
     // TODO: if savedData should continue with voting
   } else if (myVote.solutions) {
     // already voted
