@@ -354,7 +354,8 @@ img.group3{
     font-size: 16px;
 }
 
- .project-box span.counter{
+ .project-box span.counter,
+ .project-box span.checkmark{
     position: relative;
     float: right;
     top: -48px;
