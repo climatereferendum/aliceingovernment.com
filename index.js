@@ -328,7 +328,7 @@ function renderSolutions (solutions) {
 
 function loadMoreLink (country, countryVotes) {
   if (countryVotes.length > PREVIEW_VOTES_COUNT) {
-    return html`<a href="/votes/${country.toLowerCase()}"><i>load more ↓</i></a>`
+    return html`<a href="/voters/${country.toLowerCase()}"><i>load more ↓</i></a>`
   }
 }
 
@@ -344,7 +344,7 @@ function countryShortTemplate (countryCode, countryVotes) {
     </div>
     <div class="project-box solution content">
         <ul class="country-votes">
-          ${countryVotes.slice(PREVIEW_VOTES_COUNT * -1).map(voteTemplate)}
+          ${countryVotes.slice(0, PREVIEW_VOTES_COUNT).map(voteTemplate)}
         </ul>
         ${loadMoreLink(countryCode, countryVotes)}
     </div>
