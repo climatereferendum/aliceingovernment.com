@@ -354,7 +354,7 @@ img.group3{
     font-size: 16px;
 }
 
- .project-box span{
+ .project-box span.counter{
     position: relative;
     float: right;
     top: -48px;

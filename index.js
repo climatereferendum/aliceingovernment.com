@@ -2,6 +2,7 @@ import { html, render } from 'lit-html'
 import { installRouter } from './node_modules/pwa-helpers/router.js'
 import csv from 'neat-csv'
 import { flag, name as countryName, countries } from 'country-emoji'
+import shave from 'shave'
 
 const { fetch, localStorage, FormData } = window
 
@@ -133,6 +134,22 @@ const nav = {
   info: document.querySelector('#nav-info')
 }
 
+function shaveOpinions () {
+  shave('.opinion', 75)
+  const countryVotes = document.querySelectorAll('.country-votes')
+
+  for (const country of countryVotes) {
+    country.addEventListener('click', function (event) {
+      const char = event.target.querySelector('.js-shave-char')
+      const text = event.target.querySelector('.js-shave')
+      if (char && text) {
+        char.style.display = 'none'
+        text.style.display = 'inline'
+      }
+    })
+  }
+}
+
 async function handleRouting (location, event) {
   if (event && event.type === 'click') {
     window.scrollTo(0, 0)
@@ -166,6 +183,7 @@ async function handleRouting (location, event) {
     if (!votes) [votes, votesCount] = await fetchVotes()
     if (active !== 'voters') return // check again if route didn't change
     renderVotes(votes)
+    shaveOpinions()
   }
   if (active === 'info') {
     nav['voters'].classList.add('active-prev')
@@ -183,6 +201,7 @@ async function handleRouting (location, event) {
     if (active !== 'voters') return // check again if route didn't change
     renderCountry(country, countryVotes)
     document.querySelector('#country').classList.remove('inactive')
+    shaveOpinions()
   }
   if (active === 'privacy-policy' || active === 'terms-of-service') {
     stickyNav.classList.add('inactive')
@@ -294,10 +313,10 @@ function countryShortTemplate (countryCode, countryVotes) {
         ${flag(countryCode)}
         ${countryName(countryCode)}
       </h2>
-      <span>${countryVotes.length} VOTES</span>
+      <span class="counter">${countryVotes.length} VOTES</span>
     </div>
     <div class="project-box solution content">
-        <ul>
+        <ul class="country-votes">
           ${countryVotes.slice(PREVIEW_VOTES_COUNT * -1).map(voteTemplate)}
         </ul>
         ${loadMoreLink(countryCode, countryVotes)}
@@ -329,9 +348,12 @@ function renderVotes (votes) {
 function voteTemplate (vote) {
   return html`
   <li>
-    <em class="index">${vote.index}</em>
-    <strong>${vote.name}</strong>
-    <em>${vote.description}</em>
+    <div>
+      <em class="index">${vote.index}</em>
+      <strong>${vote.name}</strong>
+      <em>${vote.description}</em>
+    </div>
+    <div class="opinion">${vote.opinion}</div>
   </li>
   `
 }
@@ -343,10 +365,10 @@ function renderCountry (country, countryVotes) {
         ${flag(country)}
         ${countryName(country)}
       </h2>
-      <span>${votes[country].length} VOTES</span>
+      <span class="counter">${votes[country].length} VOTES</span>
     </div>
     <div class="project-box solution">
-      <ul>${countryVotes.map(voteTemplate)}</ul>
+      <ul class="country-votes">${countryVotes.map(voteTemplate)}</ul>
     </div>
   `
   const pageTemplate = html`
