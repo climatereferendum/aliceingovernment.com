@@ -9,6 +9,7 @@ const { fetch, localStorage, FormData } = window
 const DOC_URL = 'https://docs.google.com/spreadsheets/d/1WNDWjJOGeVbOsYaWy3udBnRxFIknO5NpYwToVhH2nGE/gviz/tq?tqx=out:csv'
 const SERVICE_URL = 'https://staging-data.aliceingovernment.com'
 const PREVIEW_VOTES_COUNT = 5
+const SHAVED_HEIGHT = 50
 let solutions
 let votes, votesCount
 let active, slug
@@ -159,7 +160,7 @@ const nav = {
 }
 
 function shaveOpinions () {
-  shave('.opinion', 75)
+  shave('.opinion', SHAVED_HEIGHT)
   const countryVotes = document.querySelectorAll('.country-votes')
 
   for (const country of countryVotes) {
