@@ -303,13 +303,13 @@ function solutionTemplate (solution) {
 
 function renderSolutions (solutions) {
   const solutionsHeader = html`
-    <h2 class="h-boxed" style="margin-bottom: 32px;">To make things easier, here is a list of the<br> 
-      Top 30 most effective Solutions<br> 
-      to Climate Change as compiled by the <br>
-      wonderful team of scientists at <a href="https://www.drawdown.org/" target="_blank">Drawdown</a>. <br>
-      <div class="vertical-line not-voted"></div>
-      <div class="not-voted">
-        Please select three (3) by ticking <br>the checkboxes to cast your vote.
+    <h2 class="h-boxed" style="margin-bottom: 32px; text-align:left"> <u>Select 3 solutions</u> to cast your vote. <br>
+      <br>
+      <div class="not-voted" style="text-align:left">
+      To make things easier, here is a list of the<br> 
+      top 30 most effective solutions<br> 
+      to climate change as compiled by the <br>
+      200+ scientists and academics at <a href="https://www.drawdown.org/" target="_blank">Drawdown</a>. <br>
       </div>
     </h2>
     <div class="row" style="max-width: 100vw;">
@@ -362,10 +362,14 @@ function renderVotes (votes) {
   const pageTemplate = html`
     <div class="flex-wrap">
       <div class="project-box solution">
-        <h3>People defining our global strategy:</h3>
-        Total # of Voters: ${votesCount}
+        <h3>Check out all the people that have voted!</h3>
         <br>
-        Countries: ${Object.keys(votes).length}
+        <u>Total # of Voters</u>: ${votesCount}
+        <br>
+        <u>Countries</u>: ${Object.keys(votes).length}
+        <br>
+        <br>
+        <h3>Most proactive countries:</h3>
       </div>
       ${listTemplate}
     </div>
