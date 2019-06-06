@@ -359,7 +359,7 @@ img.group3{
     position: relative;
     float: right;
     top: -48px;
-    color: #ffffff;
+    color: #000000;
     left: 10px;
     margin-bottom: -24px;
     text-align: center;
@@ -510,16 +510,17 @@ em.index:after {
 .progressbar {
     counter-reset: step;
     width: 100%;
+    
 }
 .progressbar li {
     list-style-type: none;
-    width: 30%;
+    width: 32%;
     float: left;
-    font-size: 12px;
+    font-size: 14px;
     position: relative;
     text-align: center;
     text-transform: uppercase;
-    color: #7d7d7d;
+    color: #000000;
 }
 .progressbar li a{
     padding: 50px 10px;
@@ -528,7 +529,7 @@ em.index:after {
     color: #ffffff;
 }
 .progressbar li a:hover{
-    color: #2699FB;
+    color: rgb(202, 162, 248);
 }
 .progressbar li:before {
     width: 30px;
@@ -545,8 +546,8 @@ em.index:after {
 }
 .progressbar li:hover:before, .progressbar li.active-prev:hover:before{
     color: #ffffff;
-    border-color: rgb(30, 118, 194);
-    background-color: #2699FB;
+    border-color: rgb(202, 162, 248);
+    background-color: rgb(202, 162, 248);
 }
 .progressbar li:after {
     width: 100%;
@@ -562,12 +563,12 @@ em.index:after {
     content: none;
 }
 .progressbar li.active a{
-    color: #2699FB;
+    color: rgb(202, 162, 248);
     font-weight: bold;
 }
 .progressbar li.active:before {
     border-color: rgb(30, 118, 194);
-    background-color: #2699FB;
+    background-color: rgb(202, 162, 248);
     color: #ffffff;
 }
 .progressbar li.active-prev:before {
@@ -749,8 +750,8 @@ margin-bottom: -24px;
 }
 
 .sticky-select{
-    background: #21CF76;
-    color: #ffffff;
+    background: rgb(202, 162, 248);
+    color: #000000;
     position: fixed;
     bottom: 88px;
     max-width: 480px;
