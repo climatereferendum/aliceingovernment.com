@@ -1,16 +1,14 @@
 import { html, render } from 'lit-html'
 import { installRouter } from './node_modules/pwa-helpers/router.js'
-import csv from 'neat-csv'
 import { flag, name as countryName, countries } from 'country-emoji'
 import shave from 'shave'
+import solutions from './solutions'
 
 const { fetch, localStorage, FormData } = window
 
-const DOC_URL = 'https://docs.google.com/spreadsheets/d/1WNDWjJOGeVbOsYaWy3udBnRxFIknO5NpYwToVhH2nGE/gviz/tq?tqx=out:csv'
 const SERVICE_URL = 'https://staging-data.aliceingovernment.com'
 const PREVIEW_VOTES_COUNT = 5
 const SHAVED_HEIGHT = 50
-let solutions
 let votes, votesCount
 let active, slug
 let selectedSolutions = []
@@ -96,10 +94,14 @@ function hideVotingElements () {
   }
 }
 
+const pages = document.querySelectorAll('.page')
+const nav = {
+  solutions: document.querySelector('#nav-solutions'),
+  voters: document.querySelector('#nav-voters'),
+  info: document.querySelector('#nav-info')
+}
+
 ;(async () => {
-  const solutionsResponse = await fetch(DOC_URL + '&sheet=solutions')
-  const solutionsCsv = await solutionsResponse.text()
-  solutions = await csv(solutionsCsv)
   renderSolutions(solutions)
   installRouter(handleRouting)
   const serviceResponse = await fetch(SERVICE_URL, { credentials: 'include' })
@@ -151,13 +153,6 @@ function hideVotingElements () {
     console.log('AUTHENTICATED BUT NO SAVED DATA')
   }
 })()
-
-const pages = document.querySelectorAll('.page')
-const nav = {
-  solutions: document.querySelector('#nav-solutions'),
-  voters: document.querySelector('#nav-voters'),
-  info: document.querySelector('#nav-info')
-}
 
 function shaveOpinions () {
   shave('.opinion', SHAVED_HEIGHT)
