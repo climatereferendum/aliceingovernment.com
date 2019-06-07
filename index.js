@@ -318,6 +318,7 @@ function renderSolutions (solutions) {
   const solutionsTemplate = html`
     ${solutionsHeader}
     ${solutions.map(solutionTemplate)}
+    <img src="img/m/group_1.png" class="group1">
   `
   render(solutionsTemplate, document.querySelector('#solutions'))
 }

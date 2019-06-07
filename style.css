@@ -315,8 +315,8 @@ footer .copyright{
 
 img.group1{
     width: 100px;
-    top: -20px;
-    left: 12%;
+    top: 235px;
+    left: 6%;
     position: absolute;
 }
 
@@ -442,7 +442,7 @@ img.group3{
 
 @media only screen and (min-width: 481px){
     .votes h2{
-        width: 100%;
+        width: 80%;
     }
 }
 
@@ -489,7 +489,7 @@ em.index:after {
     bottom: 0;
     z-index: 100;
     background: #4366AE;
-    padding: 15px 0;
+    padding: 8px 0;
     border-top: 1px solid #333333;
     /** -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
@@ -514,30 +514,32 @@ em.index:after {
 }
 .progressbar li {
     list-style-type: none;
-    width: 32%;
+    width: 30%;
     float: left;
     font-size: 14px;
     position: relative;
     text-align: center;
     text-transform: uppercase;
     color: #000000;
+    font-weight: bold;
 }
 .progressbar li a{
     padding: 50px 10px;
     width: 100px;
     position: relative;
     color: #ffffff;
+    font-weight: bold;
 }
 .progressbar li a:hover{
-    color: rgb(202, 162, 248);
+    color: #2d4a83;
 }
 .progressbar li:before {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     content: counter(step);
     counter-increment: step;
-    line-height: 30px;
-    border: 2px solid #7d7d7d;
+    line-height: 40px;
+    border: 2px solid #5375ba;
     display: block;
     text-align: center;
     margin: 0 auto 10px auto;
@@ -546,16 +548,15 @@ em.index:after {
 }
 .progressbar li:hover:before, .progressbar li.active-prev:hover:before{
     color: #ffffff;
-    border-color: rgb(202, 162, 248);
-    background-color: rgb(202, 162, 248);
+    background-color: #2d4a83;
 }
 .progressbar li:after {
     width: 100%;
     height: 2px;
     content: '';
     position: absolute;
-    background-color: #7d7d7d;
-    top: 15px;
+    background-color: #ffffff;
+    top: 20px;
     left: -50%;
     z-index: -1;
 }
@@ -563,21 +564,21 @@ em.index:after {
     content: none;
 }
 .progressbar li.active a{
-    color: rgb(202, 162, 248);
+    color: #a1befb;
     font-weight: bold;
 }
 .progressbar li.active:before {
-    border-color: rgb(30, 118, 194);
-    background-color: rgb(202, 162, 248);
+    border-color: #5375bb;
+    background-color: #a1befb;
     color: #ffffff;
 }
 .progressbar li.active-prev:before {
-    border-color: #6d6d6d;
-    background-color: #7d7d7d;
+    border-color: #5375bb;
+    background-color: #2d4a83;
     color: #ffffff;
 }
 .progressbar li.active + li:after {
-    background-color: rgb(30, 118, 194);
+    background-color: #ffffff;
 }
 
 
@@ -633,7 +634,7 @@ em.index:after {
 
 /* Mark the steps that are finished and valid: */
 #vote-form .step.finish {
-    background-color: #4CAF50;
+    background-color: #4366AE;
 }
 
 .form-nav button{
@@ -750,7 +751,7 @@ margin-bottom: -24px;
 }
 
 .sticky-select{
-    background: rgb(202, 162, 248);
+    background: #a1befb;
     color: #000000;
     position: fixed;
     bottom: 88px;
@@ -846,4 +847,12 @@ margin-bottom: -24px;
     right: -8px;
     background-color: #000;
     transform: rotate(-45deg);
+}
+
+.my-vote{
+    border: 2px solid #000000;
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+    padding: 8px;
 }
