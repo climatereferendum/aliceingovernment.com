@@ -298,9 +298,12 @@ function solutionTemplate (solution) {
 
 function renderSolutions (solutions) {
   const solutionsHeader = html`
-    <h2 class="h-boxed" style="margin-bottom: 32px; text-align:left"> <u>Select 3 solutions</u> to cast your vote. <br>
+    <h2 class="h-boxed" style="margin-bottom: 32px; text-align:left">
+      <div class="not-voted">
+        <u>Select 3 solutions</u> to cast your vote. <br>
+      </div>
       <br>
-      <div class="not-voted" style="text-align:left">
+      <div style="text-align:left">
       To make things easier, here is a list of the<br> 
       top 30 most effective solutions<br> 
       to climate change as compiled by the <br>
