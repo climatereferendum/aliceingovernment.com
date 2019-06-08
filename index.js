@@ -9,7 +9,6 @@ const { fetch, localStorage, FormData } = window
 const SERVICE_URL = 'https://staging-data.aliceingovernment.com'
 const PREVIEW_VOTES_COUNT = 5
 const SHAVED_HEIGHT = 50
-let votes, votesCount
 let active, slug
 let selectedSolutions = []
 let authProviders
@@ -140,7 +139,6 @@ const nav = {
       // draft
       localStorage.removeItem('data')
       // re fetch votes
-      ;[votes, votesCount] = await fetchVotes()
       showVote(myVote)
     } else {
       console.log('VOTE SUBMISSION FAILED')
@@ -152,22 +150,29 @@ const nav = {
   } else {
     console.log('AUTHENTICATED BUT NO SAVED DATA')
   }
+  const statsResponse = await fetch(`${SERVICE_URL}/stats`, { credentials: 'include' })
+  const stats = await statsResponse.json()
+  const countries = stats.country
+  renderVotes(stats)
+  for await (const country of countries) {
+    await new Promise(resolve => setTimeout(resolve))
+    const element = document.querySelector(`#voters-${country.code}`)
+    render(countryShortTemplate(country), element)
+    shaveOpinions(element)
+  }
 })()
 
-function shaveOpinions () {
-  shave('.opinion', SHAVED_HEIGHT)
-  const countryVotes = document.querySelectorAll('.country-votes')
+function shaveOpinions (element) {
+  shave(element.querySelectorAll('.opinion'), SHAVED_HEIGHT)
 
-  for (const country of countryVotes) {
-    country.addEventListener('click', function (event) {
-      const char = event.target.querySelector('.js-shave-char')
-      const text = event.target.querySelector('.js-shave')
-      if (char && text) {
-        char.style.display = 'none'
-        text.style.display = 'inline'
-      }
-    })
-  }
+  element.addEventListener('click', function (event) {
+    const char = event.target.querySelector('.js-shave-char')
+    const text = event.target.querySelector('.js-shave')
+    if (char && text) {
+      char.style.display = 'none'
+      text.style.display = 'inline'
+    }
+  })
 }
 
 async function handleRouting (location, event) {
@@ -199,55 +204,32 @@ async function handleRouting (location, event) {
     }
     if (myVote) hideVotingElements()
   }
-  if (active === 'voters' && !slug) {
-    nav['voters'].classList.add('active')
-    if (!votes) [votes, votesCount] = await fetchVotes()
-    if (active !== 'voters') return // check again if route didn't change
-    renderVotes(votes)
-    shaveOpinions()
-  }
   if (active === 'info') {
     nav['voters'].classList.add('active-prev')
     nav['solutions'].classList.add('active-prev')
     nav['info'].classList.add('active')
     if (myVote && myVote.nationality) {
-      render(countryShortTemplate(myVote.nationality, [myVote]), document.querySelector('#my-vote'))
+      const template = html`
+        <div class="my-vote">Congratulations on being part of this citizen vote on climate change</div>
+        ${countryShortTemplate({ code: myVote.nationality, vote: [myVote] })}
+      `
+      render(template, document.querySelector('#my-vote'))
     }
   }
   if (active === 'voters' && slug) {
-    nav['voters'].classList.add('active')
-    if (!votes) [votes, votesCount] = await fetchVotes()
-    const country = Object.keys(votes).find(country => country.toLowerCase() === slug)
-    const countryVotes = votes[country]
-    if (active !== 'voters') return // check again if route didn't change
-    renderCountry(country, countryVotes)
-    document.querySelector('#country').classList.remove('inactive')
-    shaveOpinions()
+    // nav['voters'].classList.add('active')
+    // if (!votes) [votes, votesCount] = await fetchVotes()
+    // const country = Object.keys(votes).find(country => country.toLowerCase() === slug)
+    // const countryVotes = votes[country]
+    // if (active !== 'voters') return // check again if route didn't change
+    // renderCountry(country, countryVotes)
+    // document.querySelector('#country').classList.remove('inactive')
+    // shaveOpinions()
   }
   if (active === 'privacy-policy' || active === 'terms-of-service') {
     stickyNav.classList.add('inactive')
   }
   renderHeader(linkedHeader)
-}
-
-async function fetchVotes () {
-  const votesResponse = await window.fetch(SERVICE_URL + '/votes')
-  const votes = await votesResponse.json()
-  const reduced = votes.reduce((acc, vote) => {
-    if (!acc[vote.nationality]) {
-      acc[vote.nationality] = []
-    }
-    acc[vote['nationality']].push(vote)
-    return acc
-  }, {})
-  // add index per country
-  for (const country in reduced) {
-    reduced[country] = reduced[country].map((vote, index) => {
-      return { index: index + 1, ...vote }
-    })
-    reduced[country].reverse()
-  }
-  return [reduced, votes.length]
 }
 
 function renderCountriesDropdown () {
@@ -326,51 +308,45 @@ function renderSolutions (solutions) {
   render(solutionsTemplate, document.querySelector('#solutions'))
 }
 
-function loadMoreLink (country, countryVotes) {
-  if (countryVotes.length > PREVIEW_VOTES_COUNT) {
-    return html`<a href="/voters/${country.toLowerCase()}"><i>load more ↓</i></a>`
+function loadMoreLink (country) {
+  if (country.vote.length > PREVIEW_VOTES_COUNT) {
+    return html`<a href="/voters/${country.code.toLowerCase()}"><i>load more ↓</i></a>`
   }
 }
 
-function countryShortTemplate (countryCode, countryVotes) {
+function countryShortTemplate (country) {
   return html`
     <div class="vertical-line"></div>
     <div class="project-box votes">
       <h2>
-        ${flag(countryCode)}
-        ${countryName(countryCode)}
+        ${flag(country.code)}
+        ${countryName(country.code)}
       </h2>
-      <span class="counter">${countryVotes.length} VOTES</span>
+      <span class="counter">${country.vote.length} VOTES</span>
     </div>
     <div class="project-box solution content">
         <ul class="country-votes">
-          ${countryVotes.slice(0, PREVIEW_VOTES_COUNT).map(voteTemplate)}
+          ${country.vote.map(voteTemplate)}
         </ul>
-        ${loadMoreLink(countryCode, countryVotes)}
+        ${loadMoreLink(country)}
     </div>
   `
 }
 
-function renderVotes (votes) {
-  const orderedCountries = Object.keys(votes).sort((first, second) => {
-    return votes[second].length - votes[first].length
-  })
-  const listTemplate = html`${
-    orderedCountries.map(countryCode => countryShortTemplate(countryCode, votes[countryCode]))
-  }`
+function renderVotes (stats) {
   const pageTemplate = html`
     <div class="flex-wrap">
       <div class="project-box solution">
         <h3>Check out all the people that have voted!</h3>
         <br>
-        <u>Total # of Voters</u>: ${votesCount}
+        <u>Total # of Voters</u>: ${stats.global.count}
         <br>
-        <u>Countries</u>: ${Object.keys(votes).length}
+        <u>Countries</u>: ${stats.country.length}
         <br>
         <br>
         <h3>Most proactive countries:</h3>
       </div>
-      ${listTemplate}
+      ${stats.country.map(c => html`<div id="voters-${c.code}"></div>"`)}
     </div>
   `
   render(pageTemplate, document.querySelector('#voters'))
