@@ -31,7 +31,7 @@ function handleSubmit (event) {
   const data = new FormData(form)
   const draft = {}
   for (const key of data.keys()) { (draft[key] = data.get(key)) }
-  draft.solution = [...selectedSolutions]
+  draft.solutions = [...selectedSolutions]
   localStorage.setItem('data', JSON.stringify(draft))
   window.location = `${SERVICE_URL}${authProviders[event.target.auth]}`
 }
@@ -107,12 +107,10 @@ const nav = {
   const serviceData = await serviceResponse.json()
   authProviders = serviceData.authProviders
   myVote = serviceData.vote
-  console.log('vote:', myVote)
   let savedData = localStorage.getItem('data')
   if (savedData) {
     savedData = JSON.parse(savedData)
   }
-  console.log('savedData:', savedData)
   if (!myVote) {
     // not authenticated
     if (localStorage.getItem('myVote')) {
@@ -125,8 +123,7 @@ const nav = {
     hideVotingElements()
   } else if (savedData) {
     // vote ready to submit
-    myVote.solutions = selectedSolutions
-    Object.assign(myVote, savedData)
+    myVote = Object.assign({}, myVote, savedData)
     const castedVoteResponse = await fetch(myVote.id, {
       method: 'PUT',
       credentials: 'include',
@@ -138,7 +135,8 @@ const nav = {
       hideVotingElements()
       // draft
       localStorage.removeItem('data')
-      // re fetch votes
+      localStorage.setItem('myVote', JSON.stringify(myVote))
+      // show vote
       showVote(myVote)
     } else {
       console.log('VOTE SUBMISSION FAILED')
