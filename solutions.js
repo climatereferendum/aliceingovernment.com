@@ -114,6 +114,12 @@ const solutions = [
     link: 'https://www.drawdown.org/solutions/food/managed-grazing'
   },
   {
+    slug: 'nuclear',
+    rank: '20',
+    name: 'Nuclear',
+    link: 'https://www.drawdown.org/solutions/electricity-generation/nuclear'
+  },
+  {
     slug: 'clean-cookstoves',
     rank: '21',
     name: 'Clean Cookstoves',
@@ -154,6 +160,24 @@ const solutions = [
     rank: '27',
     name: 'District Heating',
     link: 'https://www.drawdown.org/solutions/buildings-and-cities/district-heating'
+  },
+  {
+    slug: 'multistrata-agroforestry',
+    rank: '28',
+    name: 'Multistrata Agroforestry',
+    link: 'https://www.drawdown.org/solutions/food/multistrata-agroforestry'
+  },
+  {
+    slug: 'wave-and-tidal',
+    rank: '29',
+    name: 'Wave and Tidal',
+    link: 'https://www.drawdown.org/solutions/electricity-generation/wave-and-tidal'
+  },
+  {
+    slug: 'methane-digesters-large',
+    rank: '30',
+    name: 'Methane Digesters (Large)',
+    link: 'https://www.drawdown.org/solutions/electricity-generation/methane-digesters-large'
   }
 ]
 
