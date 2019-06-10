@@ -156,7 +156,7 @@ const nav = {
     await new Promise(resolve => setTimeout(resolve))
     const element = document.querySelector(`#voters-${country.code}`)
     render(countryShortTemplate(country), element)
-    shaveOpinions(element)
+    if (active === 'voters' && !slug) shaveOpinions(element)
   }
 })()
 
@@ -193,6 +193,13 @@ async function handleRouting (location, event) {
     linkedHeader = false
   } else if (!slug) {
     document.querySelector(`#${active}`).classList.remove('inactive')
+  }
+  if (active === 'voters' && !slug) {
+    const elements = document.querySelectorAll('#voters .country-votes')
+    for await (const element of elements) {
+      await new Promise(resolve => setTimeout(resolve))
+      shaveOpinions(element)
+    }
   }
   if (active === 'solutions') {
     nav['voters'].classList.add('active-prev')
