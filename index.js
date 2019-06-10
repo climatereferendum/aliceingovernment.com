@@ -10,6 +10,7 @@ const SERVICE_URL = 'https://staging-data.aliceingovernment.com'
 const PREVIEW_VOTES_COUNT = 5
 const SHAVED_HEIGHT = 50
 let active, slug
+const cache = []
 let selectedSolutions = []
 let authProviders
 let myVote
@@ -151,6 +152,7 @@ const nav = {
   const statsResponse = await fetch(`${SERVICE_URL}/stats`, { credentials: 'include' })
   const stats = await statsResponse.json()
   const countries = stats.country
+  document.querySelector('#voters').addEventListener('click', unshave)
   renderVotes(stats)
   for await (const country of countries) {
     await new Promise(resolve => setTimeout(resolve))
@@ -160,17 +162,17 @@ const nav = {
   }
 })()
 
+function unshave (event) {
+  const char = event.target.querySelector('.js-shave-char')
+  const text = event.target.querySelector('.js-shave')
+  if (char && text) {
+    char.style.display = 'none'
+    text.style.display = 'inline'
+  }
+}
+
 function shaveOpinions (element) {
   shave(element.querySelectorAll('.opinion'), SHAVED_HEIGHT)
-
-  element.addEventListener('click', function (event) {
-    const char = event.target.querySelector('.js-shave-char')
-    const text = event.target.querySelector('.js-shave')
-    if (char && text) {
-      char.style.display = 'none'
-      text.style.display = 'inline'
-    }
-  })
 }
 
 async function handleRouting (location, event) {
@@ -222,14 +224,16 @@ async function handleRouting (location, event) {
     }
   }
   if (active === 'voters' && slug) {
-    // nav['voters'].classList.add('active')
-    // if (!votes) [votes, votesCount] = await fetchVotes()
-    // const country = Object.keys(votes).find(country => country.toLowerCase() === slug)
-    // const countryVotes = votes[country]
-    // if (active !== 'voters') return // check again if route didn't change
-    // renderCountry(country, countryVotes)
-    // document.querySelector('#country').classList.remove('inactive')
-    // shaveOpinions()
+    nav['voters'].classList.add('active')
+    let country = cache.find(c => c.code === slug)
+    if (!country) {
+      const countryResponse = await fetch(`${SERVICE_URL}/votes/${slug}`)
+      country = await countryResponse.json()
+      cache.push(country)
+    }
+    if (active !== 'voters') return // check again if route didn't change
+    renderCountry(country)
+    document.querySelector('#country').classList.remove('inactive')
   }
   if (active === 'privacy-policy' || active === 'terms-of-service') {
     stickyNav.classList.add('inactive')
@@ -314,7 +318,7 @@ function renderSolutions (solutions) {
 }
 
 function loadMoreLink (country) {
-  if (country.vote.length > PREVIEW_VOTES_COUNT) {
+  if (country.count > PREVIEW_VOTES_COUNT) {
     return html`<a href="/voters/${country.code.toLowerCase()}"><i>load more ↓</i></a>`
   }
 }
@@ -327,7 +331,7 @@ function countryShortTemplate (country) {
         ${flag(country.code)}
         ${countryName(country.code)}
       </h2>
-      <span class="counter">${country.vote.length} VOTES</span>
+      <span class="counter">${country.count} VOTES</span>
     </div>
     <div class="project-box solution content">
         <ul class="country-votes">
@@ -370,17 +374,17 @@ function voteTemplate (vote) {
   `
 }
 
-function renderCountry (country, countryVotes) {
+function renderCountry (country) {
   const countryTemplate = html`
     <div class="project-box votes">
       <h2>
-        ${flag(country)}
-        ${countryName(country)}
+        ${flag(country.code)}
+        ${countryName(country.code)}
       </h2>
-      <span class="counter">${votes[country].length} VOTES</span>
+      <span class="counter">${country.count} VOTES</span>
     </div>
     <div class="project-box solution">
-      <ul class="country-votes">${countryVotes.map(voteTemplate)}</ul>
+      <ul class="country-votes">${country.vote.map(voteTemplate)}</ul>
     </div>
   `
   const pageTemplate = html`
