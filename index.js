@@ -291,7 +291,7 @@ function renderSolutions (solutions) {
   const solutionsHeader = html`
     <h2 class="h-boxed" style="margin-bottom: 32px; text-align:left">
       <div class="not-voted">
-        <u>Select 3 solutions</u> to cast your vote. <br>
+        <strong>Select 3 solutions</strong> to cast your vote.<br>
       </div>
       <br>
       <div style="text-align:left">
@@ -346,14 +346,14 @@ function renderVotes (stats) {
   const pageTemplate = html`
     <div class="flex-wrap">
       <div class="project-box solution">
-        <h3>Check out all the people that have voted!</h3>
+        <h3>Check out all the people that have voted</h3>
         <br>
-        <u>Total # of Voters</u>: ${stats.global.count}
+        <strong>Total # of Voters</strong>: ---<strong>${stats.global.count}</strong>
         <br>
-        <u>Countries</u>: ${stats.country.length}
+        <strong>Countries</strong>: ---<strong> ${stats.country.length} </strong>
         <br>
         <br>
-        <h3>Most proactive countries:</h3>
+        <strong>Most proactive countries :</strong>
       </div>
       ${stats.country.map(c => html`<div id="voters-${c.code}"></div>"`)}
     </div>
