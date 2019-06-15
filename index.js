@@ -3,10 +3,10 @@ import { installRouter } from './node_modules/pwa-helpers/router.js'
 import { flag, name as countryName, countries } from 'country-emoji'
 import shave from 'shave'
 import solutions from './solutions'
+import config from './config'
 
 const { fetch, localStorage, FormData } = window
 
-const SERVICE_URL = 'https://staging-data.aliceingovernment.com'
 const PREVIEW_VOTES_COUNT = 5
 const SHAVED_HEIGHT = 50
 let active, slug
@@ -34,7 +34,7 @@ function handleSubmit (event) {
   for (const key of data.keys()) { (draft[key] = data.get(key)) }
   draft.solutions = [...selectedSolutions]
   localStorage.setItem('data', JSON.stringify(draft))
-  window.location = `${SERVICE_URL}${authProviders[event.target.auth]}`
+  window.location = `${config.serviceUrl}${authProviders[event.target.auth]}`
 }
 
 function showForm () {
@@ -104,7 +104,7 @@ const nav = {
 ;(async () => {
   renderSolutions(solutions)
   installRouter(handleRouting)
-  const serviceResponse = await fetch(SERVICE_URL, { credentials: 'include' })
+  const serviceResponse = await fetch(config.serviceUrl, { credentials: 'include' })
   const serviceData = await serviceResponse.json()
   authProviders = serviceData.authProviders
   myVote = serviceData.vote
@@ -149,7 +149,7 @@ const nav = {
   } else {
     console.log('AUTHENTICATED BUT NO SAVED DATA')
   }
-  const statsResponse = await fetch(`${SERVICE_URL}/stats`, { credentials: 'include' })
+  const statsResponse = await fetch(`${config.serviceUrl}/stats`, { credentials: 'include' })
   const stats = await statsResponse.json()
   const countries = stats.country
   document.querySelector('#voters').addEventListener('click', unshave)
@@ -227,7 +227,7 @@ async function handleRouting (location, event) {
     nav['voters'].classList.add('active')
     let country = cache.find(c => c.code === slug)
     if (!country) {
-      const countryResponse = await fetch(`${SERVICE_URL}/votes/${slug}`)
+      const countryResponse = await fetch(`${config.serviceUrl}/votes/${slug}`)
       country = await countryResponse.json()
       cache.push(country)
     }
