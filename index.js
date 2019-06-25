@@ -217,7 +217,7 @@ async function handleRouting (location, event) {
     nav['info'].classList.add('active')
     if (myVote && myVote.nationality) {
       const template = html`
-        <div class="my-vote">Congratulations on being part of this citizen vote on climate change</div>
+        <div class="my-vote"><strong>Congratulations on being part of this citizen vote on climate change</strong></div>
         ${countryShortTemplate({ code: myVote.nationality, vote: [myVote] })}
       `
       render(template, document.querySelector('#my-vote'))
@@ -296,7 +296,7 @@ function renderSolutions (solutions) {
       <br>
       <div style="text-align:left">
       To make things easier, here is a list of the<br> 
-      top 30 most effective solutions<br> 
+      top 15 most effective solutions<br> 
       to climate change as compiled by the <br>
       200+ scientists and academics at <a href="https://www.drawdown.org/" target="_blank">Drawdown</a>. <br>
       </div>

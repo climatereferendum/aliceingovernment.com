@@ -34,9 +34,9 @@
       <section id="home" class="page" style="margin-top:-44px;"> 
         
         <div class="part-1">
-            <h2 class="h-boxed" style="text-align:left; font-size: 17px;">Politics are too slow!<br>
+            <h2 class="h-boxed" style="text-align:left; font-size: 17px;"><i>Politics are too slow!</i><br>
                 <br>
-                Why don't we, the citizen's,<br>
+                Why don't we, the citizens,<br>
                 decide how to deal <br> with climate change<br>with this simple 3 step process?</h2>
                 <img style="float: right;" src="img/m/group_1.png" class="home-dance">
         </div>
@@ -190,7 +190,7 @@
                 <div class="row faq">
                     <button class="accordion">1. What can I do in this platform?</button>
                     <div class="panel">
-                        <p style="font-size:14px"><strong>Climate change is too important for us to rely only on governments to fix it.  It is us, the citizens, that should decide how to respond to it. The goal of this platform is for you, me, and people from all over the world, to vote on how <u>we think</u> we should react to climate change.</strong></p>
+                        <p style="font-size:14px"><strong>Climate change is too important for us to rely only on governments to fix it.  It is us, the citizens, that should decide how to respond to it. The goal of this platform is for you, me, and people from all over the world, to vote on how <b>we think</b> we should react to climate change. You can vote <a href="https://aliceingovernment.com/solutions" target="_blank">here</a> </strong></p>
                         <br>
                     </div>
                     
@@ -216,7 +216,7 @@
 
                     <button class="accordion">5. How can I make sure that my vote was registered correctly?</button>
                     <div class="panel">
-                        <p style="font-size:14px"><strong>Here is where Blockchain comes in. To make the story short, public Blockchains are giant databases that don't rely on any single institution and provide tools to register information permanently without the possibility to change it.<br><br> We leverage this technology to show voters that their vote was cast as intended and to achieve a high level of transparency. When there is nothing to hide, Blockchain works best :)</strong></p>
+                        <p style="font-size:14px"><strong>Here is where Blockchain comes in. To make the story short, public Blockchains are giant databases that don't rely on any single institution and provide tools to register information permanently without the possibility to change it.<br><br> We leverage this technology to show voters that their vote was cast as intended and to achieve a high level of transparency. When there is nothing to hide, Blockchain works best. To read more about Blockchain go <a href="https://www.technologyreview.com/s/610833/explainer-what-is-a-blockchain/" target="_blank">here</a></strong></p>
                         <br>
                     </div>
 
@@ -346,7 +346,7 @@
             <li>
                 <h5><b>How do we store your data?</b> </h5>
                 <div>
-                   <p>Alice in Government securely stores your data in a Virtual Private Server hosted by Ecobytes (https://ecobytes.net/).</p>
+                   <p>Alice in Government securely stores your data in Ecobytes servers (https://ecobytes.net/).</p>
                    <p>We take security very seriously and that’s why we encrypt all communication between your browser and Ecobytes servers with the HTTPS protocol. In addition, our system do not save login passwords.   </p>
                    <p>We will keep your data for an undefined amount of time since it is crucial to our service (a voting tool) to always have certainty of which users already participated in order to avoid double-counting. </p>
                 </div>
@@ -481,6 +481,10 @@
                 <div id="nationality" class="tab">Nationality:
                 </div>
 
+                <div class="tab" style="color:#ffffff;"><b>First and Last Name:</b>
+                    <p><input type="text" placeholder="First name + Last name" oninput="this.className = ''" name="name" maxlength="50" required></p>
+                    </div>  
+
                 <div class="tab" style="color:#ffffff;"><b>5 word description of yourself (profession, organization, company, or school):</b>
                     <p><input type="text" placeholder="" oninput="this.className = ''" name="description" maxlength="50"></p>
                     </div>
@@ -489,17 +493,13 @@
                 <p><textarea placeholder="solution" name="opinion" maxlength="500"></textarea></p>
                 </div>
                 
-                <div class="tab" style="color:#ffffff;"><b>First and Last Name:</b>
-                <p><input type="text" placeholder="First name + Last name" oninput="this.className = ''" name="name" maxlength="50" required></p>
-                </div>
-
                 <div class="tab">
                     <p><input type="checkbox" placeholder="" oninput="this.className = ''" name="over18" required> I am over 18 years old </p>
                     <p><input type="checkbox" placeholder="" oninput="this.className = ''" name="accepts" required> I accept the <a href="/privacy-policy" target="_blank" style="color:#ffffff;">Privacy Policy</a> <br> &nbsp;&nbsp;&nbsp; and <a href="/terms-of-service" target="_blank" style="color:#ffffff;">Terms of Servive</a></p>
                     <p><input type="checkbox" placeholder="" oninput="this.className = ''" name="newsletter"> Newsletter/once or twice a month (optional)</p>
                 </div>
                 
-                <div class="tab">I will authenticate with
+                <div class="tab" style="color:#ffffff;"><b>Prove you are human filthy Robot</b>
                     <p style="margin-top: 12px;"><label class="google-auth"><button type="submit" onclick="this.form.auth=this.value" value="google" ><i class="fa fa-google" style="font-size:18px"></i> Sign in with Google</button></label></p>
                     <p><label class="facebook-auth"><button type="submit" onclick="this.form.auth=this.value" value="facebook" ><i class="fa fa-facebook" style="font-size:18px"></i> Sign in with Facebook</button></label></p>
                 </div>
