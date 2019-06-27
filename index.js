@@ -163,8 +163,12 @@ const nav = {
 })()
 
 function unshave (event) {
-  const char = event.target.querySelector('.js-shave-char')
-  const text = event.target.querySelector('.js-shave')
+  let element = event.target
+  if (element.classList.contains('js-shave-char')) {
+    element = element.parentElement
+  }
+  const char = element.querySelector('.js-shave-char')
+  const text = element.querySelector('.js-shave')
   if (char && text) {
     char.style.display = 'none'
     text.style.display = 'inline'
