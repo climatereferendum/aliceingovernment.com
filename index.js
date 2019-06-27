@@ -245,7 +245,7 @@ function renderCountriesDropdown () {
   const template = html`
     <p><select name="nationality" onchange="this.className = ''">
         <option value=''>Select country</option>
-      ${Object.keys(countries).map(code => html`
+      ${Object.keys(countries).sort((first, second) => countries[first] > countries[second]).map(code => html`
         <option value="${code.toLowerCase()}">${countries[code]} ${flag(code)}</option>
       `)}
     </select></p>
