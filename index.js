@@ -136,6 +136,9 @@ const nav = {
       hideVotingElements()
       // draft
       localStorage.removeItem('data')
+      const serviceResponse = await fetch(config.serviceUrl, { credentials: 'include' })
+      const serviceData = await serviceResponse.json()
+      myVote = serviceData.vote
       localStorage.setItem('myVote', JSON.stringify(myVote))
       // show vote
       showVote(myVote)
@@ -221,7 +224,7 @@ async function handleRouting (location, event) {
     nav['info'].classList.add('active')
     if (myVote && myVote.nationality) {
       const template = html`
-        <div class="my-vote"><strong>Congratulations on being part of this citizen vote on climate change</strong></div>
+        <div class="my-vote">Congratulations, you are voter # <strong>${myVote.index}</strong> from <strong>${countryName(myVote.nationality)}</strong></div>
         ${countryShortTemplate({ code: myVote.nationality, vote: [myVote] })}
       `
       render(template, document.querySelector('#my-vote'))
