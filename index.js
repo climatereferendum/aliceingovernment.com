@@ -291,12 +291,12 @@ function renderSolutions (solutions) {
   const solutionsHeader = html`
     <h2 class="h-boxed" style="margin-bottom: 32px; text-align:left">
       <div class="not-voted">
-        <strong>Select 3 solutions</strong> to cast your vote.<br>
+        <strong>SELECT 3 solutions</strong> to cast your vote.<br>
       </div>
       <br>
       <div style="text-align:left">
-      To make things easier, here is a list of the<br> 
-      top 15 most effective solutions<br> 
+      <strong>From most effective to least effective</strong><br> 
+      here are the top 15 solutions<br> 
       to climate change as compiled by the <br>
       200+ scientists and academics at <a href="https://www.drawdown.org/" target="_blank">Drawdown</a>. <br>
       </div>
@@ -331,7 +331,7 @@ function countryShortTemplate (country) {
         ${flag(country.code)}
         ${countryName(country.code)}
       </h2>
-      <span class="counter">${country.count} VOTES</span>
+      <span class="counter">${country.count} Votes</span>
     </div>
     <div class="project-box solution content">
         <ul class="country-votes">
@@ -346,14 +346,13 @@ function renderVotes (stats) {
   const pageTemplate = html`
     <div class="flex-wrap">
       <div class="project-box solution">
-        <h3>Check out all the people that have voted</h3>
+        <h3>The goal of this platform is for you, us, and people from all over the world to vote on a citizen strategy against climate change </h3>
         <br>
+        <br>
+        <h3>Before voting (step 2) check out what other people have said:</h3>
         <strong>Total # of Voters</strong>: ---<strong>${stats.global.count}</strong>
-        <br>
         <strong>Countries</strong>: ---<strong> ${stats.country.length} </strong>
         <br>
-        <br>
-        <strong>Most proactive countries :</strong>
       </div>
       ${stats.country.map(c => html`<div id="voters-${c.code}"></div>"`)}
     </div>
