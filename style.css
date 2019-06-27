@@ -427,11 +427,6 @@ img.group3{
     text-align: right;
 }
 
-.flex-wrap {
-    display: flex;
-    flex-wrap: wrap;
-}
-
 .votes{
     background: #000000;
     color: #ffffff;

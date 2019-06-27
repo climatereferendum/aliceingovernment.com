@@ -344,13 +344,14 @@ function countryShortTemplate (country) {
 
 function renderVotes (stats) {
   const pageTemplate = html`
-    <div class="flex-wrap">
+    <div>
       <div class="project-box solution">
         <h3>The goal of this platform is for you, us, and people from all over the world to vote on a citizen strategy against climate change </h3>
         <br>
         <br>
         <h3>Before voting (step 2) check out what other people have said:</h3>
         <strong>Total # of Voters</strong>: ---<strong>${stats.global.count}</strong>
+        <br>
         <strong>Countries</strong>: ---<strong> ${stats.country.length} </strong>
         <br>
       </div>
@@ -387,7 +388,7 @@ function renderCountry (country) {
     </div>
   `
   const pageTemplate = html`
-    <div class="flex-wrap">
+    <div>
       ${countryTemplate}
     </div>
   `
