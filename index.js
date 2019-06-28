@@ -281,16 +281,17 @@ function solutionTemplate (solution) {
     <div class="project-box col-xs-6" data-rank=${solution.rank}>
       <a href="${solution.link}" target="drawdown">
       <h4>Solution #${solution.rank}</h4>
-      <h3>${solution.name}</h3></a>
+      <h3>${solution.name}</h3>
+      <span><i>-- read more</i></span>
+      </a>
       <label class="container">
         <input
           type="checkbox"
           name="solution-${solution.rank}"
           value="${solution.rank}"
-          @change="${updateSelectedSolutions}"
-          >
-        <span class="checkmark"></span>
-      </label> 
+          @change="${updateSelectedSolutions}">
+        <span class="checkmark"><span>VOTE</span></span>
+      </label>      
     </div>
   `
 }

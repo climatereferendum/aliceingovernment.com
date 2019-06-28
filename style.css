@@ -383,7 +383,14 @@ img.group3{
     text-align: center;
     padding: 0 4px;
     border: 1px solid #000000;
-} 
+}
+
+.project-box span.checkmark span{
+    position: absolute;
+    top: -20px;
+    left: 5px;
+    font-size: 10px;
+}
 
 .project-box b {
     margin-right: 1em;
@@ -423,8 +430,8 @@ img.group3{
 }
 
 .info-box, .info-box h3 {
-    color: var(--dark-font-color);
-    line-height: 1.35rem;
+    color: #444444;
+    line-height: 1.45rem;
     font-size: 17px;
 }
 
@@ -626,6 +633,22 @@ em.index:after {
     left: -50%;
     z-index: -1;
 }
+
+.sticky-nav .progressbar li span{
+    left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(255, 255, 255, 0);
+	border-left-color: #ffffff;
+	border-width: 10px;
+	margin-top: -25px;
+}
+
 .progressbar li:first-child:after {
     content: none;
 }
