@@ -203,6 +203,7 @@ async function handleRouting (location, event) {
   } else if (!slug) {
     document.querySelector(`#${active}`).classList.remove('inactive')
   }
+  renderHeader(linkedHeader)
   if (active === 'voters' && !slug) {
     const elements = document.querySelectorAll('#voters .country-votes')
     for await (const element of elements) {
@@ -224,7 +225,8 @@ async function handleRouting (location, event) {
     nav['info'].classList.add('active')
     if (myVote && myVote.nationality) {
       const template = html`
-        <div class="my-vote">Congratulations, you are voter # <strong>${myVote.index}</strong> from <strong>${countryName(myVote.nationality)}</strong></div>
+        <div class="my-vote info-box">Congratulations, you are voter # <strong>${myVote.index}</strong> from <strong>${countryName(myVote.nationality)}</strong></div>
+        <div class="vertical-line-small"></div>
         ${countryShortTemplate({ code: myVote.nationality, vote: [myVote] })}
       `
       render(template, document.querySelector('#my-vote'))
@@ -245,7 +247,6 @@ async function handleRouting (location, event) {
   if (active === 'privacy-policy' || active === 'terms-of-service') {
     stickyNav.classList.add('inactive')
   }
-  renderHeader(linkedHeader)
 }
 
 function renderCountriesDropdown () {
@@ -262,7 +263,7 @@ function renderCountriesDropdown () {
 
 function renderHeader (linked = true) {
   let headerTemplate = html`
-    <img src="/img/logo.png">
+    Alice in Government
   `
   if (linked) {
     headerTemplate = html`
@@ -296,18 +297,18 @@ function solutionTemplate (solution) {
 
 function renderSolutions (solutions) {
   const solutionsHeader = html`
-    <h2 class="h-boxed" style="margin-bottom: 32px; text-align:left">
-      <div class="not-voted">
+      <div class="vertical-line-small not-voted"></div>
+      <div class="info-box not-voted">
         <strong>SELECT 3 solutions</strong> to cast your vote.<br>
       </div>
-      <br>
-      <div style="text-align:left">
-      <strong>From most effective to least effective</strong><br> 
-      here are the top 15 solutions<br> 
-      to climate change as compiled by the <br>
-      200+ scientists and academics at <a href="https://www.drawdown.org/" target="_blank">Drawdown</a>. <br>
+      <div class="vertical-line-small"></div>
+      <div class="info-box">
+        <strong>From most effective to least effective</strong><br> 
+        here are the top 15 solutions<br> 
+        to climate change as compiled by the <br>
+        200+ scientists and academics at <a href="https://www.drawdown.org/" target="_blank">Drawdown</a>. <br>
       </div>
-    </h2>
+      <div class="vertical-line-small"></div>
     <div class="row" style="max-width: 100vw;">
       <div class="select-block not-voted">SELECT 3</div>
     </div>
@@ -319,7 +320,6 @@ function renderSolutions (solutions) {
   const solutionsTemplate = html`
     ${solutionsHeader}
     ${solutions.map(solutionTemplate)}
-    <img src="img/m/group_1.png" class="group1">
   `
   render(solutionsTemplate, document.querySelector('#solutions'))
 }
@@ -332,7 +332,6 @@ function loadMoreLink (country) {
 
 function countryShortTemplate (country) {
   return html`
-    <div class="vertical-line"></div>
     <div class="project-box votes">
       <h2>
         ${flag(country.code)}
@@ -346,23 +345,26 @@ function countryShortTemplate (country) {
         </ul>
         ${loadMoreLink(country)}
     </div>
+    <div class="vertical-line"></div>
   `
 }
 
 function renderVotes (stats) {
   const pageTemplate = html`
     <div>
-      <div class="project-box solution">
-        <h3>The goal of this platform is for you, us, and people from all over the world to vote on a citizen strategy against climate change </h3>
-        <br>
-        <br>
+      <div class="vertical-line-small"></div>
+      <div class="project-box solution info-box">
+        <h3><strong>The goal of this platform</strong> is for you, us, and people from all over the world, to vote on a citizen strategy against climate change </h3>
+      </div>
+      <div class="vertical-line-small"></div>
+      <div class="project-box solution info-box">
         <h3>Before voting (step 2) check out what other people have said:</h3>
         <strong>Total # of Voters</strong>: ---<strong>${stats.global.count}</strong>
         <br>
         <strong>Countries</strong>: ---<strong> ${stats.country.length} </strong>
-        <br>
       </div>
-      ${stats.country.map(c => html`<div id="voters-${c.code}"></div>"`)}
+      <div class="vertical-line-small"></div>
+      ${stats.country.map(c => html`<div id="voters-${c.code}"></div>`)}
     </div>
   `
   render(pageTemplate, document.querySelector('#voters'))
