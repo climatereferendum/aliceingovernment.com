@@ -17,6 +17,139 @@
     src: url(../fonts/gotham/Gotham-Light.otf);
 }
 
+:root {
+    --blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc3545;--orange:#fd7e14;--yellow:#ffc107;--green:#28a745;--teal:#20c997;--cyan:#17a2b8;--white:#fff;--gray:#6c757d;--gray-dark:#343a40;--primary:#007bff;--secondary:#6c757d;--success:#28a745;--info:#17a2b8;--warning:#ffc107;--danger:#dc3545;--light:#f8f9fa;--dark:#343a40;--breakpoint-xs:0;--breakpoint-sm:576px;--breakpoint-md:768px;--breakpoint-lg:992px;--breakpoint-xl:1200px;--font-family-sans-serif:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";--font-family-monospace:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+
+*,::after,::before {
+    box-sizing: border-box
+}
+
+article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section {
+    display: block
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible
+}
+
+h1,h2,h3,h4,h5,h6 {
+    margin-top: 0;
+    margin-bottom: .5rem
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem
+}
+
+dl,ol,ul {
+    margin-top: 0;
+    margin-bottom: 1rem
+}
+
+b,strong {
+    font-weight: bolder
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline
+}
+
+img {
+    vertical-align: middle;
+    border-style: none
+}
+
+label {
+    display: inline-block;
+    margin-bottom: .5rem
+}
+
+button {
+    border-radius: 0
+}
+
+button,input,optgroup,select,textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit
+}
+
+button,input {
+    overflow: visible
+}
+
+button,select {
+    text-transform: none
+}
+
+[type=reset],[type=submit],button,html [type=button] {
+    -webkit-appearance: button
+}
+
+input[type=checkbox],input[type=radio] {
+    box-sizing: border-box;
+    padding: 0
+}
+
+.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6 {
+    margin-bottom: .5rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    color: inherit
+}
+
+.h1,h1 {
+    font-size: 2.5rem
+}
+
+.h2,h2 {
+    font-size: 2rem
+}
+
+.h3,h3 {
+    font-size: 1.75rem
+}
+
+.h4,h4 {
+    font-size: 1.5rem
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1)
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto
+}
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px
+}
 
 body {
     --light-color: #fff;
@@ -26,6 +159,7 @@ body {
     font-family: 'gothamlight', sans-serif;
     background-color: var(--light-color);
     color: var(--light-color);
+    margin: 0;
 }
 
 a{
@@ -566,7 +700,7 @@ em.index:after {
     bottom: 0;
     z-index: 100;
     background: var(--dark-color);
-    padding: 1rem 0 1.5rem;
+    padding: 1.5rem 0 1.5rem;
 }
 
 .social-media a{
@@ -646,7 +780,7 @@ em.index:after {
 	border-color: rgba(255, 255, 255, 0);
 	border-left-color: #ffffff;
 	border-width: 10px;
-	margin-top: -25px;
+	margin-top: -22px;
 }
 
 .progressbar li:first-child:after {
