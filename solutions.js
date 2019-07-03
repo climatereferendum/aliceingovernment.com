@@ -30,9 +30,9 @@ const solutions = [
     link: 'https://www.drawdown.org/solutions/land-use/tropical-forests'
   },
   {
-    slug: 'educating-girls',
+    slug: 'girls-education',
     rank: '6',
-    name: 'Educating Girls',
+    name: 'Girls Education',
     link: 'https://www.drawdown.org/solutions/women-and-girls/educating-girls'
   },
   {
