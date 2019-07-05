@@ -177,6 +177,8 @@ a:hover{
 
 .img-responsive { 
     width:100%;
+    max-width: 150px;
+    max-height: 150px;
 }
 
 
@@ -458,9 +460,13 @@ footer .copyright{
     left: 77.5%;
 }
 
+#home > div {
+    width: 100%;
+}
+
 img.home-dance{
     display: block;
-    width: 66.6%;
+    width: 318px;
     margin: 2em auto;
 }
 
