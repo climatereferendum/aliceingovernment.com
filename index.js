@@ -294,16 +294,23 @@ function solutionTemplate (solution) {
 
 function renderSolutions (solutions) {
   const solutionsHeader = html`
-      <div class="vertical-line-small not-voted"></div>
-      <div class="info-box not-voted">
-        <strong>SELECT 3 solutions</strong> to cast your vote.<br>
+      <div class="vertical-line-small"></div>
+      <div class="info-box">
+        <strong>We people are ready</strong>, more than ready, to decide our own future without waiting for governments
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box">
-        <strong>From most effective to least effective</strong><br> 
-        here are the top 15 solutions<br> 
-        to climate change as compiled by the <br>
-        200+ scientists and academics at <a href="https://www.drawdown.org/" target="_blank">Drawdown</a>. <br>
+        <strong>Your opinion can change things</strong>, and by each of us selecting 3 solutions to climate change,
+        we can create a simple, yet powerful strategy chosen by people all over the world
+      </div>
+      <div class="vertical-line-small"></div>
+      <div class="info-box">
+        Thanks to the 200+ scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank">Drawdown</a>,
+        we are aware of the climate solutions with the biggest impact, here are the Top 15 by rank:
+      </div>
+      <div class="vertical-line-small not-voted"></div>
+      <div class="info-box not-voted">
+        <strong>SELECT 3 solutions</strong> to cast your vote.<br>
       </div>
       <div class="vertical-line-small"></div>
     <div class="row" style="max-width: 100vw;">
@@ -351,11 +358,7 @@ function renderVotes (stats) {
     <div>
       <div class="vertical-line-small"></div>
       <div class="project-box solution info-box">
-        <h3><strong>The goal of this platform</strong> is for you, us, and people from all over the world, to vote on a citizen strategy against climate change </h3>
-      </div>
-      <div class="vertical-line-small"></div>
-      <div class="project-box solution info-box">
-        <h3>Before voting (step 2) check out what other people have said:</h3>
+        <h3>Check out what other voters have said:</h3>
         <strong>Total # of Voters</strong>: ---<strong>${stats.global.count}</strong>
         <br>
         <strong>Countries</strong>: ---<strong> ${stats.country.length} </strong>
