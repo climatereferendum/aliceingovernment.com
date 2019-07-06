@@ -122,6 +122,9 @@ const nav = {
     // already voted
     if (!localStorage.getItem('myVote')) localStorage.setItem('myVote', JSON.stringify(myVote))
     hideVotingElements()
+    if (myVote.newsletter === 'on') {
+      document.querySelector('#newsletter').classList.add('inactive')
+    }
   } else if (savedData) {
     // vote ready to submit
     myVote = Object.assign({}, myVote, savedData)
