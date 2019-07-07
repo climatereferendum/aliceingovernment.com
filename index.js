@@ -296,17 +296,21 @@ function renderSolutions (solutions) {
   const solutionsHeader = html`
       <div class="vertical-line-small"></div>
       <div class="info-box">
-        <strong>We people are ready</strong>, more than ready, to decide our own future without waiting for governments
+        We are curious about what would happen if people from around the world designed a concrete strategy against climate change
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box">
-        <strong>Your opinion can change things</strong>, and by each of us selecting 3 solutions to climate change,
+        In the Internet. Without institutions.
+      </div>
+      <div class="vertical-line-small"></div>
+      <div class="info-box">
+        Your opinion can change things, and by each of us selecting 3 solutions to climate change,
         we can create a simple, yet powerful strategy chosen by people all over the world
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box">
         Thanks to the 200+ scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank">Drawdown</a>,
-        we are aware of the climate solutions with the biggest impact, here are the Top 15 by rank:
+        we can share with you the climate solutions with the biggest impact, here are the Top 15 by rank:
       </div>
       <div class="vertical-line-small not-voted"></div>
       <div class="info-box not-voted">
