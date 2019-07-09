@@ -296,28 +296,27 @@ function renderSolutions (solutions) {
   const solutionsHeader = html`
       <div class="vertical-line-small"></div>
       <div class="info-box">
-        We are curious about what would happen if people from around the world designed a concrete action plan against climate change
+        We are curious about what would happen if people from around the world designed a <strong>concrete action plan</strong> against climate change
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box">
         In the Internet. <br> Without institutions.
       </div>
       <div class="vote-dance">
-      <img src="img/m/Monito_3.png">
-      <img src="img/m/Monito_1.png">
+      <img src="img/m/group_1.png" style="width:21em; height:10em;">
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box">
-        Your opinion can change things, and by each of us selecting 3 solutions to climate change,
-        we can create a simple, yet powerful strategy chosen by the people
+        Your opinion can change things, and by each of us <strong>selecting 3 solutions to climate change</strong>,
+        we can create a simple, yet powerful strategy chosen by people
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box">
         Thanks to the 200+ scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank">Drawdown</a>,
-        we can share with you a list of the climate solutions with the biggest impact, here are the Top 15 by rank:
+        we can share with you a list of the <strong>climate solutions with the biggest impact</strong>, here are the Top 15 by rank:
       </div>
       <div class="vertical-line-small not-voted"></div>
-      <div class="info-box not-voted">
+      <div class="info-box not-voted" style="text-align:center">
         <strong>SELECT 3</strong> 
       </div>
       <div class="vertical-line-small"></div>
