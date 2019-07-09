@@ -417,6 +417,7 @@ img.home-dance{
     color: var(--dark-font-color);
     line-height: 1.35rem;
     font-size: 17px;
+    font-weight: 200;
 }
 
 .info-box strong {
