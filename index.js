@@ -294,16 +294,30 @@ function solutionTemplate (solution) {
 
 function renderSolutions (solutions) {
   const solutionsHeader = html`
-      <div class="vertical-line-small not-voted"></div>
-      <div class="info-box not-voted">
-        <strong>SELECT 3 solutions</strong> to cast your vote.<br>
+      <div class="vertical-line-small"></div>
+      <div class="info-box">
+        We are curious about what would happen if people from around the world designed a <strong>concrete action plan</strong> against climate change
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box">
-        <strong>From most effective to least effective</strong><br> 
-        here are the top 15 solutions<br> 
-        to climate change as compiled by the <br>
-        200+ scientists and academics at <a href="https://www.drawdown.org/" target="_blank">Drawdown</a>. <br>
+        In the Internet. <br> Without institutions.
+      </div>
+      <div class="vote-dance">
+      <img src="img/m/group_1.png" style="width:21em; height:10em;">
+      </div>
+      <div class="vertical-line-small"></div>
+      <div class="info-box">
+        Your opinion can change things, and by each of us <strong>selecting 3 solutions to climate change</strong>,
+        we can create a simple, yet powerful strategy chosen by people
+      </div>
+      <div class="vertical-line-small"></div>
+      <div class="info-box">
+        Thanks to the 200+ scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank">Drawdown</a>,
+        we can share with you a list of the <strong>climate solutions with the biggest impact</strong>, here are the Top 15 by rank:
+      </div>
+      <div class="vertical-line-small not-voted"></div>
+      <div class="info-box not-voted" style="text-align:center">
+        <strong>SELECT 3</strong> 
       </div>
       <div class="vertical-line-small"></div>
     <div class="row" style="max-width: 100vw;">
@@ -351,11 +365,7 @@ function renderVotes (stats) {
     <div>
       <div class="vertical-line-small"></div>
       <div class="project-box solution info-box">
-        <h3><strong>The goal of this platform</strong> is for you, us, and people from all over the world, to vote on a citizen strategy against climate change </h3>
-      </div>
-      <div class="vertical-line-small"></div>
-      <div class="project-box solution info-box">
-        <h3>Before voting (step 2) check out what other people have said:</h3>
+        <h3>Check out what other voters have said:</h3>
         <strong>Total # of Voters</strong>: ---<strong>${stats.global.count}</strong>
         <br>
         <strong>Countries</strong>: ---<strong> ${stats.country.length} </strong>
