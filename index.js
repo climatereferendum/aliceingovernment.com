@@ -60,7 +60,7 @@ function updateSelectedSolutions (event) {
   }
   // update select x more counter
   document.querySelector('.sticky-select span').innerHTML = 3 - selectedSolutions.length
-  const solutionElements = document.querySelectorAll('#solutions .project-box')
+  const solutionElements = document.querySelectorAll('#vote .project-box')
   if (selectedSolutions.length === 3) {
     // hide other solutions
     for (const element of solutionElements) {
@@ -91,7 +91,7 @@ function hideVotingElements () {
 
 const pages = document.querySelectorAll('.page')
 const nav = {
-  solutions: document.querySelector('#nav-solutions'),
+  vote: document.querySelector('#nav-vote'),
   voters: document.querySelector('#nav-voters'),
   info: document.querySelector('#nav-info')
 }
@@ -150,6 +150,8 @@ const nav = {
   const countries = stats.country
   document.querySelector('#voters').addEventListener('click', unshave)
   renderVotes(stats)
+  handleRouting(window.location)
+  if (myVote) hideVotingElements()
   for await (const country of countries) {
     await new Promise(resolve => setTimeout(resolve))
     const element = document.querySelector(`#voters-${country.code}`)
@@ -198,37 +200,41 @@ async function handleRouting (location, event) {
   }
   renderHeader(linkedHeader)
   if (active === 'voters' && !slug) {
-    const elements = document.querySelectorAll('#voters .country-votes')
-    for await (const element of elements) {
-      await new Promise(resolve => setTimeout(resolve))
-      shaveOpinions(element)
-    }
-  }
-  if (active === 'solutions') {
-    nav['voters'].classList.add('active-prev')
-    nav['solutions'].classList.add('active')
-    if (!myVote && selectedSolutions.length === 3) {
-      showForm()
-    }
-    if (myVote) hideVotingElements()
-  }
-  if (active === 'info') {
-    nav['voters'].classList.add('active-prev')
-    nav['solutions'].classList.add('active-prev')
-    nav['info'].classList.add('active')
+    nav['vote'].classList.add('active-prev')
+    nav['voters'].classList.add('active')
     if (myVote && myVote.nationality) {
       const template = html`
         <div class="my-vote info-box">Congratulations, you are voter # <strong>${myVote.index}</strong> from <strong>${countryName(myVote.nationality)}</strong></div>
         <div class="vertical-line-small"></div>
         ${countryShortTemplate({ code: myVote.nationality, vote: [myVote] })}
       `
-      render(template, document.querySelector('#my-vote'))
+      if (document.querySelector('#my-vote')) {
+        render(template, document.querySelector('#my-vote'))
+      }
     }
+    const elements = document.querySelectorAll('#voters .country-votes')
+    for await (const element of elements) {
+      await new Promise(resolve => setTimeout(resolve))
+      shaveOpinions(element)
+    }
+  }
+  if (active === 'vote') {
+    nav['vote'].classList.add('active')
+    if (!myVote && selectedSolutions.length === 3) {
+      showForm()
+    }
+    if (myVote) hideVotingElements()
+  }
+  if (active === 'info') {
+    nav['vote'].classList.add('active-prev')
+    nav['voters'].classList.add('active-prev')
+    nav['info'].classList.add('active')
     if (myVote && myVote.newsletter === 'on') {
       document.querySelector('#newsletter').classList.add('inactive')
     }
   }
   if (active === 'voters' && slug) {
+    nav['vote'].classList.add('active-prev')
     nav['voters'].classList.add('active')
     let country = cache.find(c => c.code === slug)
     if (!country) {
@@ -332,7 +338,7 @@ function renderSolutions (solutions) {
     ${solutionsHeader}
     ${solutions.map(solutionTemplate)}
   `
-  render(solutionsTemplate, document.querySelector('#solutions'))
+  render(solutionsTemplate, document.querySelector('#vote'))
 }
 
 function loadMoreLink (country) {
@@ -364,6 +370,8 @@ function renderVotes (stats) {
   const pageTemplate = html`
     <div>
       <div class="vertical-line-small"></div>
+      <div id="my-vote"></div>
+      <div class="vertical-line-small not-voted"></div>
       <div class="project-box solution info-box">
         <h3>Check out what other voters have said:</h3>
         <strong>Total # of Voters</strong>: ---<strong>${stats.global.count}</strong>
