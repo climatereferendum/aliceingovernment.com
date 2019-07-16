@@ -308,9 +308,7 @@ function renderSolutions (solutions) {
       <div class="info-box">
         In the Internet. <br> Without institutions.
       </div>
-      <div class="vote-dance">
-      <img src="img/m/group_1.png" style="width:21em; height:10em;">
-      </div>
+      
       <div class="vertical-line-small"></div>
       <div class="info-box">
         Your opinion can change things, and by each of us <strong>selecting 3 solutions to climate change</strong>,
