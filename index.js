@@ -368,7 +368,6 @@ function renderVotes (stats) {
     <div>
       <div class="vertical-line-small"></div>
       <div id="my-vote"></div>
-      <div class="vertical-line-small not-voted"></div>
       <div class="project-box solution info-box">
         <h3>Check out what other voters have said:</h3>
         <strong>Total # of Voters</strong>: ---<strong>${stats.global.count}</strong>
