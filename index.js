@@ -315,7 +315,7 @@ function renderSolutions (solutions) {
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box">
-        Thanks to the 200+ scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank">Drawdown</a>,
+        Thanks to the 200+ scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank"><u>Drawdown</u></a>,
         we can share with you a list of the <strong>climate solutions with the biggest impact</strong>, here are the Top 15 by effectiveness:
       </div>
       <div class="vertical-line-small not-voted"></div>
