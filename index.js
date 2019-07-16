@@ -305,10 +305,9 @@ function renderSolutions (solutions) {
         We are curious about what would happen if people from around the world designed a <strong>concrete action plan</strong> against climate change
       </div>
       <div class="vertical-line-small"></div>
-      <div class="info-box">
-        In the Internet. <br> Without institutions.
+      <div class="info-box" style="text-align:center">
+        Over the Internet. <br> Without institutions.
       </div>
-      
       <div class="vertical-line-small"></div>
       <div class="info-box">
         Your opinion can change things, and by each of us <strong>selecting 3 solutions to climate change</strong>,
@@ -317,7 +316,7 @@ function renderSolutions (solutions) {
       <div class="vertical-line-small"></div>
       <div class="info-box">
         Thanks to the 200+ scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank">Drawdown</a>,
-        we can share with you a list of the <strong>climate solutions with the biggest impact</strong>, here are the Top 15 by rank:
+        we can share with you a list of the <strong>climate solutions with the biggest impact</strong>, here are the Top 15 by effectiveness:
       </div>
       <div class="vertical-line-small not-voted"></div>
       <div class="info-box not-voted" style="text-align:center">
