@@ -302,7 +302,7 @@ function renderSolutions (solutions) {
   const solutionsHeader = html`
       <div class="vertical-line-small"></div>
       <div class="info-box">
-        We are curious about what would happen if people from around the world designed a <strong>concrete action plan</strong> against climate change
+        If our voices and opinions remain excluded from the global debate, we'll just have to include them ourselves.
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box" style="text-align:center">
@@ -310,13 +310,8 @@ function renderSolutions (solutions) {
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box">
-        Your opinion can change things, and by each of us <strong>selecting 3 solutions to climate change</strong>,
-        we can create a simple, yet powerful strategy chosen by people
-      </div>
-      <div class="vertical-line-small"></div>
-      <div class="info-box">
         Thanks to the 200+ scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank"><u>Drawdown</u></a>,
-        we can share with you a list of the <strong>climate solutions with the biggest impact</strong>, here are the Top 15 by effectiveness:
+        we can share with you a list of the <strong>climate solutions with the biggest impact</strong>, here are the Top 15 in order:
       </div>
       <div class="vertical-line-small not-voted"></div>
       <div class="info-box not-voted" style="text-align:center">
