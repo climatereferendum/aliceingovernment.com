@@ -302,7 +302,7 @@ function renderSolutions (solutions) {
   const solutionsHeader = html`
       <div class="vertical-line-small"></div>
       <div class="info-box">
-        If our voices and opinions remain excluded from the global debate, we'll just have to include them ourselves.
+        If our voices remain excluded from the global debate, we have no choice but to include them ourselves.
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box" style="text-align:center">
@@ -310,8 +310,8 @@ function renderSolutions (solutions) {
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box">
-        Thanks to the 200+ scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank"><u>Drawdown</u></a>,
-        we can share with you a list of the <strong>climate solutions with the biggest impact</strong>, here are the Top 15 in order:
+        Thanks to the 200+ scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank"><u><i>Drawdown</i></u></a>,
+        we can share with you a list of <strong>climate solutions with the biggest impact</strong>. Here are the top 15 in order:
       </div>
       <div class="vertical-line-small not-voted"></div>
       <div class="info-box not-voted" style="text-align:center">
