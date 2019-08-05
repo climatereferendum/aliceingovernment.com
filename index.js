@@ -305,7 +305,7 @@ function renderSolutions (solutions) {
         If our voices remain excluded from the global debate, we have no choice but to include them ourselves.
       </div>
       <div class="vertical-line-small"></div>
-      <div class="info-box" style="text-align:center">
+      <div class="info-box info-box-short" style="text-align:center">
         Over the Internet. <br> Without institutions.
       </div>
       <div class="vertical-line-small"></div>
@@ -314,7 +314,7 @@ function renderSolutions (solutions) {
         we can share with you a list of <strong>climate solutions with the biggest impact</strong>. Here are the top 15 in order:
       </div>
       <div class="vertical-line-small not-voted"></div>
-      <div class="info-box not-voted" style="text-align:center">
+      <div class="info-box info-box-short not-voted" style="text-align:center">
         <strong>SELECT 3</strong> 
       </div>
       <div class="vertical-line-small"></div>

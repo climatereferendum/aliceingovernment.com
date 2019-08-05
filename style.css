@@ -460,6 +460,11 @@ img.home-dance{
     margin: 0 auto;
 }
 
+.page .info-box-short {
+    width: 60%;
+    margin: 0 auto;
+}
+
 .solution, .votes {
     width: 100%;
     min-height: 60px;
@@ -568,7 +573,7 @@ em.index:after {
     border-radius: 50%;
     background-color: white;
 }
-.progressbar li:hover:before, .progressbar li.active-prev:hover:before{
+.progressbar li:hover:before, .progressbar li.active-prev:hover:before, #start:hover {
     color: #ffffff;
     background-color: #2d4a83;
 }
@@ -928,3 +933,16 @@ margin-bottom: -24px;
     content: "\f266"
 }
 
+#start {
+    display: block;
+    width: 30%;
+    margin: 1rem auto 0;
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    background-color: white;
+    border: 2px solid #5375ba;
+    line-height: 40px;
+    border-radius: 1rem;
+    text-transform: uppercase;
+}
