@@ -234,9 +234,8 @@ h2.h-boxed {
 }
 
 #home {
-   display: flex;
-   align-items: center; 
-   height: calc(100vh - 3em - var(--sticky-nav-height))
+    padding-top: 1rem;
+    height: calc(100vh - 3em - var(--sticky-nav-height))
 }
 
 .part-2{
@@ -366,6 +365,12 @@ img.home-dance{
     display: block;
     width: 318px;
     margin: 2em auto;
+}
+
+@media only screen and (max-height: 650px) {
+    img.home-dance{
+        display: none;
+    }
 }
 
 .vote-dance{
