@@ -367,7 +367,7 @@ img.home-dance{
     margin: 2em auto;
 }
 
-@media only screen and (max-height: 650px) {
+@media only screen and (max-height: 600px) {
     img.home-dance{
         display: none;
     }
