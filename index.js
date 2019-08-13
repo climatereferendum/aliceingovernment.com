@@ -9,6 +9,10 @@ const { fetch, localStorage, FormData } = window
 
 const PREVIEW_VOTES_COUNT = 5
 const SHAVED_HEIGHT = 50
+const EXCLUDED_COUNTRY_CODES = ['EU']
+const countryCodes = Object.keys(countries)
+  .filter(code => !EXCLUDED_COUNTRY_CODES.includes(code))
+  .sort((first, second) => countryName(first) < countryName(second) ? -1 : 1)
 let active, slug
 const cache = []
 let selectedSolutions = []
@@ -255,8 +259,8 @@ function renderCountriesDropdown () {
   const template = html`
     <p><select name="nationality" onchange="this.className = ''">
         <option value=''>Select country</option>
-      ${Object.keys(countries).sort((first, second) => countries[first] > countries[second]).map(code => html`
-        <option value="${code.toLowerCase()}">${countries[code]} ${flag(code)}</option>
+      ${countryCodes.map(code => html`
+        <option value="${code.toLowerCase()}">${countryName(code)} ${flag(code)}</option>
       `)}
     </select></p>
   `
