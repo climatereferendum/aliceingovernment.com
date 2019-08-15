@@ -314,12 +314,12 @@ function renderSolutions (solutions) {
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box">
-        Thanks to the 200+ scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank"><u><i>Drawdown</i></u></a>,
-        we can share with you a list of <strong>climate solutions with the biggest impact</strong>. Here are the top 15 in order:
+        Scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank"><u><i>Drawdown</i></u></a> -over 200 of them-
+        have ranked the top 15 climate change solutions <strong>in order of greatest impact</strong>.
       </div>
       <div class="vertical-line-small not-voted"></div>
       <div class="info-box info-box-short not-voted" style="text-align:center">
-        <strong>SELECT 3</strong> 
+        <strong>Select 3</strong> solutions that you want your country to implement
       </div>
       <div class="vertical-line-small"></div>
     <div class="row" style="max-width: 100vw;">
