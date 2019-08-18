@@ -416,6 +416,10 @@ img.home-dance{
     border: 1px solid #000000;
 }
 
+.project-box span.counter {
+    top: -34px;
+    padding: 2px 4px;
+}
 .project-box span.checkmark span{
     position: absolute;
     top: -20px;
@@ -487,7 +491,8 @@ img.home-dance{
     color: #ffffff;
     min-height: 40px;
     cursor: pointer;
-    padding-bottom: 0;
+    padding-bottom: 2px;
+    padding-top: 12px;
 }
 
 .votes h2{
