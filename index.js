@@ -305,21 +305,23 @@ function solutionTemplate (solution) {
 function renderSolutions (solutions) {
   const solutionsHeader = html`
       <div class="vertical-line-small"></div>
-      <div class="info-box">
-        If our voices remain excluded from the global debate, we have no choice but to include them ourselves.
+      <div class="info-box" style="text-align:center">
+      Nothing seems to work when it comes to changing politics 
+      and that's why we created this platform, so that those making decisions are everyday citizens.
       </div>
       <div class="vertical-line-small"></div>
       <div class="info-box info-box-short" style="text-align:center">
         Over the Internet. <br> Without institutions.
       </div>
       <div class="vertical-line-small"></div>
-      <div class="info-box">
-        Scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank"><u><i>Drawdown</i></u></a> -over 200 of them-
+      <div class="info-box" style="text-align:center">
+        Scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank"><u><i>Project Drawdown</i></u></a> -over 200 of them-
         have ranked the top 15 climate change solutions <strong>in order of greatest impact</strong>.
       </div>
       <div class="vertical-line-small not-voted"></div>
-      <div class="info-box info-box-short not-voted" style="text-align:center">
-        <strong>Select 3</strong> solutions that you want your country to implement
+      <div class="info-box info-box-medium not-voted" style="text-align:center">
+        <strong>By selecting 3 solutions</strong>,<br>
+        we can reach a citizen consensus <br> on climate change priorities.
       </div>
       <div class="vertical-line-small"></div>
     <div class="row" style="max-width: 100vw;">

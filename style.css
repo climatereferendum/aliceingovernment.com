@@ -234,7 +234,7 @@ h2.h-boxed {
 }
 
 #home {
-    padding-top: 1rem;
+    padding-top: 1.7rem;
     height: calc(100vh - 3em - var(--sticky-nav-height))
 }
 
@@ -367,7 +367,7 @@ img.home-dance{
     margin: 2em auto;
 }
 
-@media only screen and (max-height: 600px) {
+@media only screen and (max-height: 500px) {
     img.home-dance{
         display: none;
     }
@@ -465,12 +465,17 @@ img.home-dance{
 }
 
 .page .info-box {
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
 }
 
 .page .info-box-short {
-    width: 60%;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.page .info-box-medium {
+    width: 65%;
     margin: 0 auto;
 }
 
