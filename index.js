@@ -5,7 +5,7 @@ import shave from 'shave'
 import solutions from './solutions'
 import config from './config'
 
-const { fetch, localStorage, FormData } = window
+const { fetch, FormData } = window
 
 const PREVIEW_VOTES_COUNT = 5
 const SHAVED_HEIGHT = 50
@@ -14,13 +14,9 @@ const countryCodes = Object.keys(countries)
   .filter(code => !EXCLUDED_COUNTRY_CODES.includes(code))
   .sort((first, second) => countryName(first) < countryName(second) ? -1 : 1)
 let active, slug
+let myVote
 const cache = []
 let selectedSolutions = []
-let authProviders
-let myVote
-
-const savedVote = localStorage.getItem('myVote')
-if (savedVote) myVote = JSON.parse(savedVote)
 
 const stickyNav = document.querySelector('.sticky-nav')
 const form = document.querySelector('#vote-form')
@@ -32,13 +28,34 @@ form.addEventListener('submit', (event) => {
   return false
 })
 
-function handleSubmit (event) {
+async function handleSubmit (event) {
+  document.querySelector('button[type=submit]').classList.add('inactive')
+  document.querySelector('#prevBtn').classList.add('inactive')
+  document.querySelector('#submitting').classList.remove('inactive')
   const data = new FormData(form)
   const draft = {}
   for (const key of data.keys()) { (draft[key] = data.get(key)) }
   draft.solutions = [...selectedSolutions]
-  localStorage.setItem('data', JSON.stringify(draft))
-  window.location = `${config.serviceUrl}${authProviders[event.target.auth]}`
+  // vote ready to submit
+  const castedVoteResponse = await fetch(config.serviceUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(draft)
+  })
+  document.querySelector('#submitting').classList.add('inactive')
+  if (castedVoteResponse.ok) {
+    console.log('VOTE SUBMISSION SUCCEEDED')
+    document.querySelector('button[type=submit]').classList.add('inactive')
+    document.querySelector('#please-confirm').classList.remove('inactive')
+  } else {
+    console.log('VOTE SUBMISSION FAILED')
+    document.querySelector('#prevBtn').classList.remove('inactive')
+    document.querySelector('button[type=submit]').classList.remove('inactive')
+    // if status 409 - vote for that email exists
+    if (castedVoteResponse.status === 409) {
+      document.querySelector('#vote-exists').classList.remove('inactive')
+    }
+  }
 }
 
 function showForm () {
@@ -53,7 +70,7 @@ function hideForm () {
   // hide form, show navigation and footer
   form.classList.add('inactive')
   stickyNav.classList.remove('inactive')
-  if (!myVote) document.querySelector('.sticky-select').classList.remove('inactive')
+  document.querySelector('.sticky-select').classList.remove('inactive')
 }
 
 function updateSelectedSolutions (event) {
@@ -82,17 +99,6 @@ function updateSelectedSolutions (event) {
   }
 }
 
-function hideVotingElements () {
-  const votingElements = document.querySelectorAll('.not-voted')
-  for (const votingElement of votingElements) {
-    votingElement.classList.add('inactive')
-  }
-  const checkboxes = document.querySelectorAll('.checkmark')
-  for (const checkbox of checkboxes) {
-    checkbox.classList.add('inactive')
-  }
-}
-
 const pages = document.querySelectorAll('.page')
 const nav = {
   vote: document.querySelector('#nav-vote'),
@@ -103,64 +109,24 @@ const nav = {
 ;(async () => {
   renderSolutions(solutions)
   installRouter(handleRouting)
-  const serviceResponse = await fetch(config.serviceUrl, { credentials: 'include' })
-  const serviceData = await serviceResponse.json()
-  authProviders = serviceData.authProviders
-  myVote = serviceData.vote
-  let savedData = localStorage.getItem('data')
-  if (savedData) {
-    savedData = JSON.parse(savedData)
-  }
-  if (!myVote) {
-    // not authenticated
-    if (localStorage.getItem('myVote')) {
-      localStorage.removeItem('myVote')
+  if (window.location.pathname.split('/')[1] === 'voters') {
+    const myVoteId = window.location.pathname.split('/')[2]
+    if (myVoteId) {
+      const myVoteResponse = await fetch(`${config.serviceUrl}/votes/${myVoteId}`)
+      myVote = await myVoteResponse.json()
     }
-    // TODO: if savedData should continue with voting
-  } else if (myVote.solutions) {
-    // already voted
-    if (!localStorage.getItem('myVote')) localStorage.setItem('myVote', JSON.stringify(myVote))
-    hideVotingElements()
-  } else if (savedData) {
-    // vote ready to submit
-    myVote = Object.assign({}, myVote, savedData)
-    const castedVoteResponse = await fetch(myVote.id, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(myVote)
-    })
-    if (castedVoteResponse.ok) {
-      console.log('VOTE SUBMISSION SUCCEEDED')
-      hideVotingElements()
-      // draft
-      localStorage.removeItem('data')
-      const serviceResponse = await fetch(config.serviceUrl, { credentials: 'include' })
-      const serviceData = await serviceResponse.json()
-      myVote = serviceData.vote
-      localStorage.setItem('myVote', JSON.stringify(myVote))
-      handleRouting(window.location)
-    } else {
-      console.log('VOTE SUBMISSION FAILED')
-      if (myVote) {
-        hideVotingElements()
-      }
-    }
-  } else {
-    console.log('AUTHENTICATED BUT NO SAVED DATA')
   }
-  const statsResponse = await fetch(`${config.serviceUrl}/stats`, { credentials: 'include' })
+  const statsResponse = await fetch(`${config.serviceUrl}`, { credentials: 'include' })
   const stats = await statsResponse.json()
   const countries = stats.country
   document.querySelector('#voters').addEventListener('click', unshave)
   renderVotes(stats)
   handleRouting(window.location)
-  if (myVote) hideVotingElements()
   for await (const country of countries) {
     await new Promise(resolve => setTimeout(resolve))
     const element = document.querySelector(`#voters-${country.code}`)
     render(countryShortTemplate(country), element)
-    if (active === 'voters' && !slug) shaveOpinions(element)
+    if (active === 'voters') shaveOpinions(element)
   }
 })()
 
@@ -199,14 +165,14 @@ async function handleRouting (location, event) {
   if (active === '') {
     document.querySelector('#home').classList.remove('inactive')
     linkedHeader = false
-  } else if (!slug) {
+  } else {
     document.querySelector(`#${active}`).classList.remove('inactive')
   }
   renderHeader(linkedHeader)
-  if (active === 'voters' && !slug) {
+  if (active === 'voters') {
     nav['vote'].classList.add('active-prev')
     nav['voters'].classList.add('active')
-    if (myVote && myVote.nationality) {
+    if (slug) {
       const template = html`
         <div class="my-vote info-box">Congratulations, you are voter # <strong>${myVote.index}</strong> from <strong>${countryName(myVote.nationality)}</strong></div>
         <div class="vertical-line-small"></div>
@@ -214,6 +180,10 @@ async function handleRouting (location, event) {
       `
       if (document.querySelector('#my-vote')) {
         render(template, document.querySelector('#my-vote'))
+      }
+    } else {
+      if (document.querySelector('#my-vote')) {
+        document.querySelector('#my-vote').classList.add('inactive')
       }
     }
     const elements = document.querySelectorAll('#voters .country-votes')
@@ -224,29 +194,25 @@ async function handleRouting (location, event) {
   }
   if (active === 'vote') {
     nav['vote'].classList.add('active')
-    if (!myVote && selectedSolutions.length === 3) {
+    if (selectedSolutions.length === 3) {
       showForm()
     }
-    if (myVote) hideVotingElements()
   }
   if (active === 'info') {
     nav['vote'].classList.add('active-prev')
     nav['voters'].classList.add('active-prev')
     nav['info'].classList.add('active')
-    if (myVote && myVote.newsletter === 'on') {
-      document.querySelector('#newsletter').classList.add('inactive')
-    }
   }
-  if (active === 'voters' && slug) {
+  if (active === 'countries' && slug) {
     nav['vote'].classList.add('active-prev')
     nav['voters'].classList.add('active')
     let country = cache.find(c => c.code === slug)
     if (!country) {
-      const countryResponse = await fetch(`${config.serviceUrl}/votes/${slug}`)
+      const countryResponse = await fetch(`${config.serviceUrl}/countries/${slug}`)
       country = await countryResponse.json()
       cache.push(country)
     }
-    if (active !== 'voters') return // check again if route didn't change
+    if (active !== 'countries') return // check again if route didn't change
     renderCountry(country)
     document.querySelector('#country').classList.remove('inactive')
   }
@@ -341,7 +307,7 @@ function renderSolutions (solutions) {
 
 function loadMoreLink (country) {
   if (country.count > PREVIEW_VOTES_COUNT) {
-    return html`<a href="/voters/${country.code.toLowerCase()}"><i>load more ↓</i></a>`
+    return html`<a href="/countries/${country.code.toLowerCase()}"><i>load more ↓</i></a>`
   }
 }
 

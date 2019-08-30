@@ -40,7 +40,7 @@
                 <a id="start" href="/vote">
                     Start
                 </a>
-                <img src="img/monitos bien.png" class="home-dance">
+                <img src="/img/monitos bien.png" class="home-dance">
         </div>
 
       </section>
@@ -130,7 +130,7 @@
             <div class="part-2">
                 <div class="row">
                     <div class="profile">
-                        <img src="img/seb.jpg" class="img-responsive">
+                        <img src="/img/seb.jpg" class="img-responsive">
 
                         <div class="profile-box">
                             <h3>Sebastian Romero</h3>
@@ -142,7 +142,7 @@
                         </div>
                     </div>
                     <div class="profile">
-                        <img src="img/mariapaula.jpg" class="img-responsive">
+                        <img src="/img/mariapaula.jpg" class="img-responsive">
 
                         <div class="profile-box">
                             <h3>Maria Paula Fidalgo </h3>
@@ -154,7 +154,7 @@
                         </div>
                     </div>
                     <div class="profile">
-                        <img src="img/elf.jpg" class="img-responsive">
+                        <img src="/img/elf.jpg" class="img-responsive">
 
                         <div class="profile-box">
                             <h3>elf Pavlik</h3>
@@ -166,7 +166,7 @@
                         </div>
                     </div>
                     <div class="profile">
-                        <img src="img/alice.jpg" class="img-responsive">
+                        <img src="/img/alice.jpg" class="img-responsive">
 
                         <div class="profile-box">
                             <h3>Ali Stevens</h3>
@@ -177,7 +177,7 @@
                         </div>
                     </div>
                     <div class="profile">
-                        <img src="img/esp.jpg" class="img-responsive">
+                        <img src="/img/esp.jpg" class="img-responsive">
 
                         <div class="profile-box">
 
@@ -436,7 +436,7 @@
       </section>
       <section id="vote" class="page inactive"></section>
       <section id="voters" class="page inactive"></section>
-      <section id="country" class="page inactive"></section>
+      <section id="countries" class="page inactive"></section>
 
          <div>
             <form id="vote-form" class="inactive">
@@ -454,7 +454,7 @@
 
                 <div class="tab" style="color:#ffffff;"><b>What is your profession and/or organization?</b>
                     <p><input type="text" placeholder="" oninput="this.className = ''" name="description" maxlength="50"></p>
-                    </div>
+                </div>
 
                 <div class="tab" style="color:#ffffff;"><b>Bonus question (optional) Everyone talks about climate change but there is not enough action, what's missing?</b>
                 <p><textarea placeholder="solution" name="opinion" maxlength="500"></textarea></p>
@@ -465,10 +465,16 @@
                     <p><input type="checkbox" placeholder="" oninput="this.className = ''" name="I accept privacy policy and terms of service" required> I accept the <a href="/privacy-policy" target="_blank" style="color:#ffffff;"><u>Privacy Policy</u></a> <br> &nbsp;&nbsp;&nbsp; and <a href="/terms-of-service" target="_blank" style="color:#ffffff;"><u>Terms of Service</u></a></p>
                     <p><input type="checkbox" placeholder="" oninput="this.className = ''" name="newsletter"> Newsletter/once or twice a month (optional)</p>
                 </div>
+
+                <div class="tab" style="color:#ffffff;"><b>Email where we can send you link to confirm your vote?</b>
+                    <p><input type="text" placeholder="" oninput="this.className = ''" name="email" maxlength="50" required></p>
+                </div>
                 
-                <div class="tab" style="color:#ffffff;"><br><b>Prove you are human filthy robot</b>
-                    <p style="margin-top: 12px;"><label class="google-auth"><button type="submit" onclick="this.form.auth=this.value" value="google" ><i class="fa fa-google" style="font-size:18px"></i> Sign in with Google</button></label></p>
-                    <p><label class="facebook-auth"><button type="submit" onclick="this.form.auth=this.value" value="facebook" ><i class="fa fa-facebook" style="font-size:18px"></i> Sign in with Facebook</button></label></p>
+                <div class="tab" style="color:#ffffff;">
+                    <p style="margin-top: 12px;"><label class="google-auth"><button type="submit"><i class="fa fa-google" style="font-size:18px"></i> Submit</button></label></p>
+                    <p id="submitting" class="inactive">Submitting...</p>
+                    <p id="please-confirm" class="inactive">Please check your inbox for email with confirmation link (you can close this browser tab).</p>
+                    <p id="vote-exists" class="inactive">We already have vote for this email address, please search your inbox for permalink to your vote.</p>
                 </div>
 
                 <div style="overflow:auto;">
@@ -480,6 +486,7 @@
                 </div>
 
                 <div style="text-align:center;margin-top:40px;">
+                    <span class="step"></span>
                     <span class="step"></span>
                     <span class="step"></span>
                     <span class="step"></span>

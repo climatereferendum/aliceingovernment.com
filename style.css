@@ -456,7 +456,7 @@ img.home-dance{
     font-weight: 900;
 }
 
-#voters, #vote, #info, #country {
+#voters, #vote, #info, #countries {
     padding-bottom: var(--sticky-nav-height);
 }
 
