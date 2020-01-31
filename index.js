@@ -18,7 +18,6 @@ let myVote
 const cache = []
 let selectedSolutions = []
 
-const stickyNav = document.querySelector('.sticky-nav')
 const form = document.querySelector('#vote-form')
 renderCountriesDropdown()
 form.addEventListener('submit', (event) => {
@@ -59,18 +58,14 @@ async function handleSubmit (event) {
 }
 
 function showForm () {
-  // show form, hide navigation
-  stickyNav.classList.add('inactive')
+  // show form
   form.classList.remove('inactive')
-  document.querySelector('.sticky-select').classList.add('inactive')
   form.scrollIntoView(false)
 }
 
 function hideForm () {
-  // hide form, show navigation and footer
+  // hide form, show footer
   form.classList.add('inactive')
-  stickyNav.classList.remove('inactive')
-  document.querySelector('.sticky-select').classList.remove('inactive')
 }
 
 function updateSelectedSolutions (event) {
@@ -80,7 +75,7 @@ function updateSelectedSolutions (event) {
     selectedSolutions = selectedSolutions.filter(s => s !== event.target.value)
   }
   // update select x more counter
-  document.querySelector('.sticky-select span').innerHTML = 3 - selectedSolutions.length
+  // document.querySelector('.sticky-select span').innerHTML = 3 - selectedSolutions.length
   const solutionElements = document.querySelectorAll('#vote .project-box')
   if (selectedSolutions.length === 3) {
     // hide other solutions
@@ -100,11 +95,6 @@ function updateSelectedSolutions (event) {
 }
 
 const pages = document.querySelectorAll('.page')
-const nav = {
-  vote: document.querySelector('#nav-vote'),
-  voters: document.querySelector('#nav-voters'),
-  info: document.querySelector('#nav-info')
-}
 
 ;(async () => {
   renderSolutions(solutions)
@@ -151,14 +141,7 @@ async function handleRouting (location, event) {
   if (event && event.type === 'click') {
     window.scrollTo(0, 0)
   }
-  for (const page of pages) {
-    page.classList.add('inactive')
-  }
   hideForm()
-  for (const n in nav) {
-    nav[n].classList.remove('active')
-    nav[n].classList.remove('active-prev')
-  }
   active = location.pathname.split('/')[1]
   slug = location.pathname.split('/')[2]
   let linkedHeader = true
@@ -170,8 +153,6 @@ async function handleRouting (location, event) {
   }
   renderHeader(linkedHeader)
   if (active === 'voters') {
-    nav['vote'].classList.add('active-prev')
-    nav['voters'].classList.add('active')
     if (slug) {
       const template = html`
         <div class="my-vote info-box">Congratulations, you are voter # <strong>${myVote.index}</strong> from <strong>${countryName(myVote.nationality)}</strong></div>
@@ -193,19 +174,11 @@ async function handleRouting (location, event) {
     }
   }
   if (active === 'vote') {
-    nav['vote'].classList.add('active')
     if (selectedSolutions.length === 3) {
       showForm()
     }
   }
-  if (active === 'info') {
-    nav['vote'].classList.add('active-prev')
-    nav['voters'].classList.add('active-prev')
-    nav['info'].classList.add('active')
-  }
   if (active === 'countries' && slug) {
-    nav['vote'].classList.add('active-prev')
-    nav['voters'].classList.add('active')
     let country = cache.find(c => c.code === slug)
     if (!country) {
       const countryResponse = await fetch(`${config.serviceUrl}/countries/${slug}`)
@@ -215,9 +188,6 @@ async function handleRouting (location, event) {
     if (active !== 'countries') return // check again if route didn't change
     renderCountry(country)
     document.querySelector('#country').classList.remove('inactive')
-  }
-  if (active === 'privacy-policy' || active === 'terms-of-service') {
-    stickyNav.classList.add('inactive')
   }
 }
 
@@ -251,7 +221,7 @@ function renderHeader (linked = true) {
 function solutionTemplate (solution) {
   return html`
     <div class="project-box col-xs-6" data-rank=${solution.rank}>
-      <a href="${solution.link}" target="drawdown">
+      <a href="${solution.link}" target="_blank">
       <h4>Solution #${solution.rank}</h4>
       <h3>${solution.name}</h3>
       <span><i>-- read more</i></span>
@@ -290,12 +260,12 @@ function renderSolutions (solutions) {
         we can reach a citizen consensus <br> on climate change priorities.
       </div>
       <div class="vertical-line-small"></div>
-    <div class="row" style="max-width: 100vw;">
+    <!-- <div class="row" style="max-width: 100vw;">
       <div class="select-block not-voted">SELECT 3</div>
     </div>
     <div class="sticky-select not-voted">
       <div>Select <span>3</span> more solutions</div>
-    </div>
+    </div> -->
   `
 
   const solutionsTemplate = html`

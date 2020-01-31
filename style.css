@@ -148,7 +148,6 @@ body {
     --light-color: #fff;
     --dark-color: #5154ae;
     --dark-font-color: #212529;
-    --sticky-nav-height: 111px;
     font-family: 'gothamlight', sans-serif;
     background-color: var(--light-color);
     color: var(--light-color);
@@ -235,7 +234,6 @@ h2.h-boxed {
 
 #home {
     padding-top: 1.7rem;
-    height: calc(100vh - 3em - var(--sticky-nav-height))
 }
 
 .part-2{
@@ -427,10 +425,6 @@ img.home-dance{
     font-size: 10px;
 }
 
-#voters, #vote, #info {
-    padding-bottom: var(--sticky-nav-height);
-}
-
 #vote, #info {
     background-color: var(--light-color);
 }
@@ -454,10 +448,6 @@ img.home-dance{
     line-height: 1.7rem;
     font-size: 16px;
     font-weight: 900;
-}
-
-#voters, #vote, #info, #countries {
-    padding-bottom: var(--sticky-nav-height);
 }
 
 #vote {
@@ -534,111 +524,9 @@ em.index:after {
     list-style: none;
 }
 
-.sticky-nav {
-    width: 100%;
-    max-width: 478px; 
-    display: block;
-    position: fixed;
-    bottom: 0;
-    z-index: 100;
-    background: var(--dark-color);
-    padding: 1.5rem 0 1.5rem;
-}
-
 .social-media a{
     color: #2699FB;
 }
-
-.progressbar {
-    counter-reset: step;
-    width: 100%;
-    
-}
-.progressbar li {
-    list-style-type: none;
-    width: 30%;
-    float: left;
-    font-size: 14px;
-    position: relative;
-    text-align: center;
-    text-transform: uppercase;
-    color: #000000;
-    font-weight: bold;
-}
-.progressbar li a{
-    padding: 50px 10px;
-    width: 100px;
-    position: relative;
-    color: #ffffff;
-    font-weight: bold;
-}
-.progressbar li a:hover{
-    color: #2d4a83;
-}
-.progressbar li:before {
-    width: 40px;
-    height: 40px;
-    content: counter(step);
-    counter-increment: step;
-    line-height: 40px;
-    border: 2px solid #5375ba;
-    display: block;
-    text-align: center;
-    margin: 0 auto 10px auto;
-    border-radius: 50%;
-    background-color: white;
-}
-.progressbar li:hover:before, .progressbar li.active-prev:hover:before, #start:hover {
-    color: #ffffff;
-    background-color: #2d4a83;
-}
-.progressbar li:after {
-    width: 100%;
-    height: 2px;
-    content: '';
-    position: absolute;
-    background-color: #ffffff;
-    top: 20px;
-    left: -50%;
-    z-index: -1;
-}
-
-.sticky-nav .progressbar li span{
-    left: 100%;
-	top: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-	border-color: rgba(255, 255, 255, 0);
-	border-left-color: #ffffff;
-	border-width: 10px;
-	margin-top: -22px;
-}
-
-.progressbar li:first-child:after {
-    content: none;
-}
-.progressbar li.active a{
-    color: #a1befb;
-    font-weight: bold;
-}
-.progressbar li.active:before {
-    border-color: #5375bb;
-    background-color: #a1befb;
-    color: #ffffff;
-}
-.progressbar li.active-prev:before {
-    border-color: #5375bb;
-    background-color: #2d4a83;
-    color: #ffffff;
-}
-.progressbar li.active + li:after {
-    background-color: #ffffff;
-}
-
 
 /* FORM CSS */
 /* Style the form */
@@ -805,18 +693,6 @@ margin-bottom: -24px;
     .select-block{
         margin-right: 8%;
     }
-}
-
-.sticky-select{
-    background: #a1befb;
-    color: #000000;
-    position: fixed;
-    bottom: var(--sticky-nav-height);
-    max-width: 480px;
-    width: 100%;
-    text-align: center;
-    padding: 8px 0;
-    z-index: 100;
 }
 
 .faq .accordion {
