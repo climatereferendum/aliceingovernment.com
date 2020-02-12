@@ -1,25 +1,25 @@
 import { html, render } from 'lit-html'
 import { installRouter } from './node_modules/pwa-helpers/router.js'
-import { flag, name as countryName, countries } from 'country-emoji'
 import shave from 'shave'
 import solutions from './solutions'
 import config from './config'
 
 const { fetch, FormData } = window
 
+const EXPECTED_SOLUTIONS = 2
 const PREVIEW_VOTES_COUNT = 5
 const SHAVED_HEIGHT = 50
-const EXCLUDED_COUNTRY_CODES = ['EU']
-const countryCodes = Object.keys(countries)
-  .filter(code => !EXCLUDED_COUNTRY_CODES.includes(code))
-  .sort((first, second) => countryName(first) < countryName(second) ? -1 : 1)
 let active, slug
 let myVote
 const cache = []
 let selectedSolutions = []
 
+// TODO
+function countryName (countryCode) {
+  return countryCode
+}
+
 const form = document.querySelector('#vote-form')
-renderCountriesDropdown()
 form.addEventListener('submit', (event) => {
   event.preventDefault()
   event.stopPropagation()
@@ -57,17 +57,6 @@ async function handleSubmit (event) {
   }
 }
 
-function showForm () {
-  // show form
-  form.classList.remove('inactive')
-  form.scrollIntoView(false)
-}
-
-function hideForm () {
-  // hide form, show footer
-  form.classList.add('inactive')
-}
-
 function updateSelectedSolutions (event) {
   if (event.target.checked) {
     selectedSolutions.push(event.target.value)
@@ -75,26 +64,22 @@ function updateSelectedSolutions (event) {
     selectedSolutions = selectedSolutions.filter(s => s !== event.target.value)
   }
   // update select x more counter
-  // document.querySelector('.sticky-select span').innerHTML = 3 - selectedSolutions.length
+  // document.querySelector('.sticky-select span').innerHTML = EXPECTED_SOLUTIONS - selectedSolutions.length
   const solutionElements = document.querySelectorAll('#vote .project-box')
-  if (selectedSolutions.length === 3) {
+  if (selectedSolutions.length === EXPECTED_SOLUTIONS) {
     // hide other solutions
     for (const element of solutionElements) {
       if (!selectedSolutions.includes(element.dataset.rank)) {
         element.classList.add('inactive')
       }
     }
-    showForm()
   } else {
     // show all solutions
     for (const element of solutionElements) {
       element.classList.remove('inactive')
     }
-    hideForm()
   }
 }
-
-const pages = document.querySelectorAll('.page')
 
 ;(async () => {
   renderSolutions(solutions)
@@ -141,7 +126,6 @@ async function handleRouting (location, event) {
   if (event && event.type === 'click') {
     window.scrollTo(0, 0)
   }
-  hideForm()
   active = location.pathname.split('/')[1]
   slug = location.pathname.split('/')[2]
   let linkedHeader = true
@@ -155,7 +139,7 @@ async function handleRouting (location, event) {
   if (active === 'voters') {
     if (slug) {
       const template = html`
-        <div class="my-vote info-box">Congratulations, you are voter # <strong>${myVote.index}</strong> from <strong>${countryName(myVote.nationality)}</strong></div>
+        <div class="my-vote info-box">Congratulations, you are voter from <strong>${countryName(myVote.nationality)}</strong></div>
         <div class="vertical-line-small"></div>
         ${countryShortTemplate({ code: myVote.nationality, vote: [myVote] })}
       `
@@ -173,11 +157,6 @@ async function handleRouting (location, event) {
       shaveOpinions(element)
     }
   }
-  if (active === 'vote') {
-    if (selectedSolutions.length === 3) {
-      showForm()
-    }
-  }
   if (active === 'countries' && slug) {
     let country = cache.find(c => c.code === slug)
     if (!country) {
@@ -189,18 +168,6 @@ async function handleRouting (location, event) {
     renderCountry(country)
     document.querySelector('#country').classList.remove('inactive')
   }
-}
-
-function renderCountriesDropdown () {
-  const template = html`
-    <p><select name="nationality" onchange="this.className = ''">
-        <option value=''>Select country</option>
-      ${countryCodes.map(code => html`
-        <option value="${code.toLowerCase()}">${countryName(code)} ${flag(code)}</option>
-      `)}
-    </select></p>
-  `
-  render(template, document.querySelector('#nationality'))
 }
 
 function renderHeader (linked = true) {
@@ -221,12 +188,8 @@ function renderHeader (linked = true) {
 function solutionTemplate (solution) {
   return html`
     <div class="project-box col-xs-6" data-rank=${solution.rank}>
-      <a href="${solution.link}" target="_blank">
-      <h4>Solution #${solution.rank}</h4>
-      <h3>${solution.name}</h3>
-      <span><i>-- read more</i></span>
-      </a>
       <label class="container">
+        <h3>${solution.name}</h3>
         <input
           type="checkbox"
           name="solution-${solution.rank}"
@@ -234,6 +197,7 @@ function solutionTemplate (solution) {
           @change="${updateSelectedSolutions}">
         <span class="checkmark"><span>VOTE</span></span>
       </label>      
+      <div class="clear"></div>
     </div>
   `
 }
@@ -256,7 +220,7 @@ function renderSolutions (solutions) {
       </div>
       <div class="vertical-line-small not-voted"></div>
       <div class="info-box info-box-medium not-voted" style="text-align:center">
-        <strong>By selecting 3 solutions</strong>,<br>
+        <strong>By selecting ${EXPECTED_SOLUTIONS} solutions</strong>,<br>
         we can reach a citizen consensus <br> on climate change priorities.
       </div>
       <div class="vertical-line-small"></div>
@@ -285,7 +249,6 @@ function countryShortTemplate (country) {
   return html`
     <div class="project-box votes">
       <h2>
-        ${flag(country.code)}
         ${countryName(country.code)}
       </h2>
       <span class="counter">${country.count} Votes</span>
@@ -309,7 +272,7 @@ function renderVotes (stats) {
         <h3>Check out what other voters have said:</h3>
         <strong>Total # of Voters</strong>: ---<strong>${stats.global.count}</strong>
         <br>
-        <strong>Countries</strong>: ---<strong> ${stats.country.length} </strong>
+        <strong>Universities</strong>: ---<strong> ${stats.country.length} </strong>
       </div>
       <div class="vertical-line-small"></div>
       ${stats.country.map(c => html`<div id="voters-${c.code}"></div>`)}
@@ -322,7 +285,6 @@ function voteTemplate (vote) {
   return html`
   <li>
     <div>
-      <em class="index">${vote.index}</em>
       <strong>${vote.name}</strong>
       <em>${vote.description}</em>
     </div>
@@ -335,7 +297,6 @@ function renderCountry (country) {
   const countryTemplate = html`
     <div class="project-box votes">
       <h2>
-        ${flag(country.code)}
         ${countryName(country.code)}
       </h2>
       <span class="counter">${country.count} VOTES</span>
@@ -351,4 +312,19 @@ function renderCountry (country) {
   `
 
   render(pageTemplate, document.querySelector('#country'))
+}
+
+// FAQ info accordion
+const accordions = document.getElementsByClassName('accordion')
+
+for (const accordion of accordions) {
+  accordion.addEventListener('click', function () {
+    this.classList.toggle('active')
+    var panel = this.nextElementSibling
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + 'px'
+    }
+  })
 }

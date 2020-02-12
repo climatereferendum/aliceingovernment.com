@@ -391,21 +391,21 @@ img.home-dance{
     border-bottom: 1px solid #333333;
 }
 
-.project-box h4{
-    font-size: 18px;
-    display: inline-block;
+.clear {
+    clear: both;
 }
 
 .project-box h3{
     font-weight: bold;
     font-size: 16px;
+    margin: 0;
 }
 
  .project-box span.counter,
  .project-box span.checkmark{
     position: relative;
     float: right;
-    top: -48px;
+    top: -24px;
     color: #000000;
     left: 10px;
     margin-bottom: -24px;

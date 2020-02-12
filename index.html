@@ -34,6 +34,42 @@
 
       </section>
       <section id="vote" class="page"></section>
+      <div>
+        <form id="vote-form">
+
+            <h3>Complete your vote</h3>
+            
+            <div>Share your opinion with the world</div>
+            <div style="color:#ffffff;"><b>Email (on university domain)</b>
+                <p><input type="email" placeholder="" oninput="this.className = ''" name="email" maxlength="50" required></p>
+            </div>
+            
+
+            <div style="color:#ffffff;"><b>Full Name</b>
+                <p><input type="text" oninput="this.className = ''" name="name" maxlength="50" required></p>
+                </div>  
+
+            <div style="color:#ffffff;"><b>Bonus question (optional) Everyone talks about climate change but there is not enough action, what's missing?</b>
+            <p><textarea name="opinion" maxlength="500"></textarea></p>
+            </div>
+            
+            <div>
+                <p><input type="checkbox" placeholder="" oninput="this.className = ''" name="I accept privacy policy and terms of service" required> I accept the <a href="/privacy-policy" target="_blank" style="color:#ffffff;"><u>Privacy Policy</u></a> <br> &nbsp;&nbsp;&nbsp; and <a href="/terms-of-service" target="_blank" style="color:#ffffff;"><u>Terms of Service</u></a></p>
+            </div>
+
+            <div style="color:#ffffff;">
+                <p style="margin-top: 12px;"><label class="google-auth"><button type="submit"><i class="fa fa-google" style="font-size:18px"></i> Submit</button></label></p>
+                <p id="submitting" class="inactive">Submitting...</p>
+                <p id="please-confirm" class="inactive">Please check your inbox for email with confirmation link (you can close this browser tab).</p>
+                <p id="vote-exists" class="inactive">We already have vote for this email address, please search your inbox for permalink to your vote.</p>
+            </div>
+
+            <div style="overflow:auto;">
+                <div id="error-message" class="inactive" style="font-size:18px; color:#ffffff; margin-bottom: 5px; "><strong>Please fill this to continue</strong></div>
+            </div>
+
+        </form>
+    </div>
       <section id="voters" class="page"></section>
       <section id="countries" class="page"></section>
 
@@ -427,72 +463,12 @@
         </ol>
       </section>
 
-         <div>
-            <form id="vote-form">
-
-                <h3>Complete your vote</h3>
-                
-                <div id="nationality" class="tab">Share your opinion with the world
-                    <br>
-                    Nationality:
-                </div>
-
-                <div class="tab" style="color:#ffffff;"><b>First and Last Name:</b>
-                    <p><input type="text" placeholder="First name + Last name" oninput="this.className = ''" name="name" maxlength="50" required></p>
-                    </div>  
-
-                <div class="tab" style="color:#ffffff;"><b>What is your profession and/or organization?</b>
-                    <p><input type="text" placeholder="" oninput="this.className = ''" name="description" maxlength="50"></p>
-                </div>
-
-                <div class="tab" style="color:#ffffff;"><b>Bonus question (optional) Everyone talks about climate change but there is not enough action, what's missing?</b>
-                <p><textarea placeholder="solution" name="opinion" maxlength="500"></textarea></p>
-                </div>
-                
-                <div class="tab">
-                    <p><input type="checkbox" placeholder="" oninput="this.className = ''" name="I am over 18 years old" required> I am over 18 years old </p>
-                    <p><input type="checkbox" placeholder="" oninput="this.className = ''" name="I accept privacy policy and terms of service" required> I accept the <a href="/privacy-policy" target="_blank" style="color:#ffffff;"><u>Privacy Policy</u></a> <br> &nbsp;&nbsp;&nbsp; and <a href="/terms-of-service" target="_blank" style="color:#ffffff;"><u>Terms of Service</u></a></p>
-                    <p><input type="checkbox" placeholder="" oninput="this.className = ''" name="newsletter"> Newsletter/once or twice a month (optional)</p>
-                </div>
-
-                <div class="tab" style="color:#ffffff;"><b>Email where we can send you link to confirm your vote?</b>
-                    <p><input type="text" placeholder="" oninput="this.className = ''" name="email" maxlength="50" required></p>
-                </div>
-                
-                <div class="tab" style="color:#ffffff;">
-                    <p style="margin-top: 12px;"><label class="google-auth"><button type="submit"><i class="fa fa-google" style="font-size:18px"></i> Submit</button></label></p>
-                    <p id="submitting" class="inactive">Submitting...</p>
-                    <p id="please-confirm" class="inactive">Please check your inbox for email with confirmation link (you can close this browser tab).</p>
-                    <p id="vote-exists" class="inactive">We already have vote for this email address, please search your inbox for permalink to your vote.</p>
-                </div>
-
-                <div style="overflow:auto;">
-                    <div id="error-message" class="inactive" style="font-size:18px; color:#ffffff; margin-bottom: 5px; "><strong>Please fill this to continue</strong></div>
-                    <div class="form-nav">
-                        <button type="button" id="prevBtn" onclick="nextPrev(-1)" style="float:left;">← Previous</button>
-                        <button type="button" id="nextBtn" onclick="nextPrev(1)" style="float:right;">Next →</button>
-                    </div>
-                </div>
-
-                <div style="text-align:center;margin-top:40px;">
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
-                </div>
-
-            </form>
-        </div>
     </div>
     <!-- /.container -->
     
     <!-- JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/js/custom.js"></script>
     <script src="/bundle.js"></script>
 </body>
 </html>
