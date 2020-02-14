@@ -64,9 +64,10 @@ function updateSelectedSolutions (event) {
     selectedSolutions = selectedSolutions.filter(s => s !== event.target.value)
   }
   // update select x more counter
-  // document.querySelector('.sticky-select span').innerHTML = EXPECTED_SOLUTIONS - selectedSolutions.length
+  document.querySelector('.sticky-select span').innerHTML = EXPECTED_SOLUTIONS - selectedSolutions.length
   const solutionElements = document.querySelectorAll('#vote .project-box')
   if (selectedSolutions.length === EXPECTED_SOLUTIONS) {
+    document.querySelector('.sticky-select').classList.add('inactive')
     // hide other solutions
     for (const element of solutionElements) {
       if (!selectedSolutions.includes(element.dataset.rank)) {
@@ -74,6 +75,7 @@ function updateSelectedSolutions (event) {
       }
     }
   } else {
+    document.querySelector('.sticky-select').classList.remove('inactive')
     // show all solutions
     for (const element of solutionElements) {
       element.classList.remove('inactive')
@@ -224,12 +226,6 @@ function renderSolutions (solutions) {
         we can reach a citizen consensus <br> on climate change priorities.
       </div>
       <div class="vertical-line-small"></div>
-    <!-- <div class="row" style="max-width: 100vw;">
-      <div class="select-block not-voted">SELECT 3</div>
-    </div>
-    <div class="sticky-select not-voted">
-      <div>Select <span>3</span> more solutions</div>
-    </div> -->
   `
 
   const solutionsTemplate = html`
@@ -328,3 +324,7 @@ for (const accordion of accordions) {
     }
   })
 }
+
+document.querySelector('input[type=email').addEventListener('blur', function checkEmail (e) {
+  console.log(e.srcElement.value)
+})
