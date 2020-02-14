@@ -1,4 +1,4 @@
-const solutions = [
+export default [
   {
     slug: 'refrigerant-management',
     rank: '1',
@@ -90,5 +90,3 @@ const solutions = [
     link: 'https://www.drawdown.org/solutions/land-use/afforestation'
   }
 ]
-
-export default solutions
