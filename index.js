@@ -1,6 +1,5 @@
 import { html, render } from 'lit-html'
 import { installRouter } from './node_modules/pwa-helpers/router.js'
-import shave from 'shave'
 import solutions from './solutions'
 import config from './config'
 
@@ -8,7 +7,6 @@ const { fetch, FormData } = window
 
 const EXPECTED_SOLUTIONS = 2
 const PREVIEW_VOTES_COUNT = 5
-const SHAVED_HEIGHT = 50
 let active, slug
 let myVote
 const cache = []
@@ -96,33 +94,14 @@ function updateSelectedSolutions (event) {
   const statsResponse = await fetch(`${config.serviceUrl}`, { credentials: 'include' })
   const stats = await statsResponse.json()
   const countries = stats.country
-  document.querySelector('#voters').addEventListener('click', unshave)
   renderVotes(stats)
   handleRouting(window.location)
   for await (const country of countries) {
     await new Promise(resolve => setTimeout(resolve))
     const element = document.querySelector(`#voters-${country.code}`)
     render(countryShortTemplate(country), element)
-    if (active === 'voters') shaveOpinions(element)
   }
 })()
-
-function unshave (event) {
-  let element = event.target
-  if (element.classList.contains('js-shave-char')) {
-    element = element.parentElement
-  }
-  const char = element.querySelector('.js-shave-char')
-  const text = element.querySelector('.js-shave')
-  if (char && text) {
-    char.style.display = 'none'
-    text.style.display = 'inline'
-  }
-}
-
-function shaveOpinions (element) {
-  shave(element.querySelectorAll('.opinion'), SHAVED_HEIGHT)
-}
 
 async function handleRouting (location, event) {
   if (event && event.type === 'click') {
@@ -152,11 +131,6 @@ async function handleRouting (location, event) {
       if (document.querySelector('#my-vote')) {
         document.querySelector('#my-vote').classList.add('inactive')
       }
-    }
-    const elements = document.querySelectorAll('#voters .country-votes')
-    for await (const element of elements) {
-      await new Promise(resolve => setTimeout(resolve))
-      shaveOpinions(element)
     }
   }
   if (active === 'countries' && slug) {
