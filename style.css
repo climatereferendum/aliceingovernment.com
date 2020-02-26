@@ -146,11 +146,11 @@ hr {
 
 body {
     --light-color: #fff;
-    --dark-color: #5154ae;
-    --dark-font-color: #212529;
+    --dark-color: #fc5a27;
+    --highlight-color: #fab114;
+    --dark-font-color: #ba6d63;
     font-family: 'gothamlight', sans-serif;
     background-color: var(--light-color);
-    color: var(--light-color);
     margin: 0;
 }
 
@@ -175,7 +175,7 @@ a:hover{
 
 .max-width{
     max-width: 480px;
-    background-color: var(--dark-color);
+    background-color: var(--light-color);
     margin: 0 auto;
     border-left: 1px solid #7d7d7d;
     border-right: 1px solid #7d7d7d;
@@ -187,10 +187,10 @@ h1 {
     text-align: center;
     font-size: 2em;
     font-weight: 600;
-    background-color: var(--light-color);
-    color: var(--dark-color);
+    color: black;
     letter-spacing: -0.06rem;
-    margin: 0;
+    margin: 0 1.5em;
+    border-bottom: solid 2px var(--highlight-color);
 }
 
 h1 a, h1 a:hover {
@@ -221,7 +221,7 @@ h1 a, h1 a:hover {
     margin: 0;
     z-index: 10;
 }
-#home h2,
+
 h2.h-boxed {
     display: inline-block;
     position: relative;
@@ -230,6 +230,67 @@ h2.h-boxed {
     font-weight: 700;
     line-height: 32px;
     transform: translateX(-50%); /* this will calculate what 50% of the element width is and will move it across the X-axis. The negative value ensures it moves to the left. */
+}
+
+h2, h3 {
+    line-height: 1.5em;
+    margin: 0 1rem;
+    padding: 0.75rem;
+}
+
+#home h2, #home h3 {
+    line-height: 1.5em;
+    color: var(--light-color);
+    background-color: var(--highlight-color);
+    margin: 0 1rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+#polars {
+    display: flex;
+}
+
+#radical, #mainstream {
+    flex: 1;
+    text-align: center;
+    padding: 0.5em 3em;
+    font-size: 1.25rem;
+    text-align: left;
+}
+
+#radical p, #mainstream p {
+    margin: 0;
+}
+
+#radical {
+    border-right: 2px solid var(--highlight-color);
+}
+
+#mainstream {
+    border-left: 2px solid var(--highlight-color);
+}
+
+#vote .step, #voters .step {
+    color: var(--dark-color);
+}
+
+#form-wrapper {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    padding-top: 3rem;
+}
+
+#voters {
+    padding-top: 3rem;
 }
 
 #home {
@@ -322,7 +383,7 @@ input[type=checkbox] {
 
 /* Style the submit button */
 input[type=submit] {
-    background-color: #2699FB;
+    background-color: var(--dark-font-color);
     color: white;
     border: none;
 }
@@ -836,4 +897,51 @@ margin-bottom: -24px;
     line-height: 40px;
     border-radius: 1rem;
     text-transform: uppercase;
+}
+
+mwc-button {
+    --mdc-theme-primary: #fab114;
+    --mdc-theme-on-primary: var(--light-color);
+ }
+
+mwc-textfield, mwc-textarea {
+    --mdc-text-field-label-ink-color: var(--light-color);
+    --mdc-text-field-outlined-idle-border-color: var(--light-color);
+    --mdc-text-field-ink-color: var(--light-color);
+    --mdc-theme-primary: var(--light-color);
+ }
+
+ mwc-checkbox {
+    --mdc-checkbox-unchecked-color: var(--light-color);
+}
+
+mwc-formfield {
+    --mdc-theme-text-primary-on-background: var(--light-color);
+    --mdc-checkbox-mark-color: var(--dark-color);
+    --mdc-theme-secondary: var(--light-color);
+}
+
+#vote-form div {
+    margin: 1.5em 0;
+}
+
+.step {
+    display: block;
+    width: 2em;
+    height: 2em;
+    margin: 0 auto;
+    font-size: 3em;
+    border: 2px solid;
+    border-radius: 1.5em;
+    text-align: center;
+    line-height: 2em;
+}
+
+#side-by-side {
+    display: flex;
+    justify-content: space-between;
+}
+
+a {
+    color: var(--dark-font-color);
 }

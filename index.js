@@ -1,6 +1,13 @@
 import { html, render } from 'lit-html'
 import { installRouter } from './node_modules/pwa-helpers/router.js'
-import solutions from './solutions'
+
+import '@material/mwc-textfield'
+import '@material/mwc-textarea'
+import '@material/mwc-checkbox'
+import '@material/mwc-button'
+import '@material/mwc-formfield'
+
+import { solutions } from '@aliceingovernment/data'
 import config from './config'
 
 const { fetch, FormData } = window
@@ -17,13 +24,13 @@ function countryName (countryCode) {
   return countryCode
 }
 
-const form = document.querySelector('#vote-form')
-form.addEventListener('submit', (event) => {
-  event.preventDefault()
-  event.stopPropagation()
-  handleSubmit(event)
-  return false
-})
+// const form = document.querySelector('#vote-form')
+// form.addEventListener('submit', (event) => {
+//   event.preventDefault()
+//   event.stopPropagation()
+//   handleSubmit(event)
+//   return false
+// })
 
 async function handleSubmit (event) {
   document.querySelector('button[type=submit]').classList.add('inactive')
@@ -80,8 +87,7 @@ function updateSelectedSolutions (event) {
     }
   }
 }
-
-;(async () => {
+document.addEventListener('DOMContentLoaded', async () => {
   renderSolutions(solutions)
   installRouter(handleRouting)
   if (window.location.pathname.split('/')[1] === 'voters') {
@@ -101,7 +107,7 @@ function updateSelectedSolutions (event) {
     const element = document.querySelector(`#voters-${country.code}`)
     render(countryShortTemplate(country), element)
   }
-})()
+})
 
 async function handleRouting (location, event) {
   if (event && event.type === 'click') {
@@ -180,26 +186,10 @@ function solutionTemplate (solution) {
 
 function renderSolutions (solutions) {
   const solutionsHeader = html`
-      <div class="vertical-line-small"></div>
-      <div class="info-box" style="text-align:center">
-      Nothing seems to work when it comes to changing politics 
-      and that's why we created this platform, so that those making decisions are everyday citizens.
-      </div>
-      <div class="vertical-line-small"></div>
-      <div class="info-box info-box-short" style="text-align:center">
-        Over the Internet. <br> Without institutions.
-      </div>
-      <div class="vertical-line-small"></div>
-      <div class="info-box" style="text-align:center">
-        Scientists and academics at <a href="https://www.drawdown.org/solutions-summary-by-rank" target="_blank"><u><i>Project Drawdown</i></u></a> -over 200 of them-
-        have ranked the top 15 climate change solutions <strong>in order of greatest impact</strong>.
-      </div>
-      <div class="vertical-line-small not-voted"></div>
-      <div class="info-box info-box-medium not-voted" style="text-align:center">
-        <strong>By selecting ${EXPECTED_SOLUTIONS} solutions</strong>,<br>
-        we can reach a citizen consensus <br> on climate change priorities.
-      </div>
-      <div class="vertical-line-small"></div>
+      <div class="step">1</div>
+      <h3>
+        Choose two solutions you want your university to implement
+      </h3>
   `
 
   const solutionsTemplate = html`
@@ -236,15 +226,9 @@ function countryShortTemplate (country) {
 function renderVotes (stats) {
   const pageTemplate = html`
     <div>
-      <div class="vertical-line-small"></div>
       <div id="my-vote"></div>
-      <div class="project-box solution info-box">
-        <h3>Check out what other voters have said:</h3>
-        <strong>Total # of Voters</strong>: ---<strong>${stats.global.count}</strong>
-        <br>
-        <strong>Universities</strong>: ---<strong> ${stats.country.length} </strong>
-      </div>
-      <div class="vertical-line-small"></div>
+      <div class="step">3</div>
+      <h3>Find out how your opinion relates to the cummunity's</h3>
       ${stats.country.map(c => html`<div id="voters-${c.code}"></div>`)}
     </div>
   `
@@ -298,7 +282,3 @@ for (const accordion of accordions) {
     }
   })
 }
-
-document.querySelector('input[type=email').addEventListener('blur', function checkEmail (e) {
-  console.log(e.srcElement.value)
-})

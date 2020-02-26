@@ -1,6 +1,9 @@
 import resolve from '@rollup/plugin-node-resolve'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
+import { terser } from "rollup-plugin-terser"
+import visualizer from 'rollup-plugin-visualizer'
+
 export default {
   input: 'index.js',
   output: {
@@ -10,6 +13,8 @@ export default {
   plugins: [
     resolve(),
     serve(),
-    livereload()
+    livereload(),
+    // terser(),
+    visualizer({ template: 'sunburst'})
   ]
 }
