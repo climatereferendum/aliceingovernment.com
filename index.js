@@ -1,23 +1,16 @@
 import { html, render } from 'lit-html'
 import { installRouter } from './node_modules/pwa-helpers/router.js'
 
-import '@material/mwc-textfield'
-import '@material/mwc-textarea'
-import '@material/mwc-checkbox'
-import '@material/mwc-button'
-import '@material/mwc-formfield'
-
 import { solutions } from '@aliceingovernment/data'
 import config from './config'
+import { VoteForm } from './vote-form'
 
 const { fetch, FormData } = window
 
-const EXPECTED_SOLUTIONS = 2
 const PREVIEW_VOTES_COUNT = 5
 let active, slug
 let myVote
 const cache = []
-let selectedSolutions = []
 
 // TODO
 function countryName (countryCode) {
@@ -62,33 +55,8 @@ async function handleSubmit (event) {
   }
 }
 
-function updateSelectedSolutions (event) {
-  if (event.target.checked) {
-    selectedSolutions.push(event.target.value)
-  } else {
-    selectedSolutions = selectedSolutions.filter(s => s !== event.target.value)
-  }
-  // update select x more counter
-  document.querySelector('.sticky-select span').innerHTML = EXPECTED_SOLUTIONS - selectedSolutions.length
-  const solutionElements = document.querySelectorAll('#vote .project-box')
-  if (selectedSolutions.length === EXPECTED_SOLUTIONS) {
-    document.querySelector('.sticky-select').classList.add('inactive')
-    // hide other solutions
-    for (const element of solutionElements) {
-      if (!selectedSolutions.includes(element.dataset.rank)) {
-        element.classList.add('inactive')
-      }
-    }
-  } else {
-    document.querySelector('.sticky-select').classList.remove('inactive')
-    // show all solutions
-    for (const element of solutionElements) {
-      element.classList.remove('inactive')
-    }
-  }
-}
 document.addEventListener('DOMContentLoaded', async () => {
-  renderSolutions(solutions)
+  renderVoteForm(solutions)
   installRouter(handleRouting)
   if (window.location.pathname.split('/')[1] === 'voters') {
     const myVoteId = window.location.pathname.split('/')[2]
@@ -167,24 +135,7 @@ function renderHeader (linked = true) {
   render(headerTemplate, document.querySelector('#header'))
 }
 
-function solutionTemplate (solution) {
-  return html`
-    <div class="project-box col-xs-6" data-rank=${solution.rank}>
-      <label class="container">
-        <h3>${solution.name}</h3>
-        <input
-          type="checkbox"
-          name="solution-${solution.rank}"
-          value="${solution.rank}"
-          @change="${updateSelectedSolutions}">
-        <span class="checkmark"><span>VOTE</span></span>
-      </label>      
-      <div class="clear"></div>
-    </div>
-  `
-}
-
-function renderSolutions (solutions) {
+function renderVoteForm (solutions) {
   const solutionsHeader = html`
       <div class="step">1</div>
       <h3>
@@ -192,11 +143,14 @@ function renderSolutions (solutions) {
       </h3>
   `
 
-  const solutionsTemplate = html`
+  const voteFormTemplate = html`
     ${solutionsHeader}
-    ${solutions.map(solutionTemplate)}
+    <vote-form 
+      .solutions=${solutions}
+      .expectedSolutions=${2}>
+    </vote-form>
   `
-  render(solutionsTemplate, document.querySelector('#vote'))
+  render(voteFormTemplate, document.querySelector('#form-wrapper'))
 }
 
 function loadMoreLink (country) {

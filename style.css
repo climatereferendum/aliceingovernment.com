@@ -127,14 +127,6 @@ hr {
     border-top: 1px solid rgba(0,0,0,.1)
 }
 
-.container {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto
-}
-
 .row {
     display: -ms-flexbox;
     display: flex;
@@ -279,16 +271,6 @@ h3 {
     border-left: 2px solid var(--highlight-color);
 }
 
-#vote .step, #voters .step {
-    color: var(--dark-color);
-}
-
-#form-wrapper {
-    background-color: var(--dark-color);
-    color: var(--light-color);
-    padding-top: 3rem;
-}
-
 #voters {
     padding-top: 3rem;
 }
@@ -399,8 +381,17 @@ footer{
     position: relative;
 }
 
+.project-box{
+    background: var(--light-color);
+    color: var(--dark-font-color);
+    width: 95%;
+    margin: 5% auto;
+    padding: 16px;
+    /**min-height: 160px;**/
+    z-index: 10;
+    border-bottom: 1px solid #333333;
+}
 /* Projects Page */
-#vote,
 #profile {
     padding-bottom: 24px;
 }
@@ -433,57 +424,11 @@ img.home-dance{
 }
 
 .vote-dance{
-    
     display: block;
     margin: 0 auto;
     padding-left: 26px;
     padding-top: 15px;
     padding-bottom: 5px;
-}
-
-.project-box{
-    background: var(--light-color);
-    color: var(--dark-font-color);
-    width: 95%;
-    margin: 5% auto;
-    padding: 16px;
-    /**min-height: 160px;**/
-    z-index: 10;
-    border-bottom: 1px solid #333333;
-}
-
-.clear {
-    clear: both;
-}
-
-.project-box h3{
-    font-weight: bold;
-    font-size: 16px;
-    margin: 0;
-}
-
- .project-box span.counter,
- .project-box span.checkmark{
-    position: relative;
-    float: right;
-    top: -24px;
-    color: #000000;
-    left: 10px;
-    margin-bottom: -24px;
-    text-align: center;
-    padding: 0 4px;
-    border: 1px solid #000000;
-}
-
-.project-box span.counter {
-    top: -34px;
-    padding: 2px 4px;
-}
-.project-box span.checkmark span{
-    position: absolute;
-    top: -20px;
-    left: 5px;
-    font-size: 10px;
 }
 
 #vote, #info {
@@ -509,10 +454,6 @@ img.home-dance{
     line-height: 1.7rem;
     font-size: 16px;
     font-weight: 900;
-}
-
-#vote {
-    background-color: var(--light-color);
 }
 
 .page .info-box {
@@ -587,159 +528,6 @@ em.index:after {
 
 .social-media a{
     color: #2699FB;
-}
-
-/* FORM CSS */
-/* Style the form */
-
-#vote-form {
-    padding: 30px;
-    min-width: 300px;
-    min-height: 360px;
-    width: 90%;
-    margin: 0 auto;
-}
-
-/* Style the input fields */
-#vote-form input, #vote-form select {
-    padding: 10px;
-    width: 100%;
-    font-size: 17px;
-}
-
-#vote-form input[type="checkbox"]  {
-    width: auto;
-}
-
-/* Mark input boxes that gets an error on validation: */
-#vote-form .invalid {
-    background-color: #ffdddd;
-}
-
-/* Hide all steps by default: */
-#vote-form .tab {
-    display: none;
-}
-
-/* Make circles that indicate the steps of the form: */
-#vote-form .step {
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #ffffff;
-    border: none; 
-    border-radius: 50%;
-    display: inline-block;
-    opacity: 0.5;
-}
-
-/* Mark the active step: */
-#vote-form .step.active {
-    opacity: 1;
-}
-
-/* Mark the steps that are finished and valid: */
-#vote-form .step.finish {
-    background-color: var(--dark-color);
-}
-
-.form-nav button{
-    background: #000000;
-    border: none;
-    cursor: pointer;
-    color: #ffffff;
-    padding: 4px 8px;
-}
-
-#vote-form .google-auth button, #vote-form .facebook-auth button {
-    width: 240px;
-    cursor: pointer;
-    text-align: left;
-    padding: 12px;
-    border: none;
-    color: #ffffff;
-}
-
-#vote-form .google-auth button{
-    background: #FF3E30;
-}
-
-#vote-form .facebook-auth button{
-    background: #3B5998;
-}
-
-textarea {
-    width: 100%;
-}
-
-
-/* The container */
-.container {
-display: block;
-position: relative;
-float: right;
-padding-left: 35px;
-margin-bottom: 12px;
-cursor: pointer;
-font-size: 22px;
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
-}
-
-/* Hide the browser's default checkbox */
-.container input {
-position: absolute;
-opacity: 0;
-cursor: pointer;
-height: 0;
-width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-position: absolute;
-top: 0;
-left: 0;
-height: 40px;
-width: 40px;
-background-color: #eee;
-}
-
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
-background-color: #2699FB;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-content: "";
-position: absolute;
-display: none;
-}
-
-/* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
-display: block;
-}
-
-/* Style the checkmark/indicator */
-.container .checkmark:after {
-left: 12px;
-top: 2px;
-width: 14px;
-height: 28px;
-border: solid #000000;
-border-width: 0 3px 3px 0;
--webkit-transform: rotate(45deg);
--ms-transform: rotate(45deg);
-transform: rotate(45deg);
 }
 
 .select-block{
@@ -899,32 +687,6 @@ margin-bottom: -24px;
     text-transform: uppercase;
 }
 
-mwc-button {
-    --mdc-theme-primary: #fab114;
-    --mdc-theme-on-primary: var(--light-color);
- }
-
-mwc-textfield, mwc-textarea {
-    --mdc-text-field-label-ink-color: var(--light-color);
-    --mdc-text-field-outlined-idle-border-color: var(--light-color);
-    --mdc-text-field-ink-color: var(--light-color);
-    --mdc-theme-primary: var(--light-color);
- }
-
- mwc-checkbox {
-    --mdc-checkbox-unchecked-color: var(--light-color);
-}
-
-mwc-formfield {
-    --mdc-theme-text-primary-on-background: var(--light-color);
-    --mdc-checkbox-mark-color: var(--dark-color);
-    --mdc-theme-secondary: var(--light-color);
-}
-
-#vote-form div {
-    margin: 1.5em 0;
-}
-
 .step {
     display: block;
     width: 2em;
@@ -935,11 +697,7 @@ mwc-formfield {
     border-radius: 1.5em;
     text-align: center;
     line-height: 2em;
-}
-
-#side-by-side {
-    display: flex;
-    justify-content: space-between;
+    color: var(--dark-color);
 }
 
 a {

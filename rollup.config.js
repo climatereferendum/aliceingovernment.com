@@ -1,4 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve'
+import typescript from '@rollup/plugin-typescript'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from "rollup-plugin-terser"
@@ -12,6 +13,7 @@ export default {
   },
   plugins: [
     resolve(),
+    typescript(),
     serve(),
     livereload(),
     // terser(),
