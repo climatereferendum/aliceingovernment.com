@@ -1,7 +1,7 @@
 import { html, render } from 'lit-html'
 import { installRouter } from './node_modules/pwa-helpers/router.js'
 
-import { solutions } from '@aliceingovernment/data'
+import { universities, solutions } from '@aliceingovernment/data'
 import config from './config'
 import { VoteForm } from './vote-form'
 
@@ -14,7 +14,7 @@ const cache = []
 
 // TODO
 function countryName (countryCode) {
-  return countryCode
+  return universities.find(u => u.slug === countryCode).name
 }
 
 // const form = document.querySelector('#vote-form')

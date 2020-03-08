@@ -44,19 +44,14 @@ export class VoteForm extends LitElement {
 
     solutionTemplate (solution) {
         return html`
-            <div class="project-box" data-slug=${solution.slug}>
-            <label class="container">
-                <h3>${solution.name}</h3>
-                <input
-                type="checkbox"
-                name="solution-${solution.slug}"
-                value="${solution.slug}"
+        <div class="solution">
+            <span>${solution.name}</span>
+            <mwc-checkbox
                 ?checked="${this.selectedSolutions.includes(solution.slug)}"
-                @change="${this.updateSelectedSolutions}">
-                <span class="checkmark"><span>VOTE</span></span>
-            </label>      
-            <div class="clear"></div>
-            </div>
+                @change="${this.updateSelectedSolutions}"
+                data-slug=${solution.slug}>
+            ></mwc-checkbox>
+        </div>
         `
     }
 
@@ -64,10 +59,10 @@ export class VoteForm extends LitElement {
         if (event.target.checked) {
             this.selectedSolutions = [
                 ...this.selectedSolutions,
-                event.target.value
+                event.target.dataset.slug
             ]
         } else {
-            this.selectedSolutions = this.selectedSolutions.filter(s => s !== event.target.value)
+            this.selectedSolutions = this.selectedSolutions.filter(s => s !== event.target.dataset.slug)
         }
     }
 
@@ -93,18 +88,18 @@ export class VoteForm extends LitElement {
         --mdc-theme-primary: var(--light-color);
     }
 
-    mwc-checkbox {
+    #formfields-wrapper mwc-checkbox {
         --mdc-checkbox-unchecked-color: var(--light-color);
     }
 
-    mwc-formfield {
+    #formfields-wrapper mwc-formfield {
         --mdc-theme-text-primary-on-background: var(--light-color);
         --mdc-checkbox-mark-color: var(--dark-color);
         --mdc-theme-secondary: var(--light-color);
         margin-top: -0.5em;
         margin-left: -0.5em;
     }
-
+    
     p {
         margin-bottom: 0;
     }
@@ -114,7 +109,7 @@ export class VoteForm extends LitElement {
         margin-top: 1em;
     }
 
-    #not-participating, #non-university {
+    .info, .error {
         border-width: 2px;
         border-style: solid;
         font-style: italic;
@@ -122,11 +117,11 @@ export class VoteForm extends LitElement {
         border-radius: 0.2em;
     }
 
-    #not-participating {
+    .info {
         border-color: #267fb5;
     }
 
-    #non-university {
+    .error {
         border-color: #b00020;
     }
     
@@ -155,135 +150,19 @@ export class VoteForm extends LitElement {
         color: var(--light-color);
     }
 
-    /* TODO: DRY */
-    .project-box{
-        background: var(--light-color);
-        color: var(--dark-font-color);
-        width: 95%;
-        margin: 5% auto;
-        padding: 16px;
-        /**min-height: 160px;**/
-        z-index: 10;
-        border-bottom: 1px solid #333333;
+    .solution {
+        display: flex;
+        justify-content: space-between;
     }
-
-    .clear {
-        clear: both;
+    .solution span {
+        line-height: 40px;
     }
-
-    .project-box h3{
-        font-weight: bold;
-        font-size: 16px;
-        margin: 0;
-    }
-
-    .project-box span.counter,
-    .project-box span.checkmark{
-        position: relative;
-        float: right;
-        top: -24px;
-        color: #000000;
-        left: 10px;
-        margin-bottom: -24px;
-        text-align: center;
-        padding: 0 4px;
-        border: 1px solid #000000;
-    }
-
-    .project-box span.counter {
-        top: -34px;
-        padding: 2px 4px;
-    }
-    .project-box span.checkmark span{
-        position: absolute;
-        top: -20px;
-        left: 5px;
-        font-size: 10px;
-    }
-
-    /* The container */
-    .container {
-    display: block;
-    position: relative;
-    float: right;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    }
-
-    /* Hide the browser's default checkbox */
-    .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-    }
-
-    /* Create a custom checkbox */
-    .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 40px;
-    width: 40px;
-    background-color: #eee;
-    }
-
-    .container {
-        width: 100%;
-        padding-right: 15px;
-        padding-left: 15px;
-        margin-right: auto;
-        margin-left: auto
-    }
-
-    /* On mouse-over, add a grey background color */
-    .container:hover input ~ .checkmark {
-    background-color: #ccc;
-    }
-
-    /* When the checkbox is checked, add a blue background */
-    .container input:checked ~ .checkmark {
-    background-color: #2699FB;
-    }
-
-    /* Create the checkmark/indicator (hidden when not checked) */
-    .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-    }
-
-    /* Show the checkmark when checked */
-    .container input:checked ~ .checkmark:after {
-    display: block;
-    }
-
-    /* Style the checkmark/indicator */
-    .container .checkmark:after {
-    left: 12px;
-    top: 2px;
-    width: 14px;
-    height: 28px;
-    border: solid #000000;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-    }
-
   `
 
   eligibilityMessage () {
       if (this.email && !this.eligibleEmailDomain && !this.nonUniversityEmailDomain) {
           return html `
-            <div id="not-participating">
+            <div class="info">
               Domain of your email address doesn't appear to be from any of the
               participating universities. We will receive your vote and contact you
               in order to coordinate adding the participation of your university.
@@ -295,7 +174,7 @@ export class VoteForm extends LitElement {
   nonUniversityEmailMessage () {
       if (this.email && this.nonUniversityEmailDomain) {
           return html `
-            <div id="non-university">
+            <div class="error">
               It appears that you've entered email address provided by one of known
               non university email providers. Please enter email address provided by your university.
             </div>
@@ -311,7 +190,11 @@ export class VoteForm extends LitElement {
                 list.push(this.solutionTemplate(solution))
             }
       }
-      return list
+      return html`
+        <div id="solutions">
+            ${list}
+        </div>
+      `
   }
 
   render () {
@@ -324,7 +207,7 @@ export class VoteForm extends LitElement {
             ${ this.expectedSolutions === this.selectedSolutions.length ?
                '' :
                html`
-                <div>
+                <div class="error">
                     Select
                     ${this.expectedSolutions - this.selectedSolutions.length}
                     more solutions
@@ -379,7 +262,13 @@ export class VoteForm extends LitElement {
                 </mwc-formfield>
                 <mwc-button
                     raised
-                    ?disabled=${!this.email || this.nonUniversityEmailDomain || !this.nameValid || !this.acceptValid}
+                    ?disabled=${
+                        !this.email ||
+                        this.nonUniversityEmailDomain ||
+                        !this.nameValid ||
+                        !this.acceptValid ||
+                        this.selectedSolutions.length !== this.expectedSolutions
+                    }
                     @click=${(e) => console.log(e.target.disabled)}
                     label="Submit">
                 </mwc-button>
