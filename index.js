@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const statsResponse = await fetch(`${config.serviceUrl}`, { credentials: 'include' })
   const stats = await statsResponse.json()
   const countries = stats.country
+  document.querySelector('vote-form').results = stats.global.result
   renderVotes(stats)
   handleRouting(window.location)
   for await (const country of countries) {

@@ -15,6 +15,9 @@ export class VoteForm extends LitElement {
   @property({ type: Array })
   solutions
 
+  @property({ type: Array })
+  results
+
   @property({ type: Number })
   expectedSolutions
 
@@ -42,33 +45,8 @@ export class VoteForm extends LitElement {
   @property({ type: String })
   email
 
-    solutionTemplate (solution) {
-        return html`
-        <div class="solution">
-            <span>${solution.name}</span>
-            <mwc-checkbox
-                ?checked="${this.selectedSolutions.includes(solution.slug)}"
-                @change="${this.updateSelectedSolutions}"
-                data-slug=${solution.slug}>
-            ></mwc-checkbox>
-        </div>
-        `
-    }
-
-    updateSelectedSolutions (event) {
-        if (event.target.checked) {
-            this.selectedSolutions = [
-                ...this.selectedSolutions,
-                event.target.dataset.slug
-            ]
-        } else {
-            this.selectedSolutions = this.selectedSolutions.filter(s => s !== event.target.dataset.slug)
-        }
-    }
-
-
   static styles = css`
-    div {
+    #formfields-wrapper div.formfield {
         margin: 1.5em 0;
     }
 
@@ -152,12 +130,87 @@ export class VoteForm extends LitElement {
 
     .solution {
         display: flex;
-        justify-content: space-between;
+        border-top: 1px solid gray;
+        border-bottom: 1px solid gray;
+        padding-top: 0.5rem;
     }
-    .solution span {
+
+    .solution mwc-checkbox {
+        margin-top: 20px;
+    }
+
+    .solution .label {
+        display: block;
+        width: 90%;
+        height: 100px;
+        padding-left: 1em;
+    }
+
+    .solution-name {
         line-height: 40px;
+        height: 80px;
+        padding-left: 2.25rem;
+    }
+
+    .result {
+        display: flex;
+        line-height: 20px;
+    }
+
+    .count {
+        width: 1.75rem;
+        margin-right: 0.25rem;
+        padding-right: 0.25rem;
+        text-align: right;
+        border: 1px solid var(--dark-color);
+        background-color: var(--highlight-color);
+        border-radius: 4px;
+        font-family: monospace;
+    }
+    .bar {
+        height: 16px;
+        margin-top: 3px;
+        background-color: var(--highlight-color);
     }
   `
+    private resultBar (solutionSlug, results) {
+        if (results) {
+            const count = results.find(r => r.solution === solutionSlug).voteCount
+            const sum = results.reduce((acc, r) => { return acc + r.voteCount}, 0)
+            return html`
+              <div class="count">${count}</div>
+              <div class="bar" style="width: ${(count / (sum / 2)) * 100}%"></div>
+              `
+        }
+    }
+
+    solutionTemplate (solution) {
+        return html`
+        <div class="solution">
+            <div class="label">
+              <div class="result">${this.resultBar(solution.slug, this.results)}</div>
+              <div class="solution-name">${solution.name}</div>
+            </div>
+            <mwc-checkbox
+                ?checked="${this.selectedSolutions.includes(solution.slug)}"
+                @change="${this.updateSelectedSolutions}"
+                data-slug=${solution.slug}>
+            ></mwc-checkbox>
+        </div>
+        `
+    }
+
+    updateSelectedSolutions (event) {
+        if (event.target.checked) {
+            this.selectedSolutions = [
+                ...this.selectedSolutions,
+                event.target.dataset.slug
+            ]
+        } else {
+            this.selectedSolutions = this.selectedSolutions.filter(s => s !== event.target.dataset.slug)
+        }
+    }
+
 
   eligibilityMessage () {
       if (this.email && !this.eligibleEmailDomain && !this.nonUniversityEmailDomain) {
@@ -214,7 +267,7 @@ export class VoteForm extends LitElement {
                 </div>
               `  
             }
-            <div>
+            <div class="formfield">
                 <mwc-textfield
                     outlined
                     required
@@ -226,10 +279,10 @@ export class VoteForm extends LitElement {
                     validationMessage="please enter valid email address"
                     maxLength="50">
                 </mwc-textfield>
-                </div>
-                ${this.eligibilityMessage()}
-                ${this.nonUniversityEmailMessage()}
-                <div>
+            </div>
+            ${this.eligibilityMessage()}
+            ${this.nonUniversityEmailMessage()}
+            <div class="formfield">
                 <mwc-textfield
                     outlined
                     required
@@ -239,8 +292,8 @@ export class VoteForm extends LitElement {
                     validationMessage="please enter your full name"
                     maxLength="50">
                 </mwc-textfield>
-                </div>
-                <div>
+            </div>
+            <div class="formfield">
                 <mwc-textarea
                     outlined
                     charCounter
@@ -250,7 +303,7 @@ export class VoteForm extends LitElement {
                     helper="what kind of action do you see missing in addressing climat change"
                     maxLength="160">
                 </mwc-textarea>
-                </div>
+            </div>
                 <p>Our <a href="/privacy-policy" target="_blank" style="color:#ffffff;"><u>Privacy Policy</u></a> and <a href="/terms-of-service" target="_blank" style="color:#ffffff;"><u>Terms of Service</u></a></p>
                 <div id="side-by-side">
                 <mwc-formfield label="I accept *">
