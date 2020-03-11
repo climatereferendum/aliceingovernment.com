@@ -235,8 +235,15 @@ export class VoteForm extends LitElement {
       }
   }
 
-  solutionsList (solutions) {
+  solutionsList (solutions, results) {
       const list = []
+      if (results) {
+        solutions.sort((a, b) => {
+          const aResultIndex = results.indexOf(results.find(result => result.solution === a.slug))
+          const bResultIndex = results.indexOf(results.find(result => result.solution === b.slug))
+          return aResultIndex - bResultIndex
+        })
+      }
       for (const solution of solutions) {
         if (this.selectedSolutions.length < this.expectedSolutions
             || this.selectedSolutions.includes(solution.slug)) {
@@ -250,9 +257,40 @@ export class VoteForm extends LitElement {
       `
   }
 
+  // TODO
+  // async handleSubmit (event) {
+  //   document.querySelector('button[type=submit]').classList.add('inactive')
+  //   document.querySelector('#prevBtn').classList.add('inactive')
+  //   document.querySelector('#submitting').classList.remove('inactive')
+  //   const data = new FormData(form)
+  //   const draft = {}
+  //   for (const key of data.keys()) { (draft[key] = data.get(key)) }
+  //   draft.solutions = [...selectedSolutions]
+  //   // vote ready to submit
+  //   const castedVoteResponse = await fetch(config.serviceUrl, {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify(draft)
+  //   })
+  //   document.querySelector('#submitting').classList.add('inactive')
+  //   if (castedVoteResponse.ok) {
+  //     console.log('VOTE SUBMISSION SUCCEEDED')
+  //     document.querySelector('button[type=submit]').classList.add('inactive')
+  //     document.querySelector('#please-confirm').classList.remove('inactive')
+  //   } else {
+  //     console.log('VOTE SUBMISSION FAILED')
+  //     document.querySelector('#prevBtn').classList.remove('inactive')
+  //     document.querySelector('button[type=submit]').classList.remove('inactive')
+  //     // if status 409 - vote for that email exists
+  //     if (castedVoteResponse.status === 409) {
+  //       document.querySelector('#vote-exists').classList.remove('inactive')
+  //     }
+  //   }
+  // }
+
   render () {
     return html `
-        ${this.solutionsList(this.solutions)}
+        ${this.solutionsList(this.solutions, this.results)}
         <div id="formfields-wrapper">
             <div class="step">2</div>
             <h3>Complete your vote</h3>
@@ -263,7 +301,7 @@ export class VoteForm extends LitElement {
                 <div class="error">
                     Select
                     ${this.expectedSolutions - this.selectedSolutions.length}
-                    more solutions
+                    more ${this.selectedSolutions.length === 1 ? 'solution' : 'solutions'}
                 </div>
               `  
             }

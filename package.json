@@ -17,20 +17,21 @@
     "@material/mwc-formfield": "^0.13.0",
     "@material/mwc-textarea": "^0.13.0",
     "@material/mwc-textfield": "^0.13.0",
-    "lit-html": "^1.1.2",
     "lit-element": "^2.2.1",
+    "lit-html": "^1.1.2",
     "pwa-helpers": "^0.9.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@rollup/plugin-typescript": "^3.0.0",
     "rollup": "^1.31.0",
+    "rollup-plugin-filesize": "^6.2.1",
     "rollup-plugin-livereload": "^1.0.4",
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-terser": "^5.2.0",
     "rollup-plugin-visualizer": "^3.3.1",
-    "typescript": "^3.8.2",
+    "standard": "^12.0.1",
     "tslib": "^1.11.1",
-    "standard": "^12.0.1"
+    "typescript": "^3.8.2"
   }
 }

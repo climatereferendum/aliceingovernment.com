@@ -17,44 +17,6 @@ function countryName (countryCode) {
   return universities.find(u => u.slug === countryCode).name
 }
 
-// const form = document.querySelector('#vote-form')
-// form.addEventListener('submit', (event) => {
-//   event.preventDefault()
-//   event.stopPropagation()
-//   handleSubmit(event)
-//   return false
-// })
-
-async function handleSubmit (event) {
-  document.querySelector('button[type=submit]').classList.add('inactive')
-  document.querySelector('#prevBtn').classList.add('inactive')
-  document.querySelector('#submitting').classList.remove('inactive')
-  const data = new FormData(form)
-  const draft = {}
-  for (const key of data.keys()) { (draft[key] = data.get(key)) }
-  draft.solutions = [...selectedSolutions]
-  // vote ready to submit
-  const castedVoteResponse = await fetch(config.serviceUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(draft)
-  })
-  document.querySelector('#submitting').classList.add('inactive')
-  if (castedVoteResponse.ok) {
-    console.log('VOTE SUBMISSION SUCCEEDED')
-    document.querySelector('button[type=submit]').classList.add('inactive')
-    document.querySelector('#please-confirm').classList.remove('inactive')
-  } else {
-    console.log('VOTE SUBMISSION FAILED')
-    document.querySelector('#prevBtn').classList.remove('inactive')
-    document.querySelector('button[type=submit]').classList.remove('inactive')
-    // if status 409 - vote for that email exists
-    if (castedVoteResponse.status === 409) {
-      document.querySelector('#vote-exists').classList.remove('inactive')
-    }
-  }
-}
-
 document.addEventListener('DOMContentLoaded', async () => {
   renderVoteForm(solutions)
   installRouter(handleRouting)
@@ -78,6 +40,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 })
 
+
+// detect vote URL with /^[a-fA-F0-9]{24}$/
 async function handleRouting (location, event) {
   if (event && event.type === 'click') {
     window.scrollTo(0, 0)
