@@ -91,11 +91,6 @@ button,select {
     -webkit-appearance: button
 }
 
-input[type=checkbox],input[type=radio] {
-    box-sizing: border-box;
-    padding: 0
-}
-
 .h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6 {
     margin-bottom: .5rem;
     font-family: inherit;
@@ -358,11 +353,6 @@ input[type=text], input[type=submit] {
     box-sizing: border-box;
 }
 
-/* Add margins to the checkbox */
-input[type=checkbox] {
-    margin-top: 16px;
-}
-
 /* Style the submit button */
 input[type=submit] {
     background-color: var(--dark-font-color);
@@ -391,21 +381,6 @@ footer{
     z-index: 10;
     border-bottom: 1px solid #333333;
 }
-/* Projects Page */
-#profile {
-    padding-bottom: 24px;
-}
-
-#vote .row,
-#profile .row {
-    position: relative;
-}
-
-#vote a,
-#profile a {
-    color: #000000;
-    width: 100%;
-}
 
 #home > div {
     width: 100%;
@@ -417,58 +392,12 @@ img.home-dance{
     margin: 2em auto;
 }
 
-@media only screen and (max-height: 500px) {
-    img.home-dance{
-        display: none;
-    }
-}
-
-.vote-dance{
-    display: block;
-    margin: 0 auto;
-    padding-left: 26px;
-    padding-top: 15px;
-    padding-bottom: 5px;
-}
-
 #vote, #info {
     background-color: var(--light-color);
 }
 
 #info {
     color: var(--dark-font-color);
-}
-
-.page .info-box {
-    padding: 10px;
-    border: 1px solid #808080;
-}
-
-.info-box {
-    background-color: var(--light-color);
-    padding: 10px;
-}
-
-.info-box, .info-box h3 {
-    color: #1d1d1d;
-    line-height: 1.7rem;
-    font-size: 16px;
-    font-weight: 900;
-}
-
-.page .info-box {
-    width: 80%;
-    margin: 0 auto;
-}
-
-.page .info-box-short {
-    width: 50%;
-    margin: 0 auto;
-}
-
-.page .info-box-medium {
-    width: 65%;
-    margin: 0 auto;
 }
 
 .solution, .votes {
@@ -511,37 +440,12 @@ img.home-dance{
     font-size: 16px;
 }
 
-em.index {
-    font-family: monospace;
-    display: inline-block;
-    width: 3em;
-    text-align: right;
-    margin-left: -3em;
-}
-em.index:after {
-  content: '.';
-}
-
 .solution ul {
     list-style: none;
 }
 
 .social-media a{
     color: #2699FB;
-}
-
-.select-block{
-display: block;
-text-align: right;
-width: 100%;
-margin-right: 12px;
-margin-bottom: -24px;
-}
-
-@media only screen and (min-width: 481px){
-    .select-block{
-        margin-right: 8%;
-    }
 }
 
 .faq .accordion {
@@ -558,14 +462,6 @@ margin-bottom: -24px;
     text-align: center;
     padding: 8px 0;
     z-index: 100;
-}
-
-.home-vote{
-    text-align: center;
-    background: #2699FB;
-    color: #ffffff;
-    padding: 12px;
-    width: 40%;
 }
 
 .faq .accordion {
@@ -602,18 +498,6 @@ margin-bottom: -24px;
 .faq p{
     width: 100%;
     margin-bottom: 0;
-}
-
-.home-icon {
-    position: absolute;
-    bottom: 20%;
-    left: 50%;
-    margin-left: -100px;
-    transform: translate(-50%,-50%);
-    width: 80px;
-    height: 60px;
-    cursor: pointer;
-    transform: rotate(135deg);
 }
 
 .my-vote{
@@ -671,20 +555,6 @@ margin-bottom: -24px;
 
 .fa-wikipedia-w:before {
     content: "\f266"
-}
-
-#start {
-    display: block;
-    width: 30%;
-    margin: 1rem auto 0;
-    text-align: center;
-    color: #000;
-    font-weight: bold;
-    background-color: white;
-    border: 2px solid #5375ba;
-    line-height: 40px;
-    border-radius: 1rem;
-    text-transform: uppercase;
 }
 
 .step {
