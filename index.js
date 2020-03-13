@@ -38,6 +38,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     const element = document.querySelector(`#voters-${country.code}`)
     render(countryShortTemplate(country), element)
   }
+
+  // FAQ info accordion
+  const accordions = document.getElementsByClassName('accordion')
+
+  for (const accordion of accordions) {
+    accordion.addEventListener('click', function () {
+      this.classList.toggle('active')
+      var panel = this.nextElementSibling
+      if (panel.style.maxHeight) {
+        panel.style.maxHeight = null
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + 'px'
+      }
+    })
+  }
 })
 
 
@@ -59,7 +74,7 @@ async function handleRouting (location, event) {
   if (active === 'voters') {
     if (slug) {
       const template = html`
-        <div class="my-vote info-box">Congratulations, you are voter from <strong>${countryName(myVote.nationality)}</strong></div>
+        <div class="my-vote">Congratulations, you are voter from <strong>${countryName(myVote.nationality)}</strong></div>
         <div class="vertical-line-small"></div>
         ${countryShortTemplate({ code: myVote.nationality, vote: [myVote] })}
       `
@@ -185,19 +200,4 @@ function renderCountry (country) {
   `
 
   render(pageTemplate, document.querySelector('#country'))
-}
-
-// FAQ info accordion
-const accordions = document.getElementsByClassName('accordion')
-
-for (const accordion of accordions) {
-  accordion.addEventListener('click', function () {
-    this.classList.toggle('active')
-    var panel = this.nextElementSibling
-    if (panel.style.maxHeight) {
-      panel.style.maxHeight = null
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + 'px'
-    }
-  })
 }
