@@ -1,21 +1,16 @@
 import { html, render } from 'lit-html'
 import { installRouter } from './node_modules/pwa-helpers/router.js'
 
-import { universities, solutions } from '@aliceingovernment/data'
+import { solutions } from '@aliceingovernment/data'
 import config from './config'
 import { VoteForm } from './vote-form'
+import { OpinionBox } from './opinions-box'
 
 const { fetch, FormData } = window
 
-const PREVIEW_VOTES_COUNT = 5
 let active, slug
 let myVote
 const cache = []
-
-// TODO
-function countryName (countryCode) {
-  return universities.find(u => u.slug === countryCode).name
-}
 
 document.addEventListener('DOMContentLoaded', async () => {
   renderVoteForm(solutions)
@@ -73,14 +68,14 @@ async function handleRouting (location, event) {
   renderHeader(linkedHeader)
   if (active === 'voters') {
     if (slug) {
-      const template = html`
-        <div class="my-vote">Congratulations, you are voter from <strong>${countryName(myVote.nationality)}</strong></div>
-        <div class="vertical-line-small"></div>
-        ${countryShortTemplate({ code: myVote.nationality, vote: [myVote] })}
-      `
-      if (document.querySelector('#my-vote')) {
-        render(template, document.querySelector('#my-vote'))
-      }
+      // const template = html`
+      //   <div class="my-vote">Congratulations, you are voter from <strong>${countryName(myVote.nationality)}</strong></div>
+      //   <div class="vertical-line-small"></div>
+      //   ${countryShortTemplate({ code: myVote.nationality, vote: [myVote] })}
+      // `
+      // if (document.querySelector('#my-vote')) {
+      //   render(template, document.querySelector('#my-vote'))
+      // }
     } else {
       if (document.querySelector('#my-vote')) {
         document.querySelector('#my-vote').classList.add('inactive')
@@ -95,7 +90,7 @@ async function handleRouting (location, event) {
       cache.push(country)
     }
     if (active !== 'countries') return // check again if route didn't change
-    renderCountry(country)
+    // renderCountry(country)
     document.querySelector('#country').classList.remove('inactive')
   }
 }
@@ -133,30 +128,6 @@ function renderVoteForm (solutions) {
   render(voteFormTemplate, document.querySelector('#form-wrapper'))
 }
 
-function loadMoreLink (country) {
-  if (country.count > PREVIEW_VOTES_COUNT) {
-    return html`<a href="/countries/${country.code.toLowerCase()}"><i>load more ↓</i></a>`
-  }
-}
-
-function countryShortTemplate (country) {
-  return html`
-    <div class="project-box votes">
-      <h2>
-        ${countryName(country.code)}
-      </h2>
-      <span class="counter">${country.count} Votes</span>
-    </div>
-    <div class="project-box solution content">
-        <ul class="country-votes">
-          ${country.vote.map(voteTemplate)}
-        </ul>
-        ${loadMoreLink(country)}
-    </div>
-    <div class="vertical-line"></div>
-  `
-}
-
 function renderVotes (stats) {
   const pageTemplate = html`
     <div>
@@ -169,35 +140,7 @@ function renderVotes (stats) {
   render(pageTemplate, document.querySelector('#voters'))
 }
 
-function voteTemplate (vote) {
-  return html`
-  <li>
-    <div>
-      <strong>${vote.name}</strong>
-      <em>${vote.description}</em>
-    </div>
-    <div class="opinion">${vote.opinion}</div>
-  </li>
-  `
-}
 
-function renderCountry (country) {
-  const countryTemplate = html`
-    <div class="project-box votes">
-      <h2>
-        ${countryName(country.code)}
-      </h2>
-      <span class="counter">${country.count} VOTES</span>
-    </div>
-    <div class="project-box solution">
-      <ul class="country-votes">${country.vote.map(voteTemplate)}</ul>
-    </div>
-  `
-  const pageTemplate = html`
-    <div>
-      ${countryTemplate}
-    </div>
-  `
-
-  render(pageTemplate, document.querySelector('#country'))
+function countryShortTemplate (country) {
+  return html`<opinions-box .country=${country} preview></opinions-box>`
 }

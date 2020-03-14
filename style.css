@@ -371,17 +371,6 @@ footer{
     position: relative;
 }
 
-.project-box{
-    background: var(--light-color);
-    color: var(--dark-font-color);
-    width: 95%;
-    margin: 5% auto;
-    padding: 16px;
-    /**min-height: 160px;**/
-    z-index: 10;
-    border-bottom: 1px solid #333333;
-}
-
 #home > div {
     width: 100%;
 }
@@ -398,50 +387,6 @@ img.home-dance{
 
 #info {
     color: var(--dark-font-color);
-}
-
-.solution, .votes {
-    width: 100%;
-    min-height: 60px;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-.solution i{
-    display: block;
-    text-align: right;
-}
-
-.votes{
-    background: #000000;
-    color: #ffffff;
-    min-height: 40px;
-    cursor: pointer;
-    padding-bottom: 2px;
-    padding-top: 12px;
-}
-
-.votes h2{
-    margin-left: 0;
-    font-size: 20px;
-    width: 70%;
-}
-
-@media only screen and (min-width: 481px){
-    .votes h2{
-        width: 80%;
-    }
-}
-
-.votes span{
-    background: #ffffff;
-    color: #000000;
-    top: -46px;
-    font-size: 16px;
-}
-
-.solution ul {
-    list-style: none;
 }
 
 .social-media a{
