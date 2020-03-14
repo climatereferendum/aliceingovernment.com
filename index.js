@@ -58,14 +58,11 @@ async function handleRouting (location, event) {
   }
   active = location.pathname.split('/')[1]
   slug = location.pathname.split('/')[2]
-  let linkedHeader = true
   if (active === '') {
     document.querySelector('#home').classList.remove('inactive')
-    linkedHeader = false
   } else {
     document.querySelector(`#${active}`).classList.remove('inactive')
   }
-  renderHeader(linkedHeader)
   if (active === 'voters') {
     if (slug) {
       // const template = html`
@@ -93,21 +90,6 @@ async function handleRouting (location, event) {
     // renderCountry(country)
     document.querySelector('#country').classList.remove('inactive')
   }
-}
-
-function renderHeader (linked = true) {
-  let headerTemplate = html`
-    Alice in Government
-  `
-  if (linked) {
-    headerTemplate = html`
-    <a href="/">
-      ${headerTemplate}
-    </a>
-    `
-  }
-
-  render(headerTemplate, document.querySelector('#header'))
 }
 
 function renderVoteForm (solutions) {
