@@ -4,6 +4,10 @@ import { html } from 'lit-html'
 import { universities } from '@aliceingovernment/data'
 const PREVIEW_VOTES_COUNT = 5
 
+function universityName (countryCode) {
+  return universities.find(u => u.slug === countryCode).name
+}
+
 @customElement('opinions-box')
 export class OpinionsBox extends LitElement {
 
@@ -92,10 +96,6 @@ export class OpinionsBox extends LitElement {
     }
   `
 
-  universityName (countryCode) {
-    return universities.find(u => u.slug === countryCode).name
-  }
-
   voteTemplate (vote) {
     return html`
     <li>
@@ -110,7 +110,7 @@ export class OpinionsBox extends LitElement {
 
   loadMoreLink (country) {
     if (country.count > PREVIEW_VOTES_COUNT) {
-      return html`<a href="/${country.code.toLowerCase()}"><i>show all ${this.universityName(country.code)}</i></a>`
+      return html`<a href="/${country.code.toLowerCase()}"><i>show all ${universityName(country.code)}</i></a>`
     }
   }
 
@@ -118,7 +118,7 @@ export class OpinionsBox extends LitElement {
     return html`
       <div class="project-box votes">
         <h2>
-          ${this.universityName(this.country.code)}
+          ${universityName(this.country.code)}
         </h2>
         <span class="counter">${this.country.count} Votes</span>
       </div>

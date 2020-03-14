@@ -1,38 +1,19 @@
 import { html, render } from 'lit-html'
 import { installRouter } from './node_modules/pwa-helpers/router.js'
 
-import { solutions } from '@aliceingovernment/data'
+import { solutions, universities } from '@aliceingovernment/data'
 import config from './config'
 import { VoteForm } from './vote-form'
 import { OpinionBox } from './opinions-box'
 
-const { fetch, FormData } = window
+const { fetch } = window
 
-let active, slug
-let myVote
-const cache = []
+let stats
 
 document.addEventListener('DOMContentLoaded', async () => {
-  renderVoteForm(solutions)
-  installRouter(handleRouting)
-  if (window.location.pathname.split('/')[1] === 'voters') {
-    const myVoteId = window.location.pathname.split('/')[2]
-    if (myVoteId) {
-      const myVoteResponse = await fetch(`${config.serviceUrl}/votes/${myVoteId}`)
-      myVote = await myVoteResponse.json()
-    }
-  }
   const statsResponse = await fetch(`${config.serviceUrl}`, { credentials: 'include' })
-  const stats = await statsResponse.json()
-  const countries = stats.country
-  document.querySelector('vote-form').results = stats.global.result
-  renderVotes(stats)
-  handleRouting(window.location)
-  for await (const country of countries) {
-    await new Promise(resolve => setTimeout(resolve))
-    const element = document.querySelector(`#voters-${country.code}`)
-    render(countryShortTemplate(country), element)
-  }
+  stats = await statsResponse.json()
+  installRouter(handleRouting)
 
   // FAQ info accordion
   const accordions = document.getElementsByClassName('accordion')
@@ -51,20 +32,32 @@ document.addEventListener('DOMContentLoaded', async () => {
 })
 
 
-// detect vote URL with /^[a-fA-F0-9]{24}$/
 async function handleRouting (location, event) {
   if (event && event.type === 'click') {
     window.scrollTo(0, 0)
   }
-  active = location.pathname.split('/')[1]
-  slug = location.pathname.split('/')[2]
-  if (active === '') {
-    document.querySelector('#home').classList.remove('inactive')
+  if (location.pathname === '/') {
+    // TODO generic main page
+    renderCfa(stats.global)
+    renderVoteForm(solutions, stats.global)
+    renderVotes(stats)
   } else {
-    document.querySelector(`#${active}`).classList.remove('inactive')
-  }
-  if (active === 'voters') {
-    if (slug) {
+    const slug = location.pathname.split('/')[1]
+    if (universities.find(u => u.slug === slug)) {
+      const country = stats.country.find(c => c.code === slug)
+      renderCfa(country)
+      renderVoteForm(solutions, country) 
+      renderVotes(country)
+      // TODO university specific page
+      // let country = cache.find(c => c.code === slug)
+      // const countryResponse = await fetch(`${config.serviceUrl}/countries/${slug}`)
+      // country = await countryResponse.json()
+      // cache.push(country)
+      // TODO use lit-html until directive https://lit-html.polymer-project.org/guide/template-reference#until
+    } else if (slug.match(/^[a-fA-F0-9]{24}$/)) {
+      // TODO: render my vote
+      // const myVoteResponse = await fetch(`${config.serviceUrl}/votes/${myVoteId}`)
+      // const myVote = await myVoteResponse.json()
       // const template = html`
       //   <div class="my-vote">Congratulations, you are voter from <strong>${countryName(myVote.nationality)}</strong></div>
       //   <div class="vertical-line-small"></div>
@@ -73,30 +66,31 @@ async function handleRouting (location, event) {
       // if (document.querySelector('#my-vote')) {
       //   render(template, document.querySelector('#my-vote'))
       // }
+    } else if (slug === 'privacy-policy' || slug === 'terms-of-service') {
+      // TODO show privacy policy or terms of service
     } else {
-      if (document.querySelector('#my-vote')) {
-        document.querySelector('#my-vote').classList.add('inactive')
-      }
+      // TODO show 404
     }
-  }
-  if (active === 'countries' && slug) {
-    let country = cache.find(c => c.code === slug)
-    if (!country) {
-      const countryResponse = await fetch(`${config.serviceUrl}/countries/${slug}`)
-      country = await countryResponse.json()
-      cache.push(country)
-    }
-    if (active !== 'countries') return // check again if route didn't change
-    // renderCountry(country)
-    document.querySelector('#country').classList.remove('inactive')
   }
 }
 
-function renderVoteForm (solutions) {
+function renderCfa (context) {
+  const university = universities.find(u => u.slug === context.code)
+  const template = html`
+    ${university ? `${university.name} students` : 'Students'}
+    have different ideas on how to solve climate change 
+  `
+  render(template, document.querySelector('#cfa'))
+}
+
+function renderVoteForm (solutions, context) {
+  const university = universities.find(u => u.slug === context.code)
   const solutionsHeader = html`
       <div class="step">1</div>
       <h3>
-        Choose two solutions you want your university to implement
+        Choose two solutions you want
+        ${university ? university.name : 'your university'}
+        to implement
       </h3>
   `
 
@@ -104,6 +98,7 @@ function renderVoteForm (solutions) {
     ${solutionsHeader}
     <vote-form 
       .solutions=${solutions}
+      .results=${context.result}
       .expectedSolutions=${2}>
     </vote-form>
   `
@@ -116,7 +111,9 @@ function renderVotes (stats) {
       <div id="my-vote"></div>
       <div class="step">3</div>
       <h3>Find out how your opinion relates to the cummunity's</h3>
-      ${stats.country.map(c => html`<div id="voters-${c.code}"></div>`)}
+      ${ stats.country ?
+         stats.country.map(country => countryShortTemplate(country)) :
+         countryShortTemplate(stats) }
     </div>
   `
   render(pageTemplate, document.querySelector('#voters'))
