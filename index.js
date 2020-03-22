@@ -44,16 +44,14 @@ async function handleRouting (location, event) {
   } else {
     const slug = location.pathname.split('/')[1]
     if (universities.find(u => u.slug === slug)) {
-      const country = stats.country.find(c => c.code === slug)
+      let country = stats.country.find(c => c.code === slug)
       renderCfa(country)
       renderVoteForm(solutions, country) 
       renderVotes(country)
-      // TODO university specific page
-      // let country = cache.find(c => c.code === slug)
-      // const countryResponse = await fetch(`${config.serviceUrl}/countries/${slug}`)
-      // country = await countryResponse.json()
-      // cache.push(country)
       // TODO use lit-html until directive https://lit-html.polymer-project.org/guide/template-reference#until
+      const countryResponse = await fetch(`${config.serviceUrl}/countries/${slug}`)
+      country = await countryResponse.json()
+      renderVotes(country, false)
     } else if (slug.match(/^[a-fA-F0-9]{24}$/)) {
       // TODO: render my vote
       // const myVoteResponse = await fetch(`${config.serviceUrl}/votes/${myVoteId}`)
@@ -105,7 +103,7 @@ function renderVoteForm (solutions, context) {
   render(voteFormTemplate, document.querySelector('#form-wrapper'))
 }
 
-function renderVotes (stats) {
+function renderVotes (stats, preview = true) {
   const pageTemplate = html`
     <div>
       <div id="my-vote"></div>
@@ -113,13 +111,13 @@ function renderVotes (stats) {
       <h3>Find out how your opinion relates to the cummunity's</h3>
       ${ stats.country ?
          stats.country.map(country => countryShortTemplate(country)) :
-         countryShortTemplate(stats) }
+         countryShortTemplate(stats, preview) }
     </div>
   `
   render(pageTemplate, document.querySelector('#voters'))
 }
 
 
-function countryShortTemplate (country) {
-  return html`<opinions-box .country=${country} preview></opinions-box>`
+function countryShortTemplate (country, preview = true) {
+  return html`<opinions-box .country=${country} ?preview=${preview}></opinions-box>`
 }
