@@ -1,13 +1,16 @@
 import { LitElement, customElement, property, css, query } from 'lit-element'
 import { html } from 'lit-html'
-import { universities, emailProviders } from '@aliceingovernment/data'
 
 import { TextField } from '@material/mwc-textfield'
 import '@material/mwc-textfield'
+import { TextArea } from '@material/mwc-textarea'
 import '@material/mwc-textarea'
 import '@material/mwc-checkbox'
 import '@material/mwc-button'
 import '@material/mwc-formfield'
+
+import { universities, emailProviders } from '@aliceingovernment/data'
+import config from './config'
 
 @customElement('vote-form')
 export class VoteForm extends LitElement {
@@ -29,12 +32,15 @@ export class VoteForm extends LitElement {
 
   @query('mwc-textfield[name=name]')
   protected nameField: TextField
+  
+  @query('mwc-textarea[name=opinion]')
+  protected opinionField: TextArea
 
-  @property({ type: Boolean })
-  eligibleEmailDomain = false
+  @query('#formfields-wrapper')
+  protected formfieldsWrapper: HTMLElement
 
-  @property({ type: Boolean })
-  nonUniversityEmailDomain = false
+  @property({ type: String })
+  email
 
   @property({ type: Boolean })
   nameValid = false
@@ -42,8 +48,17 @@ export class VoteForm extends LitElement {
   @property({ type: Boolean })
   acceptValid = false
 
+  @property({ type: Boolean })
+  eligibleEmailDomain = false
+
+  @property({ type: Boolean })
+  nonUniversityEmailDomain = false
+
   @property({ type: String })
-  email
+  state = 'initial'
+
+  @property({ type: Boolean })
+  withCheckboxes = true
 
   static styles = css`
     #formfields-wrapper div.formfield {
@@ -191,11 +206,13 @@ export class VoteForm extends LitElement {
               <div class="result">${this.resultBar(solution.slug, this.results)}</div>
               <div class="solution-name">${solution.name}</div>
             </div>
-            <mwc-checkbox
-                ?checked="${this.selectedSolutions.includes(solution.slug)}"
-                @change="${this.updateSelectedSolutions}"
-                data-slug=${solution.slug}>
-            ></mwc-checkbox>
+            ${this.withCheckboxes ? html`
+                <mwc-checkbox
+                    .checked="${this.selectedSolutions.find(s => s === solution.slug)}"
+                    @change="${this.updateSelectedSolutions}"
+                    data-slug=${solution.slug}>
+                ></mwc-checkbox>
+            ` : ''}
         </div>
         `
     }
@@ -235,16 +252,16 @@ export class VoteForm extends LitElement {
       }
   }
 
-  solutionsList (solutions, results) {
+  solutionsList () {
       const list = []
-      if (results) {
-        solutions.sort((a, b) => {
-          const aResultIndex = results.indexOf(results.find(result => result.solution === a.slug))
-          const bResultIndex = results.indexOf(results.find(result => result.solution === b.slug))
+      if (this.results) {
+        this.solutions.sort((a, b) => {
+          const aResultIndex = this.results.indexOf(this.results.find(result => result.solution === a.slug))
+          const bResultIndex = this.results.indexOf(this.results.find(result => result.solution === b.slug))
           return aResultIndex - bResultIndex
         })
       }
-      for (const solution of solutions) {
+      for (const solution of this.solutions) {
         if (this.selectedSolutions.length < this.expectedSolutions
             || this.selectedSolutions.includes(solution.slug)) {
                 list.push(this.solutionTemplate(solution))
@@ -257,118 +274,146 @@ export class VoteForm extends LitElement {
       `
   }
 
-  // TODO
-  // async handleSubmit (event) {
-  //   document.querySelector('button[type=submit]').classList.add('inactive')
-  //   document.querySelector('#prevBtn').classList.add('inactive')
-  //   document.querySelector('#submitting').classList.remove('inactive')
-  //   const data = new FormData(form)
-  //   const draft = {}
-  //   for (const key of data.keys()) { (draft[key] = data.get(key)) }
-  //   draft.solutions = [...selectedSolutions]
-  //   // vote ready to submit
-  //   const castedVoteResponse = await fetch(config.serviceUrl, {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(draft)
-  //   })
-  //   document.querySelector('#submitting').classList.add('inactive')
-  //   if (castedVoteResponse.ok) {
-  //     console.log('VOTE SUBMISSION SUCCEEDED')
-  //     document.querySelector('button[type=submit]').classList.add('inactive')
-  //     document.querySelector('#please-confirm').classList.remove('inactive')
-  //   } else {
-  //     console.log('VOTE SUBMISSION FAILED')
-  //     document.querySelector('#prevBtn').classList.remove('inactive')
-  //     document.querySelector('button[type=submit]').classList.remove('inactive')
-  //     // if status 409 - vote for that email exists
-  //     if (castedVoteResponse.status === 409) {
-  //       document.querySelector('#vote-exists').classList.remove('inactive')
-  //     }
-  //   }
-  // }
+  async handleSubmit (event) {
+    this.state = 'pending'
+    const draft: any = {
+      email: this.email,
+      name: this.nameField.value,
+      opinion: this.opinionField.value ? this.opinionField.value : null,
+      policiesAgreement: this.acceptValid,
+      solutions: [...this.selectedSolutions]
+    }
+    // vote ready to submit
+    try {
+        const castedVoteResponse = await fetch(config.serviceUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(draft)
+        })
+        this.selectedSolutions = []
+        this.withCheckboxes = false
+        setTimeout(() => this.formfieldsWrapper.scrollIntoView())
+        if (castedVoteResponse.ok) {
+        console.log('VOTE SUBMISSION SUCCEEDED')
+        this.state = 'success'
+        } else {
+        console.log('VOTE SUBMISSION FAILED')
+        this.state = 'error'
+        // if status 409 - vote for that email exists
+        if (castedVoteResponse.status === 409) {
+            this.state = 'vote-already-exists'
+        }
+        }
+    } catch (err) {
+      this.state = 'error'
+    }
+  }
+
+  formPartial() {
+    return html`
+    <div>Share your opinion with the world</div>
+    ${ this.expectedSolutions === this.selectedSolutions.length ?
+        '' :
+        html`
+        <div class="error">
+            Select
+            ${this.expectedSolutions - this.selectedSolutions.length}
+            more ${this.selectedSolutions.length === 1 ? 'solution' : 'solutions'}
+        </div>
+        `  
+    }
+    <div class="formfield">
+        <mwc-textfield
+            outlined
+            required
+            helperPersistent
+            name="email"
+            type="email"
+            label="email"
+            helper="provided by the univeristy"
+            validationMessage="please enter valid email address"
+            maxLength="50">
+        </mwc-textfield>
+    </div>
+    ${this.eligibilityMessage()}
+    ${this.nonUniversityEmailMessage()}
+    <div class="formfield">
+        <mwc-textfield
+            outlined
+            required
+            name="name"
+            type="text"
+            label="full name"
+            validationMessage="please enter your full name"
+            maxLength="50">
+        </mwc-textfield>
+    </div>
+    <div class="formfield">
+        <mwc-textarea
+            outlined
+            charCounter
+            helperPersistent
+            name="opinion"
+            label="opinion"
+            helper="what kind of action do you see missing in addressing climat change"
+            maxLength="160">
+        </mwc-textarea>
+    </div>
+        <p>Our <a href="/privacy-policy" target="_blank" style="color:#ffffff;"><u>Privacy Policy</u></a> and <a href="/terms-of-service" target="_blank" style="color:#ffffff;"><u>Terms of Service</u></a></p>
+        <div id="side-by-side">
+            <mwc-formfield label="I accept *">
+                <mwc-checkbox
+                    required
+                    name="policiesAgreement"
+                    @change=${(e) => this.acceptValid = e.target.checked}
+                ></mwc-checkbox>
+            </mwc-formfield>
+            <mwc-button
+                raised
+                ?disabled=${
+                    !this.email ||
+                    this.nonUniversityEmailDomain ||
+                    !this.nameValid ||
+                    !this.acceptValid ||
+                    this.selectedSolutions.length !== this.expectedSolutions
+                }
+                @click=${this.handleSubmit}
+                label="Submit">
+            </mwc-button>
+        </div>
+    `
+  }
+  
+  statePartial () {
+    switch (this.state) {
+      case 'pending':
+        return html`
+          <p id="submitting">Submitting...</p>
+        `
+      case 'success':
+          return html`
+            <p id="please-confirm">Please check your inbox for email with confirmation link (you can close this browser tab).</p>
+          `
+      case 'vote-already-exists':
+        return html`
+            <p id="vote-exists">We already have vote for this email address, please search your inbox for permalink to your vote.</p>
+        `
+      case 'error':
+          return html`
+            <p id="error">An error have occured, we will investigate it! Please try voting again tomorrow. Thank you for your patience.</p>
+          `
+      default:
+        return this.formPartial()
+    }
+  }
 
   render () {
     return html `
-        ${this.solutionsList(this.solutions, this.results)}
+        ${this.solutionsList()}
         <div id="formfields-wrapper">
             <div class="step">2</div>
             <h3>Complete your vote</h3>
-            <div>Share your opinion with the world</div>
-            ${ this.expectedSolutions === this.selectedSolutions.length ?
-               '' :
-               html`
-                <div class="error">
-                    Select
-                    ${this.expectedSolutions - this.selectedSolutions.length}
-                    more ${this.selectedSolutions.length === 1 ? 'solution' : 'solutions'}
-                </div>
-              `  
-            }
-            <div class="formfield">
-                <mwc-textfield
-                    outlined
-                    required
-                    helperPersistent
-                    name="email"
-                    type="email"
-                    label="email"
-                    helper="provided by the univeristy"
-                    validationMessage="please enter valid email address"
-                    maxLength="50">
-                </mwc-textfield>
-            </div>
-            ${this.eligibilityMessage()}
-            ${this.nonUniversityEmailMessage()}
-            <div class="formfield">
-                <mwc-textfield
-                    outlined
-                    required
-                    name="name"
-                    type="text"
-                    label="full name"
-                    validationMessage="please enter your full name"
-                    maxLength="50">
-                </mwc-textfield>
-            </div>
-            <div class="formfield">
-                <mwc-textarea
-                    outlined
-                    charCounter
-                    helperPersistent
-                    name="opinion"
-                    label="opinion"
-                    helper="what kind of action do you see missing in addressing climat change"
-                    maxLength="160">
-                </mwc-textarea>
-            </div>
-                <p>Our <a href="/privacy-policy" target="_blank" style="color:#ffffff;"><u>Privacy Policy</u></a> and <a href="/terms-of-service" target="_blank" style="color:#ffffff;"><u>Terms of Service</u></a></p>
-                <div id="side-by-side">
-                <mwc-formfield label="I accept *">
-                    <mwc-checkbox
-                        required
-                        name="I accept privacy policy and terms of service"
-                        @change=${(e) => this.acceptValid = e.target.checked}
-                    ></mwc-checkbox>
-                </mwc-formfield>
-                <mwc-button
-                    raised
-                    ?disabled=${
-                        !this.email ||
-                        this.nonUniversityEmailDomain ||
-                        !this.nameValid ||
-                        !this.acceptValid ||
-                        this.selectedSolutions.length !== this.expectedSolutions
-                    }
-                    @click=${(e) => console.log(e.target.disabled)}
-                    label="Submit">
-                </mwc-button>
-            </div>
-        </div>
-        <div style="color:#ffffff;">
-            <p id="submitting" class="inactive">Submitting...</p>
-            <p id="please-confirm" class="inactive">Please check your inbox for email with confirmation link (you can close this browser tab).</p>
-            <p id="vote-exists" class="inactive">We already have vote for this email address, please search your inbox for permalink to your vote.</p>
+            ${this.statePartial()}
         </div>
     `
   }

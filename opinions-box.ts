@@ -101,7 +101,6 @@ export class OpinionsBox extends LitElement {
     <li>
       <div>
         <strong>${vote.name}</strong>
-        <em>${vote.description}</em>
       </div>
       <div class="opinion">${vote.opinion}</div>
     </li>
