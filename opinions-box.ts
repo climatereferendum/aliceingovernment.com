@@ -113,13 +113,19 @@ export class OpinionsBox extends LitElement {
     }
   }
 
+  headerTemplate () {
+    return html`
+      <h2>
+        ${universityName(this.country.code)}
+      </h2>
+      <span class="counter">${this.country.count} Votes</span>
+    `
+  }
+
   render () {
     return html`
       <div class="project-box votes">
-        <h2>
-          ${universityName(this.country.code)}
-        </h2>
-        <span class="counter">${this.country.count} Votes</span>
+        ${this.country.code ? this.headerTemplate() : ''}
       </div>
       <div class="project-box solution content">
           <ul>

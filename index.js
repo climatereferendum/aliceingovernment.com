@@ -54,16 +54,12 @@ async function handleRouting (location, event) {
       renderVotes(country, false)
     } else if (slug.match(/^[a-fA-F0-9]{24}$/)) {
       // TODO: render my vote
-      // const myVoteResponse = await fetch(`${config.serviceUrl}/votes/${myVoteId}`)
-      // const myVote = await myVoteResponse.json()
-      // const template = html`
-      //   <div class="my-vote">Congratulations, you are voter from <strong>${countryName(myVote.nationality)}</strong></div>
-      //   <div class="vertical-line-small"></div>
-      //   ${countryShortTemplate({ code: myVote.nationality, vote: [myVote] })}
-      // `
-      // if (document.querySelector('#my-vote')) {
-      //   render(template, document.querySelector('#my-vote'))
-      // }
+      const myVoteResponse = await fetch(`${config.serviceUrl}/votes/${slug}`)
+      const myVote = await myVoteResponse.json()
+      let country = stats.country.find(c => c.code === myVote.university)
+      if (!country) country = {}
+      country.vote = [myVote]
+      renderVotes(country)
     } else if (slug === 'privacy-policy' || slug === 'terms-of-service') {
       // TODO show privacy policy or terms of service
     } else {
