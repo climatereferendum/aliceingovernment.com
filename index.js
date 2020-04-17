@@ -8,6 +8,9 @@ import { OpinionBox } from './opinions-box'
 
 const { fetch } = window
 
+const CONTENT_ELEMENT_IDS = ['home', 'form-wrapper', 'voters', 'info']
+const LEGAL_ELEMENT_IDS = ['privacy-policy', 'terms-of-service']
+
 let stats
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -36,6 +39,10 @@ async function handleRouting (location, event) {
   if (event && event.type === 'click') {
     window.scrollTo(0, 0)
   }
+  const contentElements = CONTENT_ELEMENT_IDS.map(id => document.querySelector(`#${id}`))
+  const legalElements = LEGAL_ELEMENT_IDS.map(id => document.querySelector(`#${id}`))
+  for (const element of contentElements) element.classList.remove('inactive')
+  for (const element of legalElements) element.classList.add('inactive')
   if (location.pathname === '/') {
     // TODO generic main page
     renderCfa(stats.global)
@@ -61,7 +68,10 @@ async function handleRouting (location, event) {
       country.vote = [myVote]
       renderVotes(country)
     } else if (slug === 'privacy-policy' || slug === 'terms-of-service') {
-      // TODO show privacy policy or terms of service
+      // show privacy policy or terms of service
+      for (const element of contentElements) element.classList.add('inactive')
+      for (const element of legalElements) element.classList.add('inactive')
+      document.querySelector(`#${slug}`).classList.remove('inactive')
     } else {
       // TODO show 404
     }

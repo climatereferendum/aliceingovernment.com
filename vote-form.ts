@@ -359,7 +359,7 @@ export class VoteForm extends LitElement {
             maxLength="160">
         </mwc-textarea>
     </div>
-        <p>Our <a href="/privacy-policy" target="_blank" style="color:#ffffff;"><u>Privacy Policy</u></a> and <a href="/terms-of-service" target="_blank" style="color:#ffffff;"><u>Terms of Service</u></a></p>
+        <p>Our <a href="/privacy-policy" style="color:#ffffff;"><u>Privacy Policy</u></a> and <a href="/terms-of-service" style="color:#ffffff;"><u>Terms of Service</u></a></p>
         <div id="side-by-side">
             <mwc-formfield label="I accept *">
                 <mwc-checkbox

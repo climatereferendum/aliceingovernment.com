@@ -518,3 +518,12 @@ img.home-dance{
 a {
     color: var(--dark-font-color);
 }
+
+#terms-of-service, #privacy-policy {
+    padding: 1em;
+}
+
+#terms-of-service h3 a, #privacy-policy h3 a {
+    padding: 0 0.5em;
+    margin-right: 0.5em;
+}

@@ -15,7 +15,7 @@ export default {
   plugins: [
     resolve(),
     typescript(),
-    serve(),
+    serve(/*{ historyApiFallback: true }*/),
     livereload(),
     // terser(),
     //visualizer({ template: 'sunburst'})
