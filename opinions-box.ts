@@ -2,7 +2,7 @@ import { LitElement, customElement, property, css, query } from 'lit-element'
 import { html } from 'lit-html'
 
 import { universities } from '@aliceingovernment/data'
-const PREVIEW_VOTES_COUNT = 5
+const PREVIEW_VOTES_COUNT = 2
 
 function universityName (countryCode) {
   return universities.find(u => u.slug === countryCode).name
