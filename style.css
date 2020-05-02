@@ -136,6 +136,7 @@ body {
     --dark-color: #fc5a27;
     --highlight-color: #fab114;
     --dark-font-color: #ba6d63;
+    --university-color: #4d17e9;
     font-family: 'gothamlight', sans-serif;
     background-color: var(--light-color);
     margin: 0;

@@ -45,19 +45,20 @@ async function handleRouting (location, event) {
   for (const element of legalElements) element.classList.add('inactive')
   if (location.pathname === '/') {
     // TODO generic main page
-    renderCfa(stats.global)
-    renderVoteForm(solutions, stats.global)
+    renderCfa()
+    renderVoteForm(solutions, stats)
     renderVotes(stats)
   } else {
     const slug = location.pathname.split('/')[1]
     if (universities.find(u => u.slug === slug)) {
-      let country = stats.country.find(c => c.code === slug)
-      renderCfa(country)
-      renderVoteForm(solutions, country) 
-      renderVotes(country)
+      const university = universities.find(u => u.slug === slug)
+      let universityStats = stats.country.find(u => u.code === slug)
+      renderCfa(university)
+      renderVoteForm(solutions, stats, university) 
+      renderVotes(universityStats)
       const countryResponse = await fetch(`${config.serviceUrl}/countries/${slug}`)
-      country = await countryResponse.json()
-      renderVotes(country, false)
+      universityStats = await countryResponse.json()
+      renderVotes(universityStats, false)
     } else if (slug.match(/^[a-fA-F0-9]{24}$/)) {
       // TODO: render my vote
       const myVoteResponse = await fetch(`${config.serviceUrl}/votes/${slug}`)
@@ -77,8 +78,7 @@ async function handleRouting (location, event) {
   }
 }
 
-function renderCfa (context) {
-  const university = universities.find(u => u.slug === context.code)
+function renderCfa (university) {
   const template = html`
     ${university ? `${university.name} students` : 'Students'}
     have different ideas on how to solve climate change 
@@ -86,8 +86,7 @@ function renderCfa (context) {
   render(template, document.querySelector('#cfa'))
 }
 
-function renderVoteForm (solutions, context) {
-  const university = universities.find(u => u.slug === context.code)
+function renderVoteForm (solutions, stats, university) {
   const solutionsHeader = html`
       <div class="step">1</div>
       <h3>
@@ -101,7 +100,8 @@ function renderVoteForm (solutions, context) {
     ${solutionsHeader}
     <vote-form 
       .solutions=${solutions}
-      .results=${context.result}
+      .stats=${stats}
+      .university=${university}
       .expectedSolutions=${2}>
     </vote-form>
   `

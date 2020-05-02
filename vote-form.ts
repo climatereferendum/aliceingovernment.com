@@ -19,7 +19,22 @@ export class VoteForm extends LitElement {
   solutions
 
   @property({ type: Array })
-  results
+  stats
+
+  @property({ type: Object })
+  university
+
+  get globalResults () {
+    return this.stats.global.result
+  }
+
+  get results () {
+      if (this.university) {
+        return this.stats.country.find(u => u.code === this.university.slug).result
+      } else {
+          this.globalResults
+      }
+  }
 
   @property({ type: Number })
   expectedSolutions
@@ -162,42 +177,65 @@ export class VoteForm extends LitElement {
         padding-top: 0.5rem;
     }
 
-    .solution mwc-checkbox {
-        margin-top: 20px;
-    }
-
     .solution .label {
         display: block;
         width: 90%;
-        height: 100px;
         padding-left: 1em;
+        margin-bottom: 1em;
     }
 
     .solution-name {
         line-height: 40px;
-        height: 80px;
-        padding-left: 2.25rem;
+        font-family: gothambold;
+    }
+
+    .solution-description {
+        font-size: 0.9rem;
+    }
+
+    .result-label {
+        margin-top: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .worldwide {
+        color: var(--highlight-color);
+    }
+
+    .university {
+        color: var(--university-color);
     }
 
     .result {
         display: flex;
         line-height: 20px;
+        margin-top: 0.25rem;
     }
 
     .count {
         width: 1.75rem;
         margin-right: 0.25rem;
-        padding-right: 0.25rem;
-        text-align: right;
-        border: 1px solid var(--dark-color);
-        background-color: var(--highlight-color);
-        border-radius: 4px;
-        font-family: monospace;
+        font-family: gothambold;
     }
+
+    .worldwide .count {
+        color: var(--highlight-color);
+    }
+
+    .university .count {
+        color: var(--university-color);
+    }
+
     .bar {
-        height: 16px;
-        margin-top: 3px;
+        height: 1.25em;
+    }
+
+    .worldwide .bar {
         background-color: var(--highlight-color);
+    }
+
+    .university .bar {
+        background-color: var(--university-color);
     }
   `
     private resultBar (solutionSlug, results) {
@@ -211,12 +249,22 @@ export class VoteForm extends LitElement {
         }
     }
 
+    universityResult(solution) {
+      return html`
+            <div class="result-label university">Votes by university students</div>
+            <div class="result university">${this.resultBar(solution.slug, this.results)}</div>
+      `
+    }
+
     solutionTemplate (solution) {
         return html`
         <div class="solution">
             <div class="label">
-              <div class="result">${this.resultBar(solution.slug, this.results)}</div>
               <div class="solution-name">${solution.name}</div>
+              <div class="solution-description">${solution.description}</div>
+              ${ this.university ? this.universityResult(solution) : '' }
+              <div class="result-label worldwide">Votes by students worldwide</div>
+              <div class="result worldwide">${this.resultBar(solution.slug, this.globalResults)}</div>
             </div>
             ${this.withCheckboxes ? html`
                 <mwc-checkbox
