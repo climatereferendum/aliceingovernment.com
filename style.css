@@ -527,3 +527,11 @@ a {
     padding: 0 0.5em;
     margin-right: 0.5em;
 }
+
+#pending-notice {
+    font-style: italic;
+    padding: 0.5em;
+    border: 2px solid #267fb5;
+    margin: 0.5em;
+    border-radius: 0.2em;
+}

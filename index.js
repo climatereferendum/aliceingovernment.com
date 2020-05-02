@@ -55,7 +55,6 @@ async function handleRouting (location, event) {
       renderCfa(country)
       renderVoteForm(solutions, country) 
       renderVotes(country)
-      // TODO use lit-html until directive https://lit-html.polymer-project.org/guide/template-reference#until
       const countryResponse = await fetch(`${config.serviceUrl}/countries/${slug}`)
       country = await countryResponse.json()
       renderVotes(country, false)
@@ -109,6 +108,12 @@ function renderVoteForm (solutions, context) {
   render(voteFormTemplate, document.querySelector('#form-wrapper'))
 }
 
+const pendingNotice = html`
+  <p id="pending-notice">
+    Your vote has been successfully registered. Rock & roll! Your university is not currently listed on our website but we will add it shortly and send you an update. Thanks!
+  </p>
+`
+
 function renderVotes (stats, preview = true) {
   const pageTemplate = html`
     <div>
@@ -118,6 +123,7 @@ function renderVotes (stats, preview = true) {
       ${ stats.country ?
          stats.country.map(country => countryShortTemplate(country)) :
          countryShortTemplate(stats, preview) }
+      ${ stats.vote && stats.vote[0].pending ? pendingNotice : '' }
     </div>
   `
   render(pageTemplate, document.querySelector('#voters'))
