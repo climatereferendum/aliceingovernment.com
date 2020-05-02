@@ -102,7 +102,7 @@ export class VoteForm extends LitElement {
         margin-top: 1em;
     }
 
-    .info, .error {
+    .info, .error, #vote-exists, #please-confirm, #error {
         border-width: 2px;
         border-style: solid;
         font-style: italic;
@@ -110,12 +110,24 @@ export class VoteForm extends LitElement {
         border-radius: 0.2em;
     }
 
-    .info {
+    .info, #please-confirm {
         border-color: #267fb5;
     }
 
-    .error {
+    .error, #error {
         border-color: #b00020;
+    }
+
+    .error {
+        margin-top: 1em;
+    }
+
+    #vote-exists, #please-confirm p.primary, #error { 
+        font-size: 1.5em;
+    }
+
+    #vote-exists {
+        border-color: var(--highlight-color);
     }
     
     /* TODO: DRY */
@@ -306,6 +318,7 @@ export class VoteForm extends LitElement {
         }
     } catch (err) {
       this.state = 'error'
+      setTimeout(() => this.formfieldsWrapper.scrollIntoView())
     }
   }
 
@@ -392,7 +405,10 @@ export class VoteForm extends LitElement {
         `
       case 'success':
           return html`
-            <p id="please-confirm">Please check your inbox for email with confirmation link (you can close this browser tab).</p>
+            <div id="please-confirm">
+                <p class="primary">Please check your inbox for email with confirmation link</p>
+                <p>(you can close this browser tab).</p>
+            </div>
           `
       case 'vote-already-exists':
         return html`
