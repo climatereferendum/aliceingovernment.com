@@ -10,6 +10,8 @@ import '@material/mwc-button'
 import '@material/mwc-formfield'
 
 import { universities, emailProviders } from '@aliceingovernment/data'
+import './solution-result'
+import { SolutionResult } from './solution-result'
 import config from './config'
 
 @customElement('vote-form')
@@ -177,95 +179,22 @@ export class VoteForm extends LitElement {
         padding-top: 0.5rem;
     }
 
-    .solution .label {
+    .solution solution-result {
         display: block;
         width: 90%;
         padding-left: 1em;
         margin-bottom: 1em;
     }
-
-    .solution-name {
-        line-height: 40px;
-        font-family: gothambold;
-    }
-
-    .solution-description {
-        font-size: 0.9rem;
-    }
-
-    .result-label {
-        margin-top: 0.5rem;
-        font-size: 0.85rem;
-    }
-
-    .worldwide {
-        color: var(--highlight-color);
-    }
-
-    .university {
-        color: var(--university-color);
-    }
-
-    .result {
-        display: flex;
-        line-height: 20px;
-        margin-top: 0.25rem;
-    }
-
-    .count {
-        width: 1.75rem;
-        margin-right: 0.25rem;
-        font-family: gothambold;
-    }
-
-    .worldwide .count {
-        color: var(--highlight-color);
-    }
-
-    .university .count {
-        color: var(--university-color);
-    }
-
-    .bar {
-        height: 1.25em;
-    }
-
-    .worldwide .bar {
-        background-color: var(--highlight-color);
-    }
-
-    .university .bar {
-        background-color: var(--university-color);
-    }
   `
-    private resultBar (solutionSlug, results) {
-        if (results) {
-            const count = results.find(r => r.solution === solutionSlug).voteCount
-            const sum = results.reduce((acc, r) => { return acc + r.voteCount}, 0)
-            return html`
-              <div class="count">${count}</div>
-              <div class="bar" style="width: ${(count / (sum / 2)) * 100}%"></div>
-              `
-        }
-    }
-
-    universityResult(solution) {
-      return html`
-            <div class="result-label university">Votes by university students</div>
-            <div class="result university">${this.resultBar(solution.slug, this.results)}</div>
-      `
-    }
-
     solutionTemplate (solution) {
         return html`
         <div class="solution">
-            <div class="label">
-              <div class="solution-name">${solution.name}</div>
-              <div class="solution-description">${solution.description}</div>
-              ${ this.university ? this.universityResult(solution) : '' }
-              <div class="result-label worldwide">Votes by students worldwide</div>
-              <div class="result worldwide">${this.resultBar(solution.slug, this.globalResults)}</div>
-            </div>
+            <solution-result
+              .solution=${solution}
+              .university=${this.university}
+              .results=${this.results}
+              .globalResults=${this.globalResults}
+            ></solution-result>
             ${this.withCheckboxes ? html`
                 <mwc-checkbox
                     .checked="${this.selectedSolutions.find(s => s === solution.slug)}"
