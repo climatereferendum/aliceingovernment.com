@@ -131,10 +131,10 @@ hr {
 
 body {
     --light-color: #fff;
-    --dark-color: #fc5a27;
-    --highlight-color: #fab114;
-    --dark-font-color: #ba6d63;
-    --university-color: #4d17e9;
+    --dark-color: #4E0EB7;
+    --highlight-color: #5D28C8;
+    --dark-font-color: #333232;
+    --university-color: #FFBB1C;
     font-family: 'gothamlight', sans-serif;
     background-color: var(--light-color);
     margin: 0;
