@@ -7,8 +7,8 @@
   "license": "Unlicense",
   "private": false,
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "start": "rollup -c -w",
+    "build": "rollup -c"
   },
   "dependencies": {
     "@aliceingovernment/data": "https://github.com/aliceingovernment/data.git",
