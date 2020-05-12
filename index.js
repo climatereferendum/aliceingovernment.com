@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 })
 
+function getUniversityData(slug) {
+  return fetch(`${config.serviceUrl}/countries/${slug}`).then(res => res.json())
+}
 
 async function handleRouting (location, event) {
   if (event && event.type === 'click') {
@@ -43,6 +46,7 @@ async function handleRouting (location, event) {
   const legalElements = LEGAL_ELEMENT_IDS.map(id => document.querySelector(`#${id}`))
   for (const element of contentElements) element.classList.remove('inactive')
   for (const element of legalElements) element.classList.add('inactive')
+  this.document.querySelector('#my-vote').classList.add('inactive')
   if (location.pathname === '/') {
     // TODO generic main page
     renderCfa()
@@ -55,18 +59,27 @@ async function handleRouting (location, event) {
       let universityStats = stats.country.find(u => u.code === slug)
       renderCfa(university)
       renderVoteForm(solutions, stats, university) 
-      renderVotes(universityStats)
-      const countryResponse = await fetch(`${config.serviceUrl}/countries/${slug}`)
-      universityStats = await countryResponse.json()
+      universityStats = await getUniversityData(slug)
       renderVotes(universityStats, false)
     } else if (slug.match(/^[a-fA-F0-9]{24}$/)) {
       // TODO: render my vote
       const myVoteResponse = await fetch(`${config.serviceUrl}/votes/${slug}`)
       const myVote = await myVoteResponse.json()
-      let country = stats.country.find(c => c.code === myVote.university)
-      if (!country) country = {}
-      country.vote = [myVote]
-      renderVotes(country)
+      let dummy = {}
+      const university = universities.find(u => u.slug === myVote.university)
+      if (university) {
+        dummy = stats.country.find(uni => uni.code === myVote.university)
+        let universityStats = await getUniversityData(university.slug)
+        renderVoteForm(solutions, stats, university, false) 
+        renderVotes(universityStats, false, false)
+      } else {
+        renderVoteForm(solutions, stats, null, false)
+        renderVotes(stats, true, false)
+      }
+      dummy.vote = [myVote]
+      renderMyVote(dummy)
+      this.document.querySelector('#my-vote').classList.remove('inactive')
+      setTimeout(() => this.document.querySelector('#my-vote').scrollIntoView())
     } else if (slug === 'privacy-policy' || slug === 'terms-of-service') {
       // show privacy policy or terms of service
       for (const element of contentElements) element.classList.add('inactive')
@@ -86,7 +99,7 @@ function renderCfa (university) {
   render(template, document.querySelector('#cfa'))
 }
 
-function renderVoteForm (solutions, stats, university) {
+function renderVoteForm (solutions, stats, university, form = true) {
   const solutionsHeader = html`
       <div class="step">1</div>
       <h3>
@@ -97,11 +110,13 @@ function renderVoteForm (solutions, stats, university) {
   `
 
   const voteFormTemplate = html`
-    ${solutionsHeader}
+    ${form ? solutionsHeader : ''}
     <vote-form 
       .solutions=${solutions}
       .stats=${stats}
       .university=${university}
+      .form=${form}
+      .withCheckboxes=${form}
       .expectedSolutions=${2}>
     </vote-form>
   `
@@ -114,11 +129,10 @@ const pendingNotice = html`
   </p>
 `
 
-function renderVotes (stats, preview = true) {
+function renderVotes (stats, preview = true, step = true) {
   const pageTemplate = html`
     <div>
-      <div id="my-vote"></div>
-      <div class="step">3</div>
+      ${ step ? html`<div class="step">3</div>` : '' }
       <h3>Find out how your opinion relates to the community's</h3>
       ${ stats.country ?
          stats.country.map(country => countryShortTemplate(country)) :
@@ -127,6 +141,16 @@ function renderVotes (stats, preview = true) {
     </div>
   `
   render(pageTemplate, document.querySelector('#voters'))
+}
+
+function renderMyVote (stats) {
+  const pageTemplate = html`
+    <div>
+      ${ countryShortTemplate(stats, false) }
+      ${ stats.vote && stats.vote[0].pending ? pendingNotice : '' }
+    </div>
+  `
+  render(pageTemplate, document.querySelector('#my-vote'))
 }
 
 

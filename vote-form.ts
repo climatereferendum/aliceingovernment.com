@@ -26,6 +26,9 @@ export class VoteForm extends LitElement {
   @property({ type: Object })
   university
 
+  @property({ type: Boolean })
+  form = true
+
   get globalResults () {
     return this.stats.global.result
   }
@@ -78,6 +81,9 @@ export class VoteForm extends LitElement {
   withCheckboxes = true
 
   static styles = css`
+    .inactive {
+        display: none !important;
+    }
     #formfields-wrapper div.formfield {
         margin: 1.5em 0;
     }
@@ -403,7 +409,7 @@ export class VoteForm extends LitElement {
   render () {
     return html `
         ${this.solutionsList()}
-        <div id="formfields-wrapper">
+        <div id="formfields-wrapper" class="${ this.form ? '' : 'inactive'}">
             <div class="step">2</div>
             <h3>Complete your vote</h3>
             ${this.statePartial()}
