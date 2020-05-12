@@ -142,7 +142,7 @@ export class OpinionsBox extends LitElement {
   private solutionsPreview () {
     return html`
     <div class="solutions-preview">
-      ${ this.country.result.slice(0, PREVIEW_RESULTS_COUNT).map(this.solutionResult.bind(this)) }
+      ${ this.country.result ? this.country.result.slice(0, PREVIEW_RESULTS_COUNT).map(this.solutionResult.bind(this)) : '' }
     </div>
     `
   }
