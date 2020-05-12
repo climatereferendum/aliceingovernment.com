@@ -127,8 +127,6 @@ hr {
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px
 }
 
 body {
@@ -249,10 +247,9 @@ h3 {
 
 #radical, #mainstream {
     flex: 1;
+    padding: 0.5em 0;
+    font-size: 1.5rem;
     text-align: center;
-    padding: 0.5em 3em;
-    font-size: 1.25rem;
-    text-align: left;
 }
 
 #radical p, #mainstream p {
@@ -527,4 +524,8 @@ a {
     border: 2px solid #267fb5;
     margin: 0.5em;
     border-radius: 0.2em;
+}
+
+#header a {
+    color: black;
 }

@@ -92,7 +92,7 @@ export class SolutionResult extends LitElement {
 
   private universityResult() {
     return html`
-      ${ !this.compact ? html`<div class="result-label university">Votes by university students</div>` : '' }
+      ${ !this.compact ? html`<div class="result-label university">Votes by ${ this.university.name } students</div>` : '' }
       <div class="result university">${this.resultBar(this.solution.slug, this.results)}</div>
     `
   }

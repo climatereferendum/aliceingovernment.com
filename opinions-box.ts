@@ -55,7 +55,6 @@ export class OpinionsBox extends LitElement {
         background: #000000;
         color: #ffffff;
         min-height: 40px;
-        cursor: pointer;
     }
 
     .votes h2{
@@ -99,6 +98,11 @@ export class OpinionsBox extends LitElement {
     .solutions-preview {
       padding: 0 16px;
     }
+    h2 a, h2 a:hover {
+      display: block;
+      color: #fff;
+      text-decoration: none
+    }
   `
 
   voteTemplate (vote) {
@@ -121,7 +125,10 @@ export class OpinionsBox extends LitElement {
   headerTemplate () {
     return html`
       <h2>
-        ${universityName(this.country.code)}
+        ${ this.preview ?
+           html`<a href="/${this.country.code}">${universityName(this.country.code)}</a>` :
+           html`${universityName(this.country.code)}`
+        }
       </h2>
       <span class="counter">${this.country.count} Votes</span>
     `

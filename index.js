@@ -49,10 +49,12 @@ async function handleRouting (location, event) {
   this.document.querySelector('#my-vote').classList.add('inactive')
   if (location.pathname === '/') {
     // TODO generic main page
+    renderHeader(false)
     renderCfa()
     renderVoteForm(solutions, stats)
     renderVotes(stats)
   } else {
+    renderHeader(true)
     const slug = location.pathname.split('/')[1]
     if (universities.find(u => u.slug === slug)) {
       const university = universities.find(u => u.slug === slug)
@@ -89,6 +91,22 @@ async function handleRouting (location, event) {
       // TODO show 404
     }
   }
+}
+
+
+function renderHeader (linked = true) {
+  let headerTemplate = html`
+    Climate Referendum
+  `
+  if (linked) {
+    headerTemplate = html`
+    <a href="/">
+      ${headerTemplate}
+    </a>
+    `
+  }
+
+  render(headerTemplate, document.querySelector('#header'))
 }
 
 function renderCfa (university) {
