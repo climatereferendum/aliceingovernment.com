@@ -151,7 +151,7 @@ function renderVotes (stats, preview = true, step = true) {
   const pageTemplate = html`
     <div>
       ${ step ? html`<div class="step">3</div>` : '' }
-      <h3>Find out how your opinion relates to the community's</h3>
+      <h3>Find out how your opinion relates to the community</h3>
       ${ stats.country ?
          stats.country.map(country => countryShortTemplate(country)) :
          countryShortTemplate(stats, preview) }

@@ -228,9 +228,9 @@ export class VoteForm extends LitElement {
       if (this.email && !this.eligibleEmailDomain && !this.nonUniversityEmailDomain) {
           return html `
             <div class="info">
-              Domain of your email address doesn't appear to be from any of the
-              participating universities. We will receive your vote and contact you
-              in order to coordinate adding the participation of your university.
+              Your email address doesn't appear to be from any of the
+              participating universities. After you finish filling this form, we will contact you
+              in order to add your university.
             </div>
           ` 
       }
@@ -325,8 +325,8 @@ export class VoteForm extends LitElement {
             helperPersistent
             name="email"
             type="email"
-            label="email"
-            helper="provided by the univeristy"
+            label=" University email"
+            helper="provided by your univeristy"
             validationMessage="please enter valid email address"
             maxLength="50">
         </mwc-textfield>
@@ -339,7 +339,7 @@ export class VoteForm extends LitElement {
             required
             name="name"
             type="text"
-            label="full name"
+            label="Full name"
             validationMessage="please enter your full name"
             maxLength="50">
         </mwc-textfield>
@@ -350,12 +350,12 @@ export class VoteForm extends LitElement {
             charCounter
             helperPersistent
             name="opinion"
-            label="opinion"
-            helper="what kind of action do you see missing in addressing climat change"
+            label="Opinion"
+            helper="What should be the role of our universities in addressing climate change?"
             maxLength="160">
         </mwc-textarea>
     </div>
-        <p>Our <a href="/privacy-policy" style="color:#ffffff;"><u>Privacy Policy</u></a> and <a href="/terms-of-service" style="color:#ffffff;"><u>Terms of Service</u></a></p>
+        <p><a href="/privacy-policy" style="color:#ffffff;"><u>Privacy Policy</u></a>, <a href="/terms-of-service" style="color:#ffffff;"><u>Terms of Service</u></a>, and I'm 18+ years old.</p>
         <div id="side-by-side">
             <mwc-formfield label="I accept *">
                 <mwc-checkbox
