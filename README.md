@@ -1,5 +1,4 @@
-aliceingovernment.com is a digital tool for people to vote on a global strategy against climate change.
-
+Digital tool for university students and staff to find consensus on their university's climate action plan, with a simple 3-step process. 
 ```bash
 yarn install
 yarn start
