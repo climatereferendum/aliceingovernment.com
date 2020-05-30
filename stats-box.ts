@@ -37,6 +37,9 @@ export class StatsBox extends LitElement {
       color: var(--highlight-color);
       flex: 1;
     }
+    .decorated {
+      text-decoration: underline;
+    }
     .name .count {
       font-size: 0.95rem;
       color: black;
@@ -60,7 +63,10 @@ export class StatsBox extends LitElement {
     return html`
       <div class="stat">
         <a href=${this.linkTo(university)}>
-          <div class="name">${university.name} <span class="count">${stat.count} vote${stat.count === 1 ? '' : 's'}</span></div>
+          <div class="name">
+            <span class="decorated">${university.name}</span>
+            <span class="count">${stat.count} vote${stat.count === 1 ? '' : 's'}</span>
+          </div>
           <div class="arrow">〉</div>
         </a>
         <div class="bar university" style="width: ${(stat.count / this.max) * 100}%"></div>
