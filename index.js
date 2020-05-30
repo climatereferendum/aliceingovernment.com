@@ -72,9 +72,11 @@ async function handleRouting (location, event) {
       if (university) {
         dummy = stats.country.find(uni => uni.code === myVote.university)
         let universityStats = await getUniversityData(university.slug)
+        renderCfa(university)
         renderVoteForm(solutions, stats, university, false) 
         renderVotes(universityStats, false, false)
       } else {
+        renderCfa()
         renderVoteForm(solutions, stats, null, false)
         renderVotes(stats, true, false)
       }
