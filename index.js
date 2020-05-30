@@ -52,7 +52,7 @@ async function handleRouting (location, event) {
     renderHeader(false)
     renderCfa()
     renderVoteForm(solutions, stats)
-    renderVotes(stats)
+    renderGlobalResults(stats)
   } else {
     renderHeader(true)
     const slug = location.pathname.split('/')[1]
@@ -78,7 +78,7 @@ async function handleRouting (location, event) {
       } else {
         renderCfa()
         renderVoteForm(solutions, stats, null, false)
-        renderVotes(stats, true, false)
+        renderGlobalResults(stats, false)
       }
       dummy.vote = [myVote]
       renderMyVote(dummy)
@@ -149,14 +149,27 @@ const pendingNotice = html`
   </p>
 `
 
+function communityTemplate (step = true) {
+  return html`
+    ${ step ? html`<div class="step">3</div>` : '' }
+    <h3>Find out how your opinion relates to the community</h3>
+  `
+}
+
+function renderGlobalResults (stats, step = true) {
+  const pageTemplate = html`
+    <div>
+      ${ communityTemplate(step) }
+    </div>
+  `
+  render(pageTemplate, document.querySelector('#voters'))
+}
+
 function renderVotes (stats, preview = true, step = true) {
   const pageTemplate = html`
     <div>
-      ${ step ? html`<div class="step">3</div>` : '' }
-      <h3>Find out how your opinion relates to the community</h3>
-      ${ stats.country ?
-         stats.country.map(country => countryShortTemplate(country)) :
-         countryShortTemplate(stats, preview) }
+      ${ communityTemplate(step) }
+      ${ countryShortTemplate(stats, preview) }
       ${ stats.vote && stats.vote[0].pending ? pendingNotice : '' }
     </div>
   `
