@@ -2,9 +2,7 @@ import { LitElement, customElement, property, css, query } from 'lit-element'
 import { html } from 'lit-html'
 
 import { universities, solutions } from '@aliceingovernment/data'
-import { SolutionResult } from './solution-result'
 const PREVIEW_VOTES_COUNT = 2
-const PREVIEW_RESULTS_COUNT = 2
 
 function universityName (countryCode) {
   return universities.find(u => u.slug === countryCode).name
@@ -134,32 +132,11 @@ export class OpinionsBox extends LitElement {
     `
   }
 
-  private solutionResult (result) {
-    const solution = solutions.find(s => s.slug === result.solution)
-    return html`
-      <solution-result
-        .solution=${solution}
-        .university=${this.country}
-        .results=${this.country.result}
-        compact
-      ></solution-result>
-    `
-  }
-
-  private solutionsPreview () {
-    return html`
-    <div class="solutions-preview">
-      ${ this.country.result ? this.country.result.slice(0, PREVIEW_RESULTS_COUNT).map(this.solutionResult.bind(this)) : '' }
-    </div>
-    `
-  }
-
   render () {
     return html`
       <div class="project-box votes">
         ${this.country.code ? this.headerTemplate() : ''}
       </div>
-      ${this.preview ? this.solutionsPreview() : '' }
       <div class="project-box solution content">
           <ul>
             ${this.country.vote.map(this.voteTemplate)}
