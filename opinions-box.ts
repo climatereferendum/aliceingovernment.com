@@ -2,7 +2,6 @@ import { LitElement, customElement, property, css, query } from 'lit-element'
 import { html } from 'lit-html'
 
 import { universities, solutions } from '@aliceingovernment/data'
-const PREVIEW_VOTES_COUNT = 2
 
 function universityName (countryCode) {
   return universities.find(u => u.slug === countryCode).name
@@ -13,9 +12,6 @@ export class OpinionsBox extends LitElement {
 
   @property({ type: Object })
   country
-
-  @property({ type: Boolean })
-  preview = false
 
   static styles = css`
     *,::after,::before {
@@ -93,9 +89,6 @@ export class OpinionsBox extends LitElement {
     .opinion {
       margin-top: 0.5em;
     }
-    .solutions-preview {
-      padding: 0 16px;
-    }
     h2 a, h2 a:hover {
       display: block;
       color: #fff;
@@ -114,19 +107,10 @@ export class OpinionsBox extends LitElement {
     `
   }
 
-  loadMoreLink (country) {
-    if (country.count > PREVIEW_VOTES_COUNT) {
-      return html`<a href="/${country.code.toLowerCase()}"><i>show all ${universityName(country.code)}</i></a>`
-    }
-  }
-
   headerTemplate () {
     return html`
       <h2>
-        ${ this.preview ?
-           html`<a href="/${this.country.code}">${universityName(this.country.code)}</a>` :
-           html`${universityName(this.country.code)}`
-        }
+       ${universityName(this.country.code)}
       </h2>
       <span class="counter">${this.country.count} Votes</span>
     `
@@ -141,7 +125,6 @@ export class OpinionsBox extends LitElement {
           <ul>
             ${this.country.vote.map(this.voteTemplate)}
           </ul>
-          ${this.preview ? this.loadMoreLink(this.country) : ''}
       </div>
       <div class="vertical-line"></div>
     `
