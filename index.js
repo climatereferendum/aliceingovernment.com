@@ -5,6 +5,7 @@ import { solutions, universities } from '@aliceingovernment/data'
 import config from './config'
 import { VoteForm } from './vote-form'
 import { OpinionBox } from './opinions-box'
+import { StatsBox } from './stats-box'
 
 const { fetch } = window
 
@@ -160,6 +161,10 @@ function renderGlobalResults (stats, step = true) {
   const pageTemplate = html`
     <div>
       ${ communityTemplate(step) }
+      <stats-box
+        .stats=${stats}
+        .universities=${universities}
+      ></stats-box>
     </div>
   `
   render(pageTemplate, document.querySelector('#voters'))
