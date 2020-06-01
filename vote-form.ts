@@ -240,8 +240,8 @@ export class VoteForm extends LitElement {
       if (this.email && this.nonUniversityEmailDomain) {
           return html `
             <div class="error">
-              It appears that you've entered email address provided by one of known
-              non university email providers. Please enter email address provided by your university.
+              It appears like you've entered an email address not related to a university.
+              Please enter an email address provided by your university.
             </div>
           ` 
       }
@@ -312,7 +312,7 @@ export class VoteForm extends LitElement {
         '' :
         html`
         <div class="error">
-            Select
+            Please select
             ${this.expectedSolutions - this.selectedSolutions.length}
             more ${this.selectedSolutions.length === 1 ? 'solution' : 'solutions'}
         </div>
@@ -326,7 +326,7 @@ export class VoteForm extends LitElement {
             name="email"
             type="email"
             label=" University email"
-            helper="provided by your univeristy"
+            helper="provided by your university"
             validationMessage="please enter valid email address"
             maxLength="50">
         </mwc-textfield>
@@ -350,8 +350,8 @@ export class VoteForm extends LitElement {
             charCounter
             helperPersistent
             name="opinion"
-            label="Opinion"
-            helper="What should be the role of our universities in addressing climate change?"
+            label="Opinion/ What should the role of our universities in addressing climate change be?"
+            helper=""
             maxLength="160">
         </mwc-textarea>
     </div>
