@@ -350,7 +350,7 @@ export class VoteForm extends LitElement {
             charCounter
             helperPersistent
             name="opinion"
-            label="Opinion/ What should the role of our universities in addressing climate change be?"
+            label="Opinion/ What should our universities do <p> to address climate change?"
             helper=""
             maxLength="160">
         </mwc-textarea>
