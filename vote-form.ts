@@ -110,7 +110,7 @@ export class VoteForm extends LitElement {
 
     #formfields-wrapper mwc-formfield {
         --mdc-theme-text-primary-on-background: var(--light-color);
-        --mdc-checkbox-mark-color: var(--dark-color);
+        --mdc-checkbox-mark-color: var(--highlight-color);
         --mdc-theme-secondary: var(--light-color);
         margin-top: -0.5em;
         margin-left: -0.5em;
@@ -164,12 +164,12 @@ export class VoteForm extends LitElement {
         border-radius: 1.5em;
         text-align: center;
         line-height: 2em;
-        color: var(--dark-color);
+        color: var(--highlight-color);
     }
 
     #formfields-wrapper {
         padding: 30px;
-        background-color: var(--dark-color);
+        background-color: var(--highlight-color);
         color: var(--light-color);
         padding-top: 3rem;
     }

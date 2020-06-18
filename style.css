@@ -120,8 +120,7 @@ hr {
 
 body {
     --light-color: #fff;
-    --dark-color: #4E0EB7;
-    --highlight-color: #5D28C8;
+    --highlight-color: #8b36b5 ;
     --dark-font-color: #333232;
     --university-color: #FFBB1C;
     font-family: 'Roboto Mono', sans-serif;
@@ -169,7 +168,7 @@ h1 {
 }
 
 h1 a, h1 a:hover {
-    color: var(--dark-color);
+    color: var(--highlight-color);
 }
 
 /* Sections */
@@ -215,11 +214,9 @@ h2, h3 {
 
 #home h2, #home h3 {
     line-height: 1.5em;
-    color: var(--light-color);
-    background-color: var(--highlight-color);
+    color: var(--highlight-color);
     margin: 0 1rem;
     padding: 0.75rem;
-    border-radius: 0.5rem;
 }
 
 h2 {
@@ -228,29 +225,6 @@ h2 {
 
 h3 {
     font-size: 2rem;
-}
-
-#polars {
-    display: flex;
-}
-
-#radical, #mainstream {
-    flex: 1;
-    padding: 0.5em 0;
-    font-size: 1.5rem;
-    text-align: center;
-}
-
-#radical p, #mainstream p {
-    margin: 0;
-}
-
-#radical {
-    border-right: 2px solid var(--highlight-color);
-}
-
-#mainstream {
-    border-left: 2px solid var(--highlight-color);
 }
 
 #voters {
@@ -304,7 +278,7 @@ h3 {
 
 
 .part-footer{
-    background: var(--dark-color); /* old color: #21cf76 */
+    background: var(--highlight-color); /* old color: #21cf76 */
     padding: 0 32px;
     width: 100%;
     margin: 0 auto;
@@ -489,7 +463,7 @@ img.home-dance{
     border-radius: 1.5em;
     text-align: center;
     line-height: 2em;
-    color: var(--dark-color);
+    color: var(--highlight-color);
 }
 
 a {
@@ -511,6 +485,10 @@ a {
     border: 2px solid #267fb5;
     margin: 0.5em;
     border-radius: 0.2em;
+}
+
+#header {
+    color: var(--highlight-color);
 }
 
 #header a {
