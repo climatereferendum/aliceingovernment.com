@@ -92,16 +92,14 @@ export class VoteForm extends LitElement {
         margin: 1.5em 0;
     }
 
-    mwc-textfield, mwc-textarea {
-        width: 100%;
-    }
-
     mwc-button {
         --mdc-theme-primary: #fab114;
         --mdc-theme-on-primary: var(--light-color);
     }
 
     mwc-textfield, mwc-textarea {
+        width: 100%;
+        --mdc-theme-error: var(--university-color);
         --mdc-text-field-label-ink-color: var(--light-color);
         --mdc-text-field-outlined-idle-border-color: var(--light-color);
         --mdc-text-field-ink-color: var(--light-color);
@@ -142,7 +140,7 @@ export class VoteForm extends LitElement {
     }
 
     .error, #error {
-        border-color: #b00020;
+        border-color: var(--university-color);
     }
 
     .error {
@@ -348,13 +346,16 @@ export class VoteForm extends LitElement {
             maxLength="50">
         </mwc-textfield>
     </div>
+    <div>
+        What should the role of our universities in addressing climate change be?
+    </div>
     <div class="formfield">
         <mwc-textarea
             outlined
             charCounter
             helperPersistent
             name="opinion"
-            label="Opinion/ What should the role of our universities in addressing climate change be?"
+            label="Opinion"
             helper=""
             maxLength="160">
         </mwc-textarea>
