@@ -81,6 +81,10 @@ export class VoteForm extends LitElement {
   withCheckboxes = true
 
   static styles = css`
+    h3 {
+        font-size: 1.75rem;
+        font-weight: 500;
+    }
     .inactive {
         display: none !important;
     }

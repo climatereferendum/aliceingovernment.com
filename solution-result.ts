@@ -25,8 +25,9 @@ export class SolutionResult extends LitElement {
     }
 
     .solution-name {
+        font-size: 0.95rem;
         line-height: 40px;
-        font-weifht: 500;
+        font-weight: 500;
     }
 
     .solution-description {
