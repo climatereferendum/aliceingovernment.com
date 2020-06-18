@@ -116,8 +116,9 @@ function renderHeader (linked = true) {
 
 function renderCfa (university) {
   const template = html`
-    ${university ? `${university.name} students` : 'Students'}
-    have different ideas on how to solve climate change 
+    A tool for students to influence
+    ${university ? university.name : 'their university'}'s
+    climate action plan
   `
   render(template, document.querySelector('#cfa'))
 }

@@ -213,7 +213,8 @@ h2, h3 {
 }
 
 #home h2, #home h3 {
-    line-height: 1.5em;
+    font-size: 2rem;
+    line-height: 3rem;
     color: var(--highlight-color);
     margin: 0 1rem;
     padding: 0.75rem;
@@ -487,10 +488,6 @@ a {
     border-radius: 0.2em;
 }
 
-#header {
+#header, #header a {
     color: var(--highlight-color);
-}
-
-#header a {
-    color: black;
 }
