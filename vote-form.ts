@@ -347,7 +347,7 @@ export class VoteForm extends LitElement {
         </mwc-textfield>
     </div>
     <div>
-        What should the role of our universities in addressing climate change be?
+        What should be the role of our universities in addressing climate change?
     </div>
     <div class="formfield">
         <mwc-textarea
