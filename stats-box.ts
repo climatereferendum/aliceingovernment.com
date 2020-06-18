@@ -30,7 +30,7 @@ export class StatsBox extends LitElement {
       text-decoration: none;
       display: flex;
       padding-bottom: 0.5rem;
-      font-family: 'gothambold';
+      font-weifht: 500;
     }
     .name {
       font-size: 1.15rem;
