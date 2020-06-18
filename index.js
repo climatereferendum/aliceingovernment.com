@@ -68,6 +68,8 @@ async function handleRouting (location, event) {
       // TODO: render my vote
       const myVoteResponse = await fetch(`${config.serviceUrl}/votes/${slug}`)
       const myVote = await myVoteResponse.json()
+      const statsResponse = await fetch(`${config.serviceUrl}`, { credentials: 'include' })
+      stats = await statsResponse.json()
       let dummy = {}
       const university = universities.find(u => u.slug === myVote.university)
       if (university) {
