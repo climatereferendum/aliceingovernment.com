@@ -294,6 +294,7 @@ export class VoteForm extends LitElement {
         if (castedVoteResponse.ok) {
         console.log('VOTE SUBMISSION SUCCEEDED')
         this.state = 'success'
+        this.dispatchEvent(new CustomEvent('success'))
         } else {
         console.log('VOTE SUBMISSION FAILED')
         this.state = 'error'

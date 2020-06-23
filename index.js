@@ -1,5 +1,6 @@
 import { html, render } from 'lit-html'
 import { installRouter } from './node_modules/pwa-helpers/router.js'
+import '@material/mwc-snackbar'
 
 import { solutions, universities } from '@aliceingovernment/data'
 import config from './config'
@@ -154,7 +155,8 @@ function renderVoteForm (solutions, stats, university, form = true) {
       .university=${university}
       .form=${form}
       .withCheckboxes=${form}
-      .expectedSolutions=${2}>
+      .expectedSolutions=${2}
+      @success=${(e) => { document.querySelector('mwc-snackbar').show() }}>
     </vote-form>
   `
   render(voteFormTemplate, document.querySelector('#form-wrapper'))
