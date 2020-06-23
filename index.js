@@ -9,7 +9,7 @@ import { StatsBox } from './stats-box'
 
 const { fetch } = window
 
-const CONTENT_ELEMENT_IDS = ['home', 'form-wrapper', 'voters', 'info']
+const CONTENT_ELEMENT_IDS = ['home', 'form-wrapper', 'voters', 'global', 'info']
 const LEGAL_ELEMENT_IDS = ['privacy-policy', 'terms-of-service']
 
 let stats
@@ -54,7 +54,8 @@ async function handleRouting (location, event) {
     renderHeader(false)
     renderCfa()
     renderVoteForm(solutions, stats)
-    renderGlobalResults(stats)
+    renderVotes(null)
+    renderGlobalResults(stats.country)
   } else {
     renderHeader(true)
     const slug = location.pathname.split('/')[1]
@@ -68,7 +69,8 @@ async function handleRouting (location, event) {
         document.querySelector('#links').classList.remove('inactive')
       }
       universityStats = await getUniversityData(slug)
-      renderVotes(universityStats, false)
+      renderVotes(universityStats)
+      renderGlobalResults(stats.country.filter(uni => uni.code !== university.slug))
     } else if (slug.match(/^[a-fA-F0-9]{24}$/)) {
       // TODO: render my vote
       const myVoteResponse = await fetch(`${config.serviceUrl}/votes/${slug}`)
@@ -86,11 +88,13 @@ async function handleRouting (location, event) {
           renderLinks(university)
           document.querySelector('#links').classList.remove('inactive')
         }
-        renderVotes(universityStats, false, false)
+        renderVotes(universityStats, false)
+        renderGlobalResults(stats.country.filter(uni => uni.code !== university.slug))
       } else {
         renderCfa()
         renderVoteForm(solutions, stats, null, false)
-        renderGlobalResults(stats, false)
+        renderVotes(null, false)
+        renderGlobalResults(stats.country)
       }
       dummy.vote = [myVote]
       renderMyVote(dummy)
@@ -172,22 +176,20 @@ function communityTemplate (step = true) {
 function renderGlobalResults (stats, step = true) {
   const pageTemplate = html`
     <div>
-      ${ communityTemplate(step) }
       <stats-box
         .stats=${stats}
         .universities=${universities}
       ></stats-box>
     </div>
   `
-  render(pageTemplate, document.querySelector('#voters'))
+  render(pageTemplate, document.querySelector('#global'))
 }
 
-function renderVotes (stats, preview = true, step = true) {
+function renderVotes (stats, step = true) {
   const pageTemplate = html`
     <div>
       ${ communityTemplate(step) }
-      ${ countryShortTemplate(stats, preview) }
-      ${ stats.vote && stats.vote[0].pending ? pendingNotice : '' }
+      ${ stats ? countryShortTemplate(stats) : '' }
     </div>
   `
   render(pageTemplate, document.querySelector('#voters'))
@@ -196,7 +198,7 @@ function renderVotes (stats, preview = true, step = true) {
 function renderMyVote (stats) {
   const pageTemplate = html`
     <div>
-      ${ countryShortTemplate(stats, false) }
+      ${ countryShortTemplate(stats) }
       ${ stats.vote && stats.vote[0].pending ? pendingNotice : '' }
     </div>
   `
@@ -216,6 +218,6 @@ function renderLinks (university) {
 }
 
 
-function countryShortTemplate (country, preview = true) {
-  return html`<opinions-box .country=${country} ?preview=${preview}></opinions-box>`
+function countryShortTemplate (country) {
+  return html`<opinions-box .country=${country}></opinions-box>`
 }

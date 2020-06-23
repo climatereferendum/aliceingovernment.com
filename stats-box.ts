@@ -5,14 +5,14 @@ import { html } from 'lit-html'
 @customElement('stats-box')
 export class StatsBox extends LitElement {
 
-  @property({ type: Object })
+  @property({ type: Array })
   stats
 
   @property({ type: Array })
   universities
 
   private get max () {
-    return this.stats.country[0].count
+    return this.stats[0].count
   }
   
 
@@ -30,7 +30,7 @@ export class StatsBox extends LitElement {
       text-decoration: none;
       display: flex;
       padding-bottom: 0.5rem;
-      font-weifht: 500;
+      font-weight: 500;
     }
     .name {
       font-size: 1.15rem;
@@ -77,7 +77,7 @@ export class StatsBox extends LitElement {
   render () {
     return html`
       <div id="stats">
-        ${this.stats.country.map(uni => this.resultBar(uni))}
+        ${this.stats.map(uni => this.resultBar(uni))}
       </div>
     `
   }

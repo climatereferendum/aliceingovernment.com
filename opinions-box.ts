@@ -83,7 +83,7 @@ export class OpinionsBox extends LitElement {
       border: 1px solid #000000;
     }
     strong {
-        font-weifht: 500;
+        font-weight: 500;
         font-size: 1.2rem;
     }
     .opinion {
