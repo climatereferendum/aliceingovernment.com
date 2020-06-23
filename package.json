@@ -12,12 +12,12 @@
   },
   "dependencies": {
     "@aliceingovernment/data": "https://github.com/aliceingovernment/data.git",
-    "@material/mwc-button": "^0.13.0",
-    "@material/mwc-checkbox": "^0.13.0",
-    "@material/mwc-formfield": "^0.13.0",
+    "@material/mwc-button": "^0.15.0",
+    "@material/mwc-checkbox": "^0.15.0",
+    "@material/mwc-formfield": "^0.15.0",
     "@material/mwc-snackbar": "^0.15.0",
-    "@material/mwc-textarea": "^0.13.0",
-    "@material/mwc-textfield": "^0.13.0",
+    "@material/mwc-textarea": "^0.15.0",
+    "@material/mwc-textfield": "^0.15.0",
     "lit-element": "^2.2.1",
     "lit-html": "^1.1.2",
     "pwa-helpers": "^0.9.0"
