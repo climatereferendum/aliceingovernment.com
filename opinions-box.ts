@@ -29,8 +29,6 @@ export class OpinionsBox extends LitElement {
         width: 95%;
         margin: 5% auto;
         padding: 16px;
-        /**min-height: 160px;**/
-        z-index: 10;
         border-bottom: 1px solid #333333;
     }
     .solution, .votes {
