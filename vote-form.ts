@@ -128,18 +128,19 @@ export class VoteForm extends LitElement {
     }
 
     .info, .error, #vote-exists, #please-confirm, #error {
-        border-width: 2px;
+        border-width: 1px;
         border-style: solid;
-        font-style: italic;
         padding: 0.5em;
         border-radius: 0.2em;
     }
 
     .info, #please-confirm {
         border-color: #267fb5;
+        font-size: 0.9rem;
     }
 
     .error, #error {
+        color: var(--university-color);
         border-color: var(--university-color);
     }
 
@@ -230,7 +231,7 @@ export class VoteForm extends LitElement {
       if (this.email && !this.eligibleEmailDomain && !this.nonUniversityEmailDomain) {
           return html `
             <div class="info">
-              Your email address doesn't appear to be from any of the
+              ℹ️ Your email address doesn't appear to be from any of the
               participating universities. After you finish filling this form, we will contact you
               in order to add your university.
             </div>
@@ -314,7 +315,7 @@ export class VoteForm extends LitElement {
         '' :
         html`
         <div class="error">
-            Please select
+            ⚠️ Please select
             ${this.expectedSolutions - this.selectedSolutions.length}
             more ${this.selectedSolutions.length === 1 ? 'solution' : 'solutions'}
         </div>
