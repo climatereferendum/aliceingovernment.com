@@ -27,7 +27,7 @@ export class SolutionResult extends LitElement {
     .solution-name {
         font-size: 0.95rem;
         line-height: 40px;
-        font-weight: 500;
+        font-weight: 700;
     }
 
     .solution-description {
@@ -56,7 +56,7 @@ export class SolutionResult extends LitElement {
     .count {
         width: 1.75rem;
         margin-right: 0.25rem;
-        font-weifht: 500;
+        font-weight: 500;
     }
 
     .worldwide .count {
