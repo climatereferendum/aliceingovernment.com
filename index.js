@@ -47,7 +47,8 @@ async function handleRouting (location, event) {
   const legalElements = LEGAL_ELEMENT_IDS.map(id => document.querySelector(`#${id}`))
   for (const element of contentElements) element.classList.remove('inactive')
   for (const element of legalElements) element.classList.add('inactive')
-  this.document.querySelector('#my-vote').classList.add('inactive')
+  document.querySelector('#my-vote').classList.add('inactive')
+  document.querySelector('#links').classList.add('inactive')
   if (location.pathname === '/') {
     // TODO generic main page
     renderHeader(false)
@@ -62,6 +63,10 @@ async function handleRouting (location, event) {
       let universityStats = stats.country.find(u => u.code === slug)
       renderCfa(university)
       renderVoteForm(solutions, stats, university) 
+      if (university.links) {
+        renderLinks(university)
+        document.querySelector('#links').classList.remove('inactive')
+      }
       universityStats = await getUniversityData(slug)
       renderVotes(universityStats, false)
     } else if (slug.match(/^[a-fA-F0-9]{24}$/)) {
@@ -77,6 +82,10 @@ async function handleRouting (location, event) {
         let universityStats = await getUniversityData(university.slug)
         renderCfa(university)
         renderVoteForm(solutions, stats, university, false) 
+        if (university.links) {
+          renderLinks(university)
+          document.querySelector('#links').classList.remove('inactive')
+        }
         renderVotes(universityStats, false, false)
       } else {
         renderCfa()
@@ -192,6 +201,18 @@ function renderMyVote (stats) {
     </div>
   `
   render(pageTemplate, document.querySelector('#my-vote'))
+}
+
+function renderLinks (university) {
+  const template = html`
+    <h3>Collaborate with groups at your university</h3>
+    <ul>
+    ${university.links.map(link => html`
+      <li><a target="_blank" href=${link}>${link}</a></li>   
+    `)}
+    </ul>
+  `
+  render(template, document.querySelector('#links'))
 }
 
 

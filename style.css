@@ -491,3 +491,14 @@ a {
 #header, #header a {
     color: var(--highlight-color);
 }
+
+#links ul {
+    list-style: none;
+    padding-left: 1.75rem;
+    font-size: 1.1rem;
+    line-height: 1.75rem;
+}
+
+#links ul a {
+    color: var(--highlight-color);
+}
