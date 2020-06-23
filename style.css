@@ -491,13 +491,23 @@ a {
     color: var(--highlight-color);
 }
 
+#links {
+    padding-top: 2rem;
+}
+
 #links ul {
     list-style: none;
     padding-left: 1.75rem;
     font-size: 1.1rem;
-    line-height: 1.75rem;
+    line-height: 2rem;
+}
+
+#links li {
+    padding: 0.5rem 0;
 }
 
 #links ul a {
     color: var(--highlight-color);
+    text-decoration: underline;
+    display: block;
 }
