@@ -229,7 +229,7 @@ h3 {
 }
 
 #voters {
-    padding-top: 3rem;
+    padding-top: 1.5rem;
 }
 
 #home {
@@ -458,7 +458,7 @@ img.home-dance{
     display: block;
     width: 2em;
     height: 2em;
-    margin: 0 auto;
+    margin: 2rem auto;
     font-size: 3em;
     border: 2px solid;
     border-radius: 1.5em;

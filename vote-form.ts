@@ -161,7 +161,7 @@ export class VoteForm extends LitElement {
         display: block;
         width: 2em;
         height: 2em;
-        margin: 0 auto;
+        margin: 0 auto 2rem;
         font-size: 3em;
         border: 2px solid;
         border-radius: 1.5em;
