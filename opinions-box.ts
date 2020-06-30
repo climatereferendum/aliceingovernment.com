@@ -1,14 +1,11 @@
 import { LitElement, customElement, property, css, query } from 'lit-element'
 import { html } from 'lit-html'
 
-import { universities, solutions } from '@aliceingovernment/data'
-
-function universityName (countryCode) {
-  return universities.find(u => u.slug === countryCode).name
-}
-
 @customElement('opinions-box')
 export class OpinionsBox extends LitElement {
+
+  @property({ type: Array })
+  universities
 
   @property({ type: Object })
   country
@@ -93,6 +90,10 @@ export class OpinionsBox extends LitElement {
       text-decoration: none
     }
   `
+  get universityName () {
+    const university = this.universities.find(u => u.slug === this.country.code)
+    if (university) return university.name
+  }
 
   voteTemplate (vote) {
     return html`
@@ -108,7 +109,7 @@ export class OpinionsBox extends LitElement {
   headerTemplate () {
     return html`
       <h2>
-       ${universityName(this.country.code)}
+       ${this.universityName}
       </h2>
       <span class="counter">${this.country.count} Votes</span>
     `

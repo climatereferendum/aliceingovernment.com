@@ -11,7 +11,6 @@
     "build": "rollup -c"
   },
   "dependencies": {
-    "@aliceingovernment/data": "https://github.com/aliceingovernment/data.git",
     "@material/mwc-button": "^0.15.0",
     "@material/mwc-checkbox": "^0.15.0",
     "@material/mwc-formfield": "^0.15.0",

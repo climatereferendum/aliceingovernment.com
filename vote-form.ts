@@ -9,16 +9,23 @@ import '@material/mwc-checkbox'
 import '@material/mwc-button'
 import '@material/mwc-formfield'
 
-import { universities, emailProviders } from '@aliceingovernment/data'
 import './solution-result'
 import { SolutionResult } from './solution-result'
-import config from './config'
 
 @customElement('vote-form')
 export class VoteForm extends LitElement {
 
+  @property( {type: Array} )
+  universities
+
+  @property( {type: Array} )
+  emailProviders
+
   @property({ type: Array })
   solutions
+  
+  @property({ type: String })
+  serviceUrl
 
   @property({ type: Array })
   stats
@@ -283,7 +290,7 @@ export class VoteForm extends LitElement {
     }
     // vote ready to submit
     try {
-        const castedVoteResponse = await fetch(config.serviceUrl, {
+        const castedVoteResponse = await fetch(this.serviceUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(draft)
@@ -432,7 +439,7 @@ export class VoteForm extends LitElement {
           if (nativeValidity.valid) {
               this.email = newValue
               const domain = newValue.split('@')[1]
-              for (const univeristy of universities) {
+              for (const univeristy of this.universities) {
                   for (const eligibleDomain of univeristy.domains) {
                       if (domain.match(new RegExp(`${eligibleDomain}$`))) {
                           this.eligibleEmailDomain = true
@@ -440,7 +447,7 @@ export class VoteForm extends LitElement {
                   }
               }
               if (!this.eligibleEmailDomain) {
-                  for (const provider of emailProviders) {
+                  for (const provider of this.emailProviders) {
                       if (domain.match(new RegExp(`${provider}$`))) {
                           this.nonUniversityEmailDomain = true
                       }

@@ -2,7 +2,6 @@ import { html, render } from 'lit-html'
 import { installRouter } from './node_modules/pwa-helpers/router.js'
 import '@material/mwc-snackbar'
 
-import { solutions, universities } from '@aliceingovernment/data'
 import config from './config'
 import { VoteForm } from './vote-form'
 import { OpinionBox } from './opinions-box'
@@ -13,11 +12,15 @@ const { fetch } = window
 const CONTENT_ELEMENT_IDS = ['home', 'form-wrapper', 'voters', 'global', 'info']
 const LEGAL_ELEMENT_IDS = ['privacy-policy', 'terms-of-service']
 
-let stats
+let data, stats, universities, solutions, emailProviders
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const statsResponse = await fetch(`${config.serviceUrl}`, { credentials: 'include' })
-  stats = await statsResponse.json()
+  const dataResponse = await fetch(`${config.serviceUrl}`, { credentials: 'include' })
+  data = await dataResponse.json()
+  stats= data.stats
+  universities = data.universities
+  solutions = data.solutions
+  emailProviders = data.emailProviders
   installRouter(handleRouting)
 
   // FAQ info accordion
@@ -153,6 +156,9 @@ function renderVoteForm (solutions, stats, university, form = true) {
       .solutions=${solutions}
       .stats=${stats}
       .university=${university}
+      .universities=${universities}
+      .emailProviders=${emailProviders}
+      .serviceUrl=${config.serviceUrl}
       .form=${form}
       .withCheckboxes=${form}
       .expectedSolutions=${2}
@@ -221,5 +227,5 @@ function renderLinks (university) {
 
 
 function countryShortTemplate (country) {
-  return html`<opinions-box .country=${country}></opinions-box>`
+  return html`<opinions-box .country=${country} .universities=${universities}></opinions-box>`
 }
