@@ -17,7 +17,7 @@ let data, stats, universities, solutions, emailProviders
 document.addEventListener('DOMContentLoaded', async () => {
   const dataResponse = await fetch(`${config.serviceUrl}`, { credentials: 'include' })
   data = await dataResponse.json()
-  stats= data.stats
+  stats = data.stats
   universities = data.universities
   solutions = data.solutions
   emailProviders = data.emailProviders
@@ -79,8 +79,9 @@ async function handleRouting (location, event) {
       // TODO: render my vote
       const myVoteResponse = await fetch(`${config.serviceUrl}/votes/${slug}`)
       const myVote = await myVoteResponse.json()
-      const statsResponse = await fetch(`${config.serviceUrl}`, { credentials: 'include' })
-      stats = await statsResponse.json()
+      const dataResponse = await fetch(`${config.serviceUrl}`, { credentials: 'include' })
+      data = await dataResponse.json()
+      stats = data.stats
       let dummy = {}
       const university = universities.find(u => u.slug === myVote.university)
       if (university) {
