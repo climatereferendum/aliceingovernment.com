@@ -511,3 +511,8 @@ a {
     text-decoration: underline;
     display: block;
 }
+
+mwc-snackbar {
+    --mdc-typography-body2-font-size: 1.5rem;
+    --mdc-typography-body2-line-height: 1.8rem;
+}

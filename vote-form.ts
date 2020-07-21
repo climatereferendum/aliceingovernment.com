@@ -350,7 +350,7 @@ export class VoteForm extends LitElement {
             required
             name="name"
             type="text"
-            label="Full name"
+            label="Name"
             validationMessage="please enter your full name"
             maxLength="50">
         </mwc-textfield>
