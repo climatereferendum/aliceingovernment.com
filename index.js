@@ -63,16 +63,19 @@ async function handleRouting (location, event) {
   } else {
     renderHeader(true)
     const slug = location.pathname.split('/')[1]
-    if (universities.find(u => u.slug === slug)) {
-      const university = universities.find(u => u.slug === slug)
-      let universityStats = stats.country.find(u => u.code === slug)
+    const university = universities.find(u => u.slug.toLowerCase() === slug.toLowerCase())
+    if (university) {
+      if (university.slug !== slug) { 
+        window.history.replaceState(null, '', `/${university.slug}`)
+      }
+      let universityStats = stats.country.find(u => u.code === university.slug)
       renderCfa(university)
       renderVoteForm(solutions, stats, university) 
       if (university.links) {
         renderLinks(university)
         document.querySelector('#links').classList.remove('inactive')
       }
-      universityStats = await getUniversityData(slug)
+      universityStats = await getUniversityData(university.slug)
       renderVotes(universityStats)
       renderGlobalResults(stats.country.filter(uni => uni.code !== university.slug))
     } else if (slug.match(/^[a-fA-F0-9]{24}$/)) {
