@@ -1,3 +1,4 @@
 export default {
-  serviceUrl: 'https://staging-data.aliceingovernment.com'
+  serviceUrl: 'https://staging-data.aliceingovernment.com',
+  sentry: ''
 }

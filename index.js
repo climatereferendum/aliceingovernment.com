@@ -9,6 +9,10 @@ import { StatsBox } from './stats-box'
 
 const { fetch } = window
 
+if (config.sentry) {
+  window.Sentry.init({ dsn: config.sentry })
+}
+
 const CONTENT_ELEMENT_IDS = ['home', 'form-wrapper', 'voters', 'global', 'info']
 const LEGAL_ELEMENT_IDS = ['privacy-policy', 'terms-of-service']
 
