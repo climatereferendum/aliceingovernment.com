@@ -270,7 +270,9 @@ export class VoteForm extends LitElement {
         if (this.selectedSolutions.length < this.expectedSolutions
             || this.selectedSolutions.includes(solution.slug)) {
                 list.push(this.solutionTemplate(solution))
-            }
+        } else {
+            setTimeout(() => this.shadowRoot.querySelector('#solutions').scrollIntoView())
+        }
       }
       return html`
         <div id="solutions">
