@@ -91,7 +91,7 @@ export class OpinionsBox extends LitElement {
     }
   `
   get universityName () {
-    const university = this.universities.find(u => u.slug === this.country.code)
+    const university = this.universities.find(u => u.domains.includes(this.country.code))
     if (university) return university.name
   }
 

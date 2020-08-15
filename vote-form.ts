@@ -42,7 +42,7 @@ export class VoteForm extends LitElement {
 
   get results () {
       if (this.university) {
-        return this.stats.country.find(u => u.code === this.university.slug).result
+        return this.stats.country.find(u => this.university.domains.includes(u.code)).result
       } else {
           this.globalResults
       }
@@ -226,10 +226,10 @@ export class VoteForm extends LitElement {
         if (event.target.checked) {
             this.selectedSolutions = [
                 ...this.selectedSolutions,
-                event.target.dataset.slug
+                event.target.dataset.domains[0]
             ]
         } else {
-            this.selectedSolutions = this.selectedSolutions.filter(s => s !== event.target.dataset.slug)
+            this.selectedSolutions = this.selectedSolutions.filter(s => s !== event.target.dataset.domains[0])
         }
     }
 

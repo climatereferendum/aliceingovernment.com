@@ -56,10 +56,10 @@ export class StatsBox extends LitElement {
     }
   `
   private linkTo (university) {
-    return `/${university.slug}`
+    return `/${university.domains[0]}`
   }
   private resultBar (stat) {
-    const university = this.universities.find(uni => uni.slug === stat.code)
+    const university = this.universities.find(uni => uni.domains.includes(stat.code))
     return html`
       <div class="stat">
         <a href=${this.linkTo(university)}>

@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 })
 
-function getUniversityData(slug) {
-  return fetch(`${config.serviceUrl}/countries/${slug}`).then(res => res.json())
+function getUniversityData(domain) {
+  return fetch(`${config.serviceUrl}/countries/${domain}`).then(res => res.json())
 }
 
 async function handleRouting (location, event) {
@@ -67,21 +67,22 @@ async function handleRouting (location, event) {
   } else {
     renderHeader(true)
     const slug = location.pathname.split('/')[1]
-    const university = universities.find(u => u.slug.toLowerCase() === slug.toLowerCase())
+    // TODO change to u.domains.includes()
+    const university = universities.find(u => u.domains.includes(slug.toLowerCase()))
     if (university) {
-      if (university.slug !== slug) { 
-        window.history.replaceState(null, '', `/${university.slug}`)
+      if (university.domains[0] !== slug) { 
+        window.history.replaceState(null, '', `/${university.domains[0]}`)
       }
-      let universityStats = stats.country.find(u => u.code === university.slug)
+      let universityStats = stats.country.find(u => u.code === university.domains[0])
       renderCfa(university)
       renderVoteForm(solutions, stats, university) 
       if (university.links) {
         renderLinks(university)
         document.querySelector('#links').classList.remove('inactive')
       }
-      universityStats = await getUniversityData(university.slug)
+      universityStats = await getUniversityData(university.domains[0])
       renderVotes(universityStats)
-      renderGlobalResults(stats.country.filter(uni => uni.code !== university.slug))
+      renderGlobalResults(stats.country.filter(uni => uni.code !== university.domains[0]))
     } else if (slug.match(/^[a-fA-F0-9]{24}$/)) {
       // TODO: render my vote
       const myVoteResponse = await fetch(`${config.serviceUrl}/votes/${slug}`)
@@ -90,10 +91,11 @@ async function handleRouting (location, event) {
       data = await dataResponse.json()
       stats = data.stats
       let dummy = {}
-      const university = universities.find(u => u.slug === myVote.university)
+      // TODO change to u.domains.includes()
+      const university = universities.find(u => u.domains.includes(myVote.university))
       if (university) {
         dummy = stats.country.find(uni => uni.code === myVote.university)
-        let universityStats = await getUniversityData(university.slug)
+        let universityStats = await getUniversityData(university.domains[0])
         renderCfa(university)
         renderVoteForm(solutions, stats, university, false) 
         if (university.links) {
@@ -101,7 +103,7 @@ async function handleRouting (location, event) {
           document.querySelector('#links').classList.remove('inactive')
         }
         renderVotes(universityStats, false)
-        renderGlobalResults(stats.country.filter(uni => uni.code !== university.slug))
+        renderGlobalResults(stats.country.filter(uni => uni.code !== university.domains[0]))
       } else {
         renderCfa()
         renderVoteForm(solutions, stats, null, false)
