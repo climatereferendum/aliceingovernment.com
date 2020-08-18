@@ -16,9 +16,6 @@ import { SolutionResult } from './solution-result'
 export class VoteForm extends LitElement {
 
   @property( {type: Array} )
-  universities
-
-  @property( {type: Array} )
   emailProviders
 
   @property({ type: Array })
@@ -74,9 +71,6 @@ export class VoteForm extends LitElement {
 
   @property({ type: Boolean })
   acceptValid = false
-
-  @property({ type: Boolean })
-  eligibleEmailDomain = false
 
   @property({ type: Boolean })
   nonUniversityEmailDomain = false
@@ -233,19 +227,6 @@ export class VoteForm extends LitElement {
         }
     }
 
-
-  eligibilityMessage () {
-      if (this.email && !this.eligibleEmailDomain && !this.nonUniversityEmailDomain) {
-          return html `
-            <div class="info">
-              ℹ️ Your email address doesn't appear to be from any of the
-              participating universities. After you finish filling this form, we will contact you
-              in order to add your university.
-            </div>
-          ` 
-      }
-  }
-
   nonUniversityEmailMessage () {
       if (this.email && this.nonUniversityEmailDomain) {
           return html `
@@ -344,7 +325,6 @@ export class VoteForm extends LitElement {
             maxLength="50">
         </mwc-textfield>
     </div>
-    ${this.eligibilityMessage()}
     ${this.nonUniversityEmailMessage()}
     <div class="formfield">
         <mwc-textfield
@@ -436,23 +416,13 @@ export class VoteForm extends LitElement {
   firstUpdated() {
       this.emailField.validityTransform = (newValue, nativeValidity) => {
           this.email = null
-          this.eligibleEmailDomain = false
           this.nonUniversityEmailDomain = false
           if (nativeValidity.valid) {
               this.email = newValue
               const domain = newValue.split('@')[1]
-              for (const univeristy of this.universities) {
-                  for (const eligibleDomain of univeristy.domains) {
-                      if (domain.match(new RegExp(`${eligibleDomain}$`))) {
-                          this.eligibleEmailDomain = true
-                      }
-                  }
-              }
-              if (!this.eligibleEmailDomain) {
-                  for (const provider of this.emailProviders) {
-                      if (domain.match(new RegExp(`${provider}$`))) {
-                          this.nonUniversityEmailDomain = true
-                      }
+              for (const provider of this.emailProviders) {
+                  if (domain.match(new RegExp(`${provider}$`))) {
+                      this.nonUniversityEmailDomain = true
                   }
               }
           }

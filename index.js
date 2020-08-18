@@ -166,7 +166,6 @@ function renderVoteForm (solutions, stats, university, form = true) {
       .solutions=${solutions}
       .stats=${stats}
       .university=${university}
-      .universities=${universities}
       .emailProviders=${emailProviders}
       .serviceUrl=${config.serviceUrl}
       .form=${form}
