@@ -220,10 +220,10 @@ export class VoteForm extends LitElement {
         if (event.target.checked) {
             this.selectedSolutions = [
                 ...this.selectedSolutions,
-                event.target.dataset.domains[0]
+                event.target.dataset.slug
             ]
         } else {
-            this.selectedSolutions = this.selectedSolutions.filter(s => s !== event.target.dataset.domains[0])
+            this.selectedSolutions = this.selectedSolutions.filter(s => s !== event.target.dataset.slug)
         }
     }
 
