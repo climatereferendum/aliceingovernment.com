@@ -41,7 +41,7 @@ export class VoteForm extends LitElement {
       if (this.university) {
         return this.stats.country.find(u => this.university.domains.includes(u.code)).result
       } else {
-          this.globalResults
+        return this.globalResults
       }
   }
 
