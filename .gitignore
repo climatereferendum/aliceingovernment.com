@@ -6,3 +6,4 @@ package-lock.json
 
 config.js
 stats.html
+sentry.min.js
