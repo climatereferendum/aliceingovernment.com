@@ -302,7 +302,6 @@ export class VoteForm extends LitElement {
 
   formPartial() {
     return html`
-    <div>Share your opinion with the world</div>
     ${ this.expectedSolutions === this.selectedSolutions.length ?
         '' :
         html`
