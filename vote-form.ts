@@ -225,6 +225,9 @@ export class VoteForm extends LitElement {
         } else {
             this.selectedSolutions = this.selectedSolutions.filter(s => s !== event.target.dataset.slug)
         }
+        if (this.selectedSolutions.length === this.expectedSolutions) {
+            setTimeout(() => this.shadowRoot.querySelector('#solutions').scrollIntoView())
+        }
     }
 
   nonUniversityEmailMessage () {
@@ -251,8 +254,6 @@ export class VoteForm extends LitElement {
         if (this.selectedSolutions.length < this.expectedSolutions
             || this.selectedSolutions.includes(solution.slug)) {
                 list.push(this.solutionTemplate(solution))
-        } else {
-            setTimeout(() => this.shadowRoot.querySelector('#solutions').scrollIntoView())
         }
       }
       return html`
