@@ -15,8 +15,23 @@ if (config.sentry) {
 
 const CONTENT_ELEMENT_IDS = ['home', 'form-wrapper', 'voters', 'global', 'info']
 const LEGAL_ELEMENT_IDS = ['privacy-policy', 'terms-of-service']
+const DEFAULT_LANGUAGE = 'es'
 
-let data, stats, universities, solutions, emailProviders
+let data, stats, universities, solutions, emailProviders, i18n, localize
+
+// TODO: enable variables
+function setupLocalize(dict, language = DEFAULT_LANGUAGE) {
+  return function localize (key, variables) {
+    const translation = dict[language][key]
+    if (variables) {
+      return Object.keys(variables).reduce((acc, vkey) => {
+        return acc.replace(new RegExp(`{${vkey}}`), variables[vkey])
+      }, translation)
+    } else {
+      return translation 
+    }
+  }
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
   const dataResponse = await fetch(`${config.serviceUrl}`, { credentials: 'include' })
@@ -25,6 +40,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   universities = data.universities
   solutions = data.solutions
   emailProviders = data.emailProviders
+  i18n = data.i18n
+  localize = setupLocalize(i18n)
   installRouter(handleRouting)
 
   // FAQ info accordion
@@ -143,9 +160,13 @@ function renderHeader (linked = true) {
 
 function renderCfa (university) {
   const template = html`
-    A tool for students to influence
-    ${university ? university.name : 'their university'}'s
-    climate action plan
+    <h2 id="cfa">
+      ${university ? localize('cfau', { university: university.name }) : localize('cfa') }
+    </h2>
+    <img src="/img/part2.jpg" class="home-dance">
+    <h3>
+      ${ localize('threesteps')}
+    </h3>
   `
   render(template, document.querySelector('#cfa'))
 }
@@ -154,9 +175,7 @@ function renderVoteForm (solutions, stats, university, form = true) {
   const solutionsHeader = html`
       <div class="step">1</div>
       <h3>
-        Choose two solutions you want
-        ${university ? university.name : 'your university'}
-        to implement
+        ${university ? localize('choosetwou', { university: university.name}) : localize('choosetwo')}
       </h3>
   `
 
@@ -179,14 +198,14 @@ function renderVoteForm (solutions, stats, university, form = true) {
 
 const pendingNotice = html`
   <p id="pending-notice">
-    Your vote has been successfully registered. Rock & roll! Your university is not currently listed on our website but we will add it shortly and send you an update. Thanks!
+    ${ localize('pendingnotice') }
   </p>
 `
 
 function communityTemplate (step = true) {
   return html`
     ${ step ? html`<div class="step">3</div>` : '' }
-    <h3>Find out how your opinion relates to the community</h3>
+    <h3>${ localize('findout') }</h3>
   `
 }
 
@@ -224,7 +243,7 @@ function renderMyVote (stats) {
 
 function renderLinks (university) {
   const template = html`
-    <h3>Collaborate with groups at your university</h3>
+    <h3>${ localize('collaborate')}</h3>
     <ul>
     ${university.links.map(link => html`
       <li><a target="_blank" href=${link}>${link}</a></li>   
