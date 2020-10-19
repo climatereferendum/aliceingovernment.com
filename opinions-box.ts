@@ -10,6 +10,9 @@ export class OpinionsBox extends LitElement {
   @property({ type: Object })
   country
 
+  @property({ type: Object })
+  localize
+
   static styles = css`
     *,::after,::before {
         box-sizing: border-box
@@ -111,7 +114,7 @@ export class OpinionsBox extends LitElement {
       <h2>
        ${this.universityName}
       </h2>
-      <span class="counter">${this.country.count} Votes</span>
+      <span class="counter">${this.country.count} ${this.localize('votes')}</span>
     `
   }
 

@@ -33,6 +33,9 @@ export class VoteForm extends LitElement {
   @property({ type: Boolean })
   form = true
 
+  @property({ type: Object })
+  localize
+
   get globalResults () {
     return this.stats.global.result
   }
@@ -234,8 +237,7 @@ export class VoteForm extends LitElement {
       if (this.email && this.nonUniversityEmailDomain) {
           return html `
             <div class="error">
-              It appears like you've entered an email address not related to a university.
-              Please enter an email address provided by your university.
+                ${this.localize('nonuniversityemail')}
             </div>
           ` 
       }
@@ -306,9 +308,10 @@ export class VoteForm extends LitElement {
         '' :
         html`
         <div class="error">
-            ⚠️ Please select
-            ${this.expectedSolutions - this.selectedSolutions.length}
-            more ${this.selectedSolutions.length === 1 ? 'solution' : 'solutions'}
+            ${ this.expectedSolutions - this.selectedSolutions.length === 1 ?
+               this.localize('select1more') :
+               this.localize('selectnmore', { number: this.expectedSolutions - this.selectedSolutions.length })
+            }
         </div>
         `  
     }
@@ -319,9 +322,9 @@ export class VoteForm extends LitElement {
             helperPersistent
             name="email"
             type="email"
-            label=" University email"
-            helper="provided by your university"
-            validationMessage="please enter valid email address"
+            label=${this.localize('labelemail')}
+            helper=${this.localize('helperemail')}
+            validationMessage=${this.localize('valmsgemail')}
             maxLength="50">
         </mwc-textfield>
     </div>
@@ -332,13 +335,13 @@ export class VoteForm extends LitElement {
             required
             name="name"
             type="text"
-            label="Name"
-            validationMessage="please enter your name"
+            label=${this.localize('labelname')}
+            validationMessage=${this.localize('valmsgname')}
             maxLength="50">
         </mwc-textfield>
     </div>
     <div>
-        What should be the role of our universities in addressing climate change?
+        ${this.localize('whatshould')}
     </div>
     <div class="formfield">
         <mwc-textarea
@@ -346,14 +349,17 @@ export class VoteForm extends LitElement {
             charCounter
             helperPersistent
             name="opinion"
-            label="Opinion"
+            label=${this.localize('labelopinion')}
             helper=""
             maxLength="160">
         </mwc-textarea>
     </div>
-        <p><a href="/privacy-policy" style="color:#ffffff;"><u>Privacy Policy</u></a>, <a href="/terms-of-service" style="color:#ffffff;"><u>Terms of Service</u></a>, and I'm 18+ years old.</p>
+        <p>
+          <a href="/privacy-policy" style="color:#ffffff;"><u>${this.localize('privacypolicy')}</u></a>,
+          <a href="/terms-of-service" style="color:#ffffff;"><u>${this.localize('tos')}</u></a>,
+          ${this.localize('and18')}</p>
         <div id="side-by-side">
-            <mwc-formfield label="I accept *">
+            <mwc-formfield label=${this.localize('iaccept')}>
                 <mwc-checkbox
                     required
                     name="policiesAgreement"
@@ -370,7 +376,7 @@ export class VoteForm extends LitElement {
                     this.selectedSolutions.length !== this.expectedSolutions
                 }
                 @click=${this.handleSubmit}
-                label="Submit">
+                label=${this.localize('submit')}>
             </mwc-button>
         </div>
     `
@@ -380,22 +386,22 @@ export class VoteForm extends LitElement {
     switch (this.state) {
       case 'pending':
         return html`
-          <p id="submitting">Submitting...</p>
+          <p id="submitting">${this.localize('submitting')}</p>
         `
       case 'success':
           return html`
             <div id="please-confirm">
-                <p class="primary">Please check your inbox for email with confirmation link</p>
-                <p>(you can close this browser tab).</p>
+                <p class="primary">${this.localize('pleaseconfirm')}</p>
+                <p>(${this.localize('canclose')})</p>
             </div>
           `
       case 'vote-already-exists':
         return html`
-            <p id="vote-exists">We already have vote for this email address, please search your inbox for permalink to your vote.</p>
+            <p id="vote-exists">${this.localize('voteexists')}</p>
         `
       case 'error':
           return html`
-            <p id="error">An error have occured, we will investigate it! Please try voting again tomorrow. Thank you for your patience.</p>
+            <p id="error">${this.localize('erroroccured')}</p>
           `
       default:
         return this.formPartial()
@@ -407,7 +413,7 @@ export class VoteForm extends LitElement {
         ${this.solutionsList()}
         <div id="formfields-wrapper" class="${ this.form ? '' : 'inactive'}">
             <div class="step">2</div>
-            <h3>Complete your vote</h3>
+            <h3>${ this.localize('completevote') }</h3>
             ${this.statePartial()}
         </div>
     `

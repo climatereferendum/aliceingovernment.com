@@ -17,7 +17,8 @@ const CONTENT_ELEMENT_IDS = ['home', 'form-wrapper', 'voters', 'global', 'info']
 const LEGAL_ELEMENT_IDS = ['privacy-policy', 'terms-of-service']
 const DEFAULT_LANGUAGE = 'es'
 
-let data, stats, universities, solutions, emailProviders, i18n, localize
+let data, stats, universities, solutions, emailProviders, i18n
+let localize = () => {}
 
 // TODO: enable variables
 function setupLocalize(dict, language = DEFAULT_LANGUAGE) {
@@ -171,6 +172,12 @@ function renderCfa (university) {
   render(template, document.querySelector('#cfa'))
 }
 
+const successListener = function () {
+    const snackBar = document.querySelector('mwc-snackbar')
+    snackBar.labelText = `📥 ${localize('pleaseconfirm')} ❗`
+    snackBar.show() 
+}
+
 function renderVoteForm (solutions, stats, university, form = true) {
   const solutionsHeader = html`
       <div class="step">1</div>
@@ -190,17 +197,20 @@ function renderVoteForm (solutions, stats, university, form = true) {
       .form=${form}
       .withCheckboxes=${form}
       .expectedSolutions=${2}
-      @success=${(e) => { document.querySelector('mwc-snackbar').show() }}>
+      .localize=${localize}
+      @success=${successListener}>
     </vote-form>
   `
   render(voteFormTemplate, document.querySelector('#form-wrapper'))
 }
 
-const pendingNotice = html`
-  <p id="pending-notice">
-    ${ localize('pendingnotice') }
-  </p>
-`
+function pendingNotice () {
+  return html`
+    <p id="pending-notice">
+      ${ localize('pendingnotice') }
+    </p>
+  `
+}
 
 function communityTemplate (step = true) {
   return html`
@@ -235,7 +245,7 @@ function renderMyVote (stats) {
   const pageTemplate = html`
     <div>
       ${ countryShortTemplate(stats) }
-      ${ stats.vote && stats.vote[0].pending ? pendingNotice : '' }
+      ${ stats.vote && stats.vote[0].pending ? pendingNotice() : '' }
     </div>
   `
   render(pageTemplate, document.querySelector('#my-vote'))
@@ -255,5 +265,10 @@ function renderLinks (university) {
 
 
 function countryShortTemplate (country) {
-  return html`<opinions-box .country=${country} .universities=${universities}></opinions-box>`
+  return html`
+    <opinions-box
+      .country=${country}
+      .universities=${universities}
+      .localize=${localize}
+    ></opinions-box>`
 }
