@@ -15,13 +15,15 @@ if (config.sentry) {
 
 const CONTENT_ELEMENT_IDS = ['home', 'form-wrapper', 'voters', 'global', 'info']
 const LEGAL_ELEMENT_IDS = ['privacy-policy', 'terms-of-service']
-const DEFAULT_LANGUAGE = 'es'
 
 let data, stats, universities, solutions, emailProviders, i18n
 let localize = () => {}
 
 // TODO: enable variables
-function setupLocalize(dict, language = DEFAULT_LANGUAGE) {
+function setupLocalize(dict, language) {
+  if (!language) {
+    language = navigator.language.split('-')[0] || config.defaultLanguage
+  }
   return function localize (key, variables) {
     const translation = dict[language][key]
     if (variables) {
