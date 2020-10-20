@@ -207,6 +207,7 @@ export class VoteForm extends LitElement {
               .university=${this.university}
               .results=${this.results}
               .globalResults=${this.globalResults}
+              .localize=${this.localize}
             ></solution-result>
             ${this.withCheckboxes ? html`
                 <mwc-checkbox

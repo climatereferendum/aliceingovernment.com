@@ -18,6 +18,9 @@ export class SolutionResult extends LitElement {
 
   @property({ type: Boolean })
   compact = false
+  
+  @property({ type: Object })
+  localize
 
   static styles = css`
     *,::after,::before {
@@ -93,14 +96,14 @@ export class SolutionResult extends LitElement {
 
   private universityResult() {
     return html`
-      ${ !this.compact ? html`<div class="result-label university">Votes by ${ this.university.name } students</div>` : '' }
+      ${ !this.compact ? html`<div class="result-label university">${this.localize('votesbyuniversity', { university: this.university.name })}</div>` : '' }
       <div class="result university">${this.resultBar(this.solution.slug, this.results)}</div>
     `
   }
 
   private globalResult() {
     return html`
-      ${ !this.compact ? html`<div class="result-label worldwide">Votes by students worldwide</div>` : '' }
+      ${ !this.compact ? html`<div class="result-label worldwide">${this.localize('votesbyworldwide')}</div>` : '' }
       <div class="result worldwide">${this.resultBar(this.solution.slug, this.globalResults)}</div>
     `
   }
@@ -108,8 +111,8 @@ export class SolutionResult extends LitElement {
 
   render () {
     return html`
-      <div class="solution-name">${this.solution.name}</div>
-      ${ !this.compact ? html`<div class="solution-description">${this.solution.description}</div>` : '' }
+      <div class="solution-name">${this.localize(this.solution.slug + '-title')}</div>
+      ${ !this.compact ? html`<div class="solution-description">${this.localize(this.solution.slug + '-description')}</div>` : '' }
       ${ this.university ? this.universityResult() : '' }
       ${ !this.compact ? this.globalResult() : '' }
     `
