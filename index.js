@@ -19,10 +19,10 @@ const LEGAL_ELEMENT_IDS = ['privacy-policy', 'terms-of-service']
 let data, stats, universities, solutions, emailProviders, i18n
 let localize = () => {}
 
-// TODO: enable variables
 function setupLocalize(dict, language) {
   if (!language) {
-    language = navigator.language.split('-')[0] || config.defaultLanguage
+    const browserLanguage = navigator.language.split('-')[0]
+    language = Object.keys(dict).includes(browserLanguage) ? browserLanguage : config.defaultLanguage
   }
   return function localize (key, variables) {
     const translation = dict[language][key]
